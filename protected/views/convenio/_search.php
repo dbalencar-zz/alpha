@@ -20,7 +20,9 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'st_RecebeValor'); ?>
-		<?php echo $form->textField($model,'st_RecebeValor',array('size'=>1,'maxlength'=>1)); ?>
+		<?php echo $form->dropDownList($model,'st_RecebeValor',$model->simNaoOptions,array(
+			'empty'=>'Todos',
+		)); ?>
 	</div>
 
 	<div class="row">

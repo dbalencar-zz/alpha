@@ -113,18 +113,18 @@ class Convenio extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('tp_EsferaConvenio',$this->tp_EsferaConvenio,true);
-		$criteria->compare('st_RecebeValor',$this->st_RecebeValor,true);
+		$criteria->compare('tp_EsferaConvenio',$this->tp_EsferaConvenio);
+		$criteria->compare('st_RecebeValor',$this->st_RecebeValor);
 		$criteria->compare('nu_Convenio',$this->nu_Convenio,true);
-		$criteria->compare('vl_Convenio',$this->vl_Convenio);
+		$criteria->compare('vl_Convenio',$this->vl_Convenio,true);
 		$criteria->compare('cd_MoedaConvenio',$this->cd_MoedaConvenio);
-		$criteria->compare('dt_AssinaturaConvenio',$this->dt_AssinaturaConvenio);
+		$criteria->compare('date_format(dt_AssinaturaConvenio,"%d/%m/%Y")',$this->dt_AssinaturaConvenio,true);
 		$criteria->compare('de_ObjetivoConvenio',$this->de_ObjetivoConvenio,true);
-		$criteria->compare('dt_VencimentoConvenio',$this->dt_VencimentoConvenio);
-		$criteria->compare('nu_LeiAutorizativa',$this->nu_LeiAutorizativa);
-		$criteria->compare('dt_LeiAutorizativa',$this->dt_LeiAutorizativa);
-		$criteria->compare('nu_DiarioOficial',$this->nu_DiarioOficial);
-		$criteria->compare('dt_PublicacaoConvenio',$this->dt_PublicacaoConvenio);
+		$criteria->compare('date_format(dt_VencimentoConvenio,"%d/%m/%Y")',$this->dt_VencimentoConvenio,true);
+		$criteria->compare('nu_LeiAutorizativa',$this->nu_LeiAutorizativa,true);
+		$criteria->compare('date_format(dt_LeiAutorizativa,"%d/%m/%Y")',$this->dt_LeiAutorizativa,true);
+		$criteria->compare('nu_DiarioOficial',$this->nu_DiarioOficial,true);
+		$criteria->compare('date_format(dt_PublicacaoConvenio,"%d/%m/%Y")',$this->dt_PublicacaoConvenio,true);
 		$criteria->compare('tp_Convenio',$this->tp_Convenio);
 
 		return new CActiveDataProvider($this, array(

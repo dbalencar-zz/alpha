@@ -88,8 +88,8 @@ class Contrato extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'moeda'=>array(self::BELONGS_TO,'TipoMoeda','cd_MoedaConvenio'),
-			'pessoa'=>array(self::BELONGS_TO,'TipoPessoa','cd_PessoaParticipante'),
+			'moeda'=>array(self::BELONGS_TO,'TipoMoeda','cd_Moeda'),
+			'pessoa'=>array(self::BELONGS_TO,'TipoPessoa','tp_PessoaContratado'),
 			'tipo'=>array(self::BELONGS_TO,'TipoContrato','tp_Contrato'),
 		);
 	}
@@ -107,7 +107,9 @@ class Contrato extends CActiveRecord
 			'de_ObjetivoContrato' => 'Objeto',
 			'nu_ProcessoLicitatorio' => 'Processo Licitatório',
 			'cd_Moeda' => 'Moeda',
+			'moeda.descricao' => 'Moeda',
 			'tp_PessoaContratado' => 'Tipo Pessoa',
+			'pessoa.descricao' => 'Tipo Pessoa',
 			'cd_CicContratado' => 'CPF/CNPJ',
 			'nm_Contratado' => 'Nome',
 			'dt_VencimentoContrato' => 'Dt. Vencimento',
@@ -133,6 +135,7 @@ class Contrato extends CActiveRecord
 			'dt_CertidaoOutras' => 'Data Certidão Outra',
 			'dt_ValidadeCertidaoOutras' => 'Validade Certidão Outra',
 			'tp_Contrato' => 'Tipo',
+			'tipo.descricao' => 'Tipo',
 		);
 	}
 
@@ -148,36 +151,36 @@ class Contrato extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('nu_Contrato',$this->nu_Contrato,true);
-		$criteria->compare('vl_Contrato',$this->vl_Contrato);
-		$criteria->compare('dt_AssinaturaContrato',$this->dt_AssinaturaContrato,true);
+		$criteria->compare('vl_Contrato',$this->vl_Contrato,true);
+		$criteria->compare('date_format(dt_AssinaturaContrato,"%d/%m/%Y")',$this->dt_AssinaturaContrato,true);
 		$criteria->compare('de_ObjetivoContrato',$this->de_ObjetivoContrato,true);
 		$criteria->compare('nu_ProcessoLicitatorio',$this->nu_ProcessoLicitatorio,true);
 		$criteria->compare('cd_Moeda',$this->cd_Moeda);
 		$criteria->compare('tp_PessoaContratado',$this->tp_PessoaContratado);
 		$criteria->compare('cd_CicContratado',$this->cd_CicContratado,true);
 		$criteria->compare('nm_Contratado',$this->nm_Contratado,true);
-		$criteria->compare('dt_VencimentoContrato',$this->dt_VencimentoContrato,true);
-		$criteria->compare('nu_DiarioOficial',$this->nu_DiarioOficial);
-		$criteria->compare('dt_Publicacao',$this->dt_Publicacao,true);
-		$criteria->compare('st_RecebeValor',$this->st_RecebeValor,true);
-		$criteria->compare('nu_CertidaoINSS',$this->nu_CertidaoINSS);
-		$criteria->compare('dt_CertidaoINSS',$this->dt_CertidaoINSS,true);
-		$criteria->compare('dt_ValidadeINSS',$this->dt_ValidadeINSS,true);
-		$criteria->compare('nu_CertidaoFGTS',$this->nu_CertidaoFGTS);
-		$criteria->compare('dt_CertidaoFGTS',$this->dt_CertidaoFGTS,true);
-		$criteria->compare('dt_ValidadeFGTS',$this->dt_ValidadeFGTS,true);
-		$criteria->compare('nu_CertidaoFazendaEstadual',$this->nu_CertidaoFazendaEstadual);
-		$criteria->compare('dt_CertidaoFazendaEstadual', $this->dt_CertidaoFazendaEstadual,true);
-		$criteria->compare('dt_ValidadeFazendaEstadual', $this->dt_ValidadeFazendaEstadual,true);
-		$criteria->compare('nu_CertidaoFazendaMunicipal',$this->nu_CertidaoFazendaMunicipal);
-		$criteria->compare('dt_CertidaoFazendaMunicipal',$this->dt_CertidaoFazendaMunicipal,true);
-		$criteria->compare('dt_ValidadeFazendaMunicipal',$this->dt_ValidadeFazendaMunicipal,true);
-		$criteria->compare('nu_CertidaoFazendaFederal',$this->nu_CertidaoFazendaFederal);
-		$criteria->compare('dt_CertidaoFazendaFederal',$this->dt_CertidaoFazendaFederal,true);
-		$criteria->compare('dt_ValidadeFazendaFederal',$this->dt_ValidadeFazendaFederal,true);
-		$criteria->compare('nu_CertidaoOutras',$this->nu_CertidaoOutras);
-		$criteria->compare('dt_CertidaoOutras',$this->dt_CertidaoOutras,true);
-		$criteria->compare('dt_ValidadeCertidaoOutras',$this->dt_ValidadeCertidaoOutras,true);
+		$criteria->compare('date_format(dt_VencimentoContrato,"%d/%m/%Y")',$this->dt_VencimentoContrato,true);
+		$criteria->compare('nu_DiarioOficial',$this->nu_DiarioOficial,true);
+		$criteria->compare('date_format(dt_Publicacao,"%d/%m/%Y")',$this->dt_Publicacao,true);
+		$criteria->compare('st_RecebeValor',$this->st_RecebeValor);
+		$criteria->compare('nu_CertidaoINSS',$this->nu_CertidaoINSS,true);
+		$criteria->compare('date_format(dt_CertidaoINSS,"%d/%m/%Y")',$this->dt_CertidaoINSS,true);
+		$criteria->compare('date_format(dt_ValidadeINSS,"%d/%m/%Y")',$this->dt_ValidadeINSS,true);
+		$criteria->compare('nu_CertidaoFGTS',$this->nu_CertidaoFGTS,true);
+		$criteria->compare('date_format(dt_CertidaoFGTS,"%d/%m/%Y")',$this->dt_CertidaoFGTS,true);
+		$criteria->compare('date_format(dt_ValidadeFGTS,"%d/%m/%Y")',$this->dt_ValidadeFGTS,true);
+		$criteria->compare('nu_CertidaoFazendaEstadual',$this->nu_CertidaoFazendaEstadual,true);
+		$criteria->compare('date_format(dt_CertidaoFazendaEstadual,"%d/%m/%Y")', $this->dt_CertidaoFazendaEstadual,true);
+		$criteria->compare('date_format(dt_ValidadeFazendaEstadual,"%d/%m/%Y")', $this->dt_ValidadeFazendaEstadual,true);
+		$criteria->compare('nu_CertidaoFazendaMunicipal',$this->nu_CertidaoFazendaMunicipal,true);
+		$criteria->compare('date_format(dt_CertidaoFazendaMunicipal,"%d/%m/%Y")',$this->dt_CertidaoFazendaMunicipal,true);
+		$criteria->compare('date_format(dt_ValidadeFazendaMunicipal,"%d/%m/%Y")',$this->dt_ValidadeFazendaMunicipal,true);
+		$criteria->compare('nu_CertidaoFazendaFederal',$this->nu_CertidaoFazendaFederal,true);
+		$criteria->compare('date_format(dt_CertidaoFazendaFederal,"%d/%m/%Y")',$this->dt_CertidaoFazendaFederal,true);
+		$criteria->compare('date_format(dt_ValidadeFazendaFederal,"%d/%m/%Y")',$this->dt_ValidadeFazendaFederal,true);
+		$criteria->compare('nu_CertidaoOutras',$this->nu_CertidaoOutras,true);
+		$criteria->compare('date_format(dt_CertidaoOutras,"%d/%m/%Y")',$this->dt_CertidaoOutras,true);
+		$criteria->compare('date_format(dt_ValidadeCertidaoOutras,"%d/%m/%Y")',$this->dt_ValidadeCertidaoOutras,true);
 		$criteria->compare('tp_Contrato',$this->tp_Contrato);
 
 		return new CActiveDataProvider($this, array(

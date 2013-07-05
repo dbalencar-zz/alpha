@@ -3,13 +3,12 @@
 /* @var $model Contrato */
 
 $this->breadcrumbs=array(
-	'Contratos'=>array('index'),
-	'Manage',
+	'Contratos',
 );
 
 $this->menu=array(
-	array('label'=>'List Contrato', 'url'=>array('index')),
-	array('label'=>'Create Contrato', 'url'=>array('create')),
+	array('label'=>'Adicionar', 'url'=>array('create')),
+	array('label'=>'Gerar REM', 'url'=>'#', 'linkOptions'=>array('onclick'=>'alert($.fn.yiiGridView.getSelection("contrato-grid"));')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,14 +25,14 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Contratos</h1>
+<h1>Gerenciar</h1>
 
 <p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
+Você pode opcionalmente usar um operador de comparação (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+ou <b>=</b>) no início de cada um de seus valores para especificar como a comparação deve ser feita.
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Pesquisa Avançada','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
@@ -44,42 +43,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'id'=>'contrato-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	'selectableRows'=>'2',
 	'columns'=>array(
-		'id',
 		'nu_Contrato',
-		'vl_Contrato',
-		'dt_AssinaturaContrato',
-		'de_ObjetivoContrato',
-		'nu_ProcessoLicitatorio',
-		/*
-		'cd_Moeda',
-		'tp_PessoaContratado',
-		'cd_CicContratado',
-		'nm_Contratado',
-		'dt_VencimentoContrato',
 		'nu_DiarioOficial',
+		'de_ObjetivoContrato',
+		'vl_Contrato',
 		'dt_Publicacao',
-		'st_RecebeValor',
-		'nu_CertidaoINSS',
-		'dt_CertidaoINSS',
-		'dt_ValidadeINSS',
-		'nu_CertidaoFGTS',
-		'dt_CertidaoFGTS',
-		'dt_ValidadeFGTS',
-		'nu_CertidaoFazendaEstadual',
-		'￼dt_CertidaoFazendaEstadual',
-		'￼dt_ValidadeFazendaEstadual',
-		'nu_CertidaoFazendaMunicipal',
-		'dt_CertidaoFazendaMunicipal',
-		'dt_ValidadeFazendaMunicipal',
-		'nu_CertidaoFazendaFederal',
-		'dt_CertidaoFazendaFederal',
-		'dt_ValidadeFazendaFederal',
-		'nu_CertidaoOutras',
-		'dt_CertidaoOutras',
-		'dt_ValidadeCertidaoOutras',
-		'tp_Contrato',
-		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

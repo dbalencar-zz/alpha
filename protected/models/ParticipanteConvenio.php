@@ -78,7 +78,7 @@ class ParticipanteConvenio extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'convenio'=>array(self::BELONGS_TO,'Convenio','convenio_id'),
-			'pessoa'=>array(self::BELONGS_TO,'TipoPessoa','cd_PessoaParticipante'),
+			'pessoa'=>array(self::BELONGS_TO,'TipoPessoa','tp_PessoaParticipante'),
 		);
 	}
 
@@ -91,6 +91,7 @@ class ParticipanteConvenio extends CActiveRecord
 			'id' => 'ID',
 			'cd_CicParticipante' => 'CPF/CNPJ',
 			'tp_PessoaParticipante' => 'Tipo Pessoa',
+			'pessoa.descricao' => 'Tipo Pessoa',
 			'nm_Participante' => 'Nome',
 			'vl_Participacao' => 'Valor de Participação',
 			'vl_PercentualParticipacao' => 'Percentual de Participação',
@@ -127,29 +128,29 @@ class ParticipanteConvenio extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('convenio_id', $convenio->id);
-		$criteria->compare('cd_CicParticipante',$this->cd_CicParticipante);
+		$criteria->compare('cd_CicParticipante',$this->cd_CicParticipante,true);
 		$criteria->compare('tp_PessoaParticipante',$this->tp_PessoaParticipante);
 		$criteria->compare('nm_Participante',$this->nm_Participante,true);
-		$criteria->compare('vl_Participacao',$this->vl_Participacao);
-		$criteria->compare('vl_PercentualParticipacao',$this->vl_PercentualParticipacao);
+		$criteria->compare('vl_Participacao',$this->vl_Participacao,true);
+		$criteria->compare('vl_PercentualParticipacao',$this->vl_PercentualParticipacao,true);
 		$criteria->compare('nu_CertidaoCASAN',$this->nu_CertidaoCASAN,true);
-		$criteria->compare('dt_CertidaoCASAN',$this->dt_CertidaoCASAN,true);
-		$criteria->compare('dt_ValidadeCertidaoCASAN',$this->dt_ValidadeCertidaoCASAN,true);
+		$criteria->compare('date_format(dt_CertidaoCASAN,"%d/%m/%Y")',$this->dt_CertidaoCASAN,true);
+		$criteria->compare('date_format(dt_ValidadeCertidaoCASAN,"%d/%m/%Y")',$this->dt_ValidadeCertidaoCASAN,true);
 		$criteria->compare('nu_CertidaoCELESC',$this->nu_CertidaoCELESC,true);
-		$criteria->compare('dt_CertidaoCELESC',$this->dt_CertidaoCELESC,true);
-		$criteria->compare('dt_ValidadeCertidaoCELESC',$this->dt_ValidadeCertidaoCELESC,true);
+		$criteria->compare('date_format(dt_CertidaoCELESC,"%d/%m/%Y")',$this->dt_CertidaoCELESC,true);
+		$criteria->compare('date_format(dt_ValidadeCertidaoCELESC,"%d/%m/%Y")',$this->dt_ValidadeCertidaoCELESC,true);
 		$criteria->compare('nu_CertidaoIPESC',$this->nu_CertidaoIPESC,true);
-		$criteria->compare('dt_CertidaoIPESC',$this->dt_CertidaoIPESC,true);
-		$criteria->compare('dt_ValidadeCertidaoIPESC',$this->dt_ValidadeCertidaoIPESC,true);
+		$criteria->compare('date_format(dt_CertidaoIPESC,"%d/%m/%Y")',$this->dt_CertidaoIPESC,true);
+		$criteria->compare('date_format(dt_ValidadeCertidaoIPESC,"%d/%m/%Y")',$this->dt_ValidadeCertidaoIPESC,true);
 		$criteria->compare('nu_CertidaoFazendaMunicipal',$this->nu_CertidaoFazendaMunicipal,true);
-		$criteria->compare('dt_CertidaoFazendaMunicipal',$this->dt_CertidaoFazendaMunicipal,true);
-		$criteria->compare('dt_ValidadeFazendaMunicipal',$this->dt_ValidadeFazendaMunicipal,true);
+		$criteria->compare('date_format(dt_CertidaoFazendaMunicipal,"%d/%m/%Y")',$this->dt_CertidaoFazendaMunicipal,true);
+		$criteria->compare('date_format(dt_ValidadeFazendaMunicipal,"%d/%m/%Y")',$this->dt_ValidadeFazendaMunicipal,true);
 		$criteria->compare('nu_CertidaoFazendaFederal',$this->nu_CertidaoFazendaFederal,true);
-		$criteria->compare('dt_CertidaoFazendaFederal',$this->dt_CertidaoFazendaFederal,true);
-		$criteria->compare('dt_ValidadeFazendaFederal',$this->dt_ValidadeFazendaFederal,true);
+		$criteria->compare('date_format(dt_CertidaoFazendaFederal,"%d/%m/%Y")',$this->dt_CertidaoFazendaFederal,true);
+		$criteria->compare('date_format(dt_ValidadeFazendaFederal,"%d/%m/%Y")',$this->dt_ValidadeFazendaFederal,true);
 		$criteria->compare('nu_CertidaoOutras',$this->nu_CertidaoOutras,true);
-		$criteria->compare('dt_CertidaoOutras',$this->dt_CertidaoOutras,true);
-		$criteria->compare('dt_ValidadeCertidaoOutras',$this->dt_ValidadeCertidaoOutras,true);
+		$criteria->compare('date_format(dt_CertidaoOutras,"%d/%m/%Y")',$this->dt_CertidaoOutras,true);
+		$criteria->compare('date_format(dt_ValidadeCertidaoOutras,"%d/%m/%Y")',$this->dt_ValidadeCertidaoOutras,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -21,7 +21,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'cd_CicParticipante',
-		'tp_PessoaParticipante',
+		'pessoa.descricao',
 		'nm_Participante',
 		'vl_Participacao',
 		'vl_PercentualParticipacao',

@@ -3,19 +3,15 @@
 /* @var $model Contrato */
 
 $this->breadcrumbs=array(
-	'Contratos'=>array('index'),
+	'Contratos'=>array('admin'),
 	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Editar',
 );
 
 $this->menu=array(
-	array('label'=>'List Contrato', 'url'=>array('index')),
-	array('label'=>'Create Contrato', 'url'=>array('create')),
-	array('label'=>'View Contrato', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Contrato', 'url'=>array('admin')),
+	array('label'=>'Adicionar', 'url'=>array('create')),
+	array('label'=>'Exibir', 'url'=>array('view', 'id'=>$model->id)),
 );
 ?>
-
-<h1>Update Contrato <?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

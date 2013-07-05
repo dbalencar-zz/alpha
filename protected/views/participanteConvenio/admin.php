@@ -45,10 +45,12 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 	'id'=>'participante-convenio-grid',
 	'dataProvider'=>$model->search($model->convenio),
 	'filter'=>$model,
+	'selectableRows'=>'2',
 	'columns'=>array(
 		array(
 			'name'=>'tp_PessoaParticipante',
 			'filter'=>TipoPessoa::model()->listAll(),
+			'value'=>'$data->pessoa->descricao',
 		),
 		'nm_Participante',
 		'cd_CicParticipante',

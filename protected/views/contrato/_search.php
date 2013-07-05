@@ -12,18 +12,28 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'nu_Contrato'); ?>
 		<?php echo $form->textField($model,'nu_Contrato',array('size'=>16,'maxlength'=>16)); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'nu_DiarioOficial'); ?>
+		<?php echo $form->textField($model,'nu_DiarioOficial'); ?>
+	</div>
 
+	<div class="row">
+		<?php echo $form->label($model,'de_ObjetivoContrato'); ?>
+		<?php echo $form->textField($model,'de_ObjetivoContrato',array('size'=>50,'maxlength'=>50)); ?>
+	</div>
+	
 	<div class="row">
 		<?php echo $form->label($model,'vl_Contrato'); ?>
 		<?php echo $form->textField($model,'vl_Contrato'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'dt_Publicacao'); ?>
+		<?php echo $form->textField($model,'dt_Publicacao'); ?>
 	</div>
 
 	<div class="row">
@@ -31,10 +41,6 @@
 		<?php echo $form->textField($model,'dt_AssinaturaContrato'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'de_ObjetivoContrato'); ?>
-		<?php echo $form->textField($model,'de_ObjetivoContrato',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'nu_ProcessoLicitatorio'); ?>
@@ -43,12 +49,16 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'cd_Moeda'); ?>
-		<?php echo $form->textField($model,'cd_Moeda'); ?>
+		<?php echo $form->dropDownList($model, 'cd_Moeda', TipoMoeda::model()->listAll(), array(
+			'empty'=>'Todos',
+		)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'tp_PessoaContratado'); ?>
-		<?php echo $form->textField($model,'tp_PessoaContratado'); ?>
+		<?php echo $form->dropDownList($model,'tp_PessoaContratado',TipoPessoa::model()->listAll(), array(
+			'empty'=>'Todos',
+		)); ?>
 	</div>
 
 	<div class="row">
@@ -67,18 +77,10 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'nu_DiarioOficial'); ?>
-		<?php echo $form->textField($model,'nu_DiarioOficial'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'dt_Publicacao'); ?>
-		<?php echo $form->textField($model,'dt_Publicacao'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'st_RecebeValor'); ?>
-		<?php echo $form->textField($model,'st_RecebeValor',array('size'=>1,'maxlength'=>1)); ?>
+		<?php echo $form->dropDownList($model,'st_RecebeValor',$model->simNaoOptions,array(
+			'empty'=>'Todos',
+		)); ?>
 	</div>
 
 	<div class="row">
@@ -173,11 +175,13 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'tp_Contrato'); ?>
-		<?php echo $form->textField($model,'tp_Contrato'); ?>
+		<?php echo $form->dropDownList($model,'tp_Contrato', TipoContrato::model()->listAll(), array(
+			'empty'=>'Todos',
+		)); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton('Pesquisar'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
