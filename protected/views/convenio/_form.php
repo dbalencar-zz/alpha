@@ -4,6 +4,18 @@
 /* @var $form CActiveForm */
 ?>
 
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/jquery.price_format.1.8.min.js'); ?>
+
+<script>
+$(function() {
+	$('.value').priceFormat({
+		limit: 15,
+	    prefix: '',
+	    thousandsSeparator: ''
+	});
+});
+</script>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -23,7 +35,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'st_RecebeValor'); ?>
-		<?php echo $form->dropDownList($model,'st_RecebeValor',Convenio::model()->simNaoOptions); ?>
+		<?php echo $form->dropDownList($model,'st_RecebeValor',$model->simNaoOptions); ?>
 		<?php echo $form->error($model,'st_RecebeValor'); ?>
 	</div>
 
@@ -35,7 +47,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'vl_Convenio'); ?>
-		<?php echo $form->textField($model,'vl_Convenio',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'vl_Convenio',array('class'=>'value')); ?>
 		<?php echo $form->error($model,'vl_Convenio'); ?>
 	</div>
 
@@ -47,7 +59,11 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_AssinaturaConvenio'); ?>
-		<?php echo $form->textField($model,'dt_AssinaturaConvenio'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_AssinaturaConvenio'
+		)); ?>
 		<?php echo $form->error($model,'dt_AssinaturaConvenio'); ?>
 	</div>
 
@@ -59,7 +75,11 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_VencimentoConvenio'); ?>
-		<?php echo $form->textField($model,'dt_VencimentoConvenio'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_VencimentoConvenio'
+		)); ?>
 		<?php echo $form->error($model,'dt_VencimentoConvenio'); ?>
 	</div>
 
@@ -71,7 +91,11 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_LeiAutorizativa'); ?>
-		<?php echo $form->textField($model,'dt_LeiAutorizativa'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_LeiAutorizativa'
+		)); ?>
 		<?php echo $form->error($model,'dt_LeiAutorizativa'); ?>
 	</div>
 
@@ -83,7 +107,11 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_PublicacaoConvenio'); ?>
-		<?php echo $form->textField($model,'dt_PublicacaoConvenio'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_PublicacaoConvenio'
+		)); ?>
 		<?php echo $form->error($model,'dt_PublicacaoConvenio'); ?>
 	</div>
 

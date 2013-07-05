@@ -4,6 +4,18 @@
 /* @var $form CActiveForm */
 ?>
 
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/jquery.price_format.1.8.min.js'); ?>
+
+<script>
+$(function() {
+	$('.value').priceFormat({
+		limit: 15,
+	    prefix: '',
+	    thousandsSeparator: ''
+	});
+});
+</script>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -23,13 +35,17 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'vl_Contrato'); ?>
-		<?php echo $form->textField($model,'vl_Contrato'); ?>
+		<?php echo $form->textField($model,'vl_Contrato',array('class'=>'value')); ?>
 		<?php echo $form->error($model,'vl_Contrato'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_AssinaturaContrato'); ?>
-		<?php echo $form->textField($model,'dt_AssinaturaContrato'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_AssinaturaContrato'
+		)); ?>
 		<?php echo $form->error($model,'dt_AssinaturaContrato'); ?>
 	</div>
 
@@ -47,13 +63,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'cd_Moeda'); ?>
-		<?php echo $form->textField($model,'cd_Moeda'); ?>
+		<?php echo $form->dropDownList($model,'cd_Moeda',TipoMoeda::model()->listAll()); ?>
 		<?php echo $form->error($model,'cd_Moeda'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'tp_PessoaContratado'); ?>
-		<?php echo $form->textField($model,'tp_PessoaContratado'); ?>
+		<?php echo $form->dropDownList($model,'tp_PessoaContratado',TipoPessoa::model()->listAll()); ?>
 		<?php echo $form->error($model,'tp_PessoaContratado'); ?>
 	</div>
 
@@ -71,139 +87,195 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_VencimentoContrato'); ?>
-		<?php echo $form->textField($model,'dt_VencimentoContrato'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_VencimentoContrato'
+		)); ?>
 		<?php echo $form->error($model,'dt_VencimentoContrato'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_DiarioOficial'); ?>
-		<?php echo $form->textField($model,'nu_DiarioOficial'); ?>
+		<?php echo $form->textField($model,'nu_DiarioOficial',array('size'=>6,'maxlength'=>6)); ?>
 		<?php echo $form->error($model,'nu_DiarioOficial'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_Publicacao'); ?>
-		<?php echo $form->textField($model,'dt_Publicacao'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_Publicacao'
+		)); ?>
 		<?php echo $form->error($model,'dt_Publicacao'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'st_RecebeValor'); ?>
-		<?php echo $form->textField($model,'st_RecebeValor',array('size'=>1,'maxlength'=>1)); ?>
+		<?php echo $form->dropDownList($model,'st_RecebeValor',$model->simNaoOptions); ?>
 		<?php echo $form->error($model,'st_RecebeValor'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoINSS'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoINSS'); ?>
+		<?php echo $form->textField($model,'nu_CertidaoINSS',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'nu_CertidaoINSS'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_CertidaoINSS'); ?>
-		<?php echo $form->textField($model,'dt_CertidaoINSS'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_CertidaoINSS'
+		)); ?>
 		<?php echo $form->error($model,'dt_CertidaoINSS'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_ValidadeINSS'); ?>
-		<?php echo $form->textField($model,'dt_ValidadeINSS'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_ValidadeINSS'
+		)); ?>
 		<?php echo $form->error($model,'dt_ValidadeINSS'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFGTS'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFGTS'); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFGTS',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFGTS'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_CertidaoFGTS'); ?>
-		<?php echo $form->textField($model,'dt_CertidaoFGTS'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_CertidaoFGTS'
+		)); ?>
 		<?php echo $form->error($model,'dt_CertidaoFGTS'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_ValidadeFGTS'); ?>
-		<?php echo $form->textField($model,'dt_ValidadeFGTS'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_ValidadeFGTS'
+		)); ?>
 		<?php echo $form->error($model,'dt_ValidadeFGTS'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaEstadual'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaEstadual'); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaEstadual',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaEstadual'); ?>
 	</div>
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_CertidaoFazendaEstadual'); ?>
-		<?php echo $form->textField($model,'dt_CertidaoFazendaEstadual'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_CertidaoFazendaEstadual'
+		)); ?>
 		<?php echo $form->error($model,'dt_CertidaoFazendaEstadual'); ?>
 	</div>
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_ValidadeFazendaEstadual'); ?>
-		<?php echo $form->textField($model,'dt_ValidadeFazendaEstadual'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_ValidadeFazendaEstadual'
+		)); ?>
 		<?php echo $form->error($model,'dt_ValidadeFazendaEstadual'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaMunicipal'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaMunicipal'); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaMunicipal',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaMunicipal'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_CertidaoFazendaMunicipal'); ?>
-		<?php echo $form->textField($model,'dt_CertidaoFazendaMunicipal'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_CertidaoFazendaMunicipal'
+		)); ?>
 		<?php echo $form->error($model,'dt_CertidaoFazendaMunicipal'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_ValidadeFazendaMunicipal'); ?>
-		<?php echo $form->textField($model,'dt_ValidadeFazendaMunicipal'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_ValidadeFazendaMunicipal'
+		)); ?>
 		<?php echo $form->error($model,'dt_ValidadeFazendaMunicipal'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaFederal'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaFederal'); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaFederal',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaFederal'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_CertidaoFazendaFederal'); ?>
-		<?php echo $form->textField($model,'dt_CertidaoFazendaFederal'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_CertidaoFazendaFederal'
+		)); ?>
 		<?php echo $form->error($model,'dt_CertidaoFazendaFederal'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_ValidadeFazendaFederal'); ?>
-		<?php echo $form->textField($model,'dt_ValidadeFazendaFederal'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_ValidadeFazendaFederal'
+		)); ?>
 		<?php echo $form->error($model,'dt_ValidadeFazendaFederal'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoOutras'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoOutras'); ?>
+		<?php echo $form->textField($model,'nu_CertidaoOutras',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'nu_CertidaoOutras'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_CertidaoOutras'); ?>
-		<?php echo $form->textField($model,'dt_CertidaoOutras'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_CertidaoOutras'
+		)); ?>
 		<?php echo $form->error($model,'dt_CertidaoOutras'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dt_ValidadeCertidaoOutras'); ?>
-		<?php echo $form->textField($model,'dt_ValidadeCertidaoOutras'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_ValidadeCertidaoOutras'
+		)); ?>
 		<?php echo $form->error($model,'dt_ValidadeCertidaoOutras'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'tp_Contrato'); ?>
-		<?php echo $form->textField($model,'tp_Contrato'); ?>
+		<?php echo $form->dropDownList($model,'tp_Contrato',TipoContrato::model()->listAll()); ?>
 		<?php echo $form->error($model,'tp_Contrato'); ?>
 	</div>
 
