@@ -67,10 +67,10 @@ class Contrato extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nu_Contrato, vl_Contrato, dt_AssinaturaContrato, de_ObjetivoContrato, nu_ProcessoLicitatorio, cd_Moeda, tp_PessoaContratado, cd_CicContratado, nm_Contratado, dt_VencimentoContrato, nu_DiarioOficial, dt_Publicacao, st_RecebeValor, nu_CertidaoINSS, dt_CertidaoINSS, dt_ValidadeINSS, nu_CertidaoFGTS, dt_CertidaoFGTS, dt_ValidadeFGTS, nu_CertidaoFazendaEstadual, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, nu_CertidaoFazendaMunicipal, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, nu_CertidaoFazendaFederal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, nu_CertidaoOutras, dt_CertidaoOutras, dt_ValidadeCertidaoOutras, tp_Contrato', 'required'),
-			array('cd_Moeda, tp_PessoaContratado, nu_DiarioOficial, nu_CertidaoINSS, nu_CertidaoFGTS, nu_CertidaoFazendaEstadual, nu_CertidaoFazendaMunicipal, nu_CertidaoOutras, tp_Contrato', 'numerical', 'integerOnly'=>true),
+			array('cd_Moeda, tp_PessoaContratado, nu_DiarioOficial, tp_Contrato', 'numerical', 'integerOnly'=>true),
 			array('dt_AssinaturaContrato, dt_VencimentoContrato, dt_Publicacao, dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras', 'date', 'format'=>'dd/MM/yyyy'),
 			array('vl_Contrato', 'numerical', 'numberPattern'=>'/([0-9][0-9]*?)(\.[0-9]{2})/', 'message'=>'{attribute} deve ter duas casas decimais, separadas por um ponto.'),
-			array('nu_Contrato, nu_ProcessoLicitatorio, nu_CertidaoFazendaFederal', 'length', 'max'=>16),
+			array('nu_Contrato, nu_ProcessoLicitatorio, nu_CertidaoINSS, nu_CertidaoFGTS, nu_CertidaoFazendaEstadual, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoOutras', 'length', 'max'=>16),
 			array('de_ObjetivoContrato, nm_Contratado', 'length', 'max'=>50),
 			array('cd_CicContratado', 'length', 'max'=>14),
 			array('st_RecebeValor', 'length', 'max'=>1),
