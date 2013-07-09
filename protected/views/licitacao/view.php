@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Itens', 'url'=>array('/item/admin','licitacao'=>$model->id)),
+	array('label'=>'Participantes', 'url'=>array('/participanteLicitacao/admin','licitacao'=>$model->id)),
 	array('label'=>'Adicionar', 'url'=>array('create')),
 	array('label'=>'Editar', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Excluir', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Deseja realmente excluir este item?')),

@@ -84,4 +84,11 @@ class TipoParticipante extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function listAll()
+	{
+		$criteria=new CDbCriteria();
+		$criteria->order='codigo';
+		return CHtml::listData($this->findAll($criteria), 'codigo', 'descricao');
+	}
 }

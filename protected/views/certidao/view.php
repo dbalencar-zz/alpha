@@ -3,30 +3,25 @@
 /* @var $model Certidao */
 
 $this->breadcrumbs=array(
-	'Certidaos'=>array('index'),
-	$model->id,
+	'Licitação '.$model->participante->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->participante->licitacao->id),
+	'Participante '.$model->participante->cd_CicParticipante=>array('/participanteLicitacao/view','id'=>$model->participante->id),
+	'Certidões'=>array('/certidao/admin','participante'=>$model->participante->id),
+	$model->nu_Certidao,
 );
 
 $this->menu=array(
-	array('label'=>'List Certidao', 'url'=>array('index')),
-	array('label'=>'Create Certidao', 'url'=>array('create')),
-	array('label'=>'Update Certidao', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Certidao', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Certidao', 'url'=>array('admin')),
+	array('label'=>'Adicionar', 'url'=>array('create')),
+	array('label'=>'Editar', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Excluir', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Deseja realmente excluir este item?')),
+	array('label'=>'Gerar REM', 'url'=>array('geraREM', 'id'=>$model->id)),
 );
 ?>
-
-<h1>View Certidao #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
-		'nu_ProcessoLicitatorio',
-		'cd_CicParticipante',
-		'tp_Certidao',
-		'tp_Pessoa',
-		'nu_Certidao',
+		'tipo.descricao',
+		'pessoa.descricao',
 		'dt_EmissaoCertidao',
 		'dt_ValidadeCertidao',
 	),

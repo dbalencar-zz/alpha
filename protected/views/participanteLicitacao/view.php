@@ -3,30 +3,31 @@
 /* @var $model ParticipanteLicitacao */
 
 $this->breadcrumbs=array(
-	'Participante Licitacaos'=>array('index'),
-	$model->id,
+	'Licitação '.$model->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->licitacao_id),
+	'Participantes'=>array('admin','licitacao'=>$model->licitacao_id),
+	$model->cd_CicParticipante,
 );
 
 $this->menu=array(
-	array('label'=>'List ParticipanteLicitacao', 'url'=>array('index')),
-	array('label'=>'Create ParticipanteLicitacao', 'url'=>array('create')),
-	array('label'=>'Update ParticipanteLicitacao', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete ParticipanteLicitacao', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage ParticipanteLicitacao', 'url'=>array('admin')),
+	array('label'=>'Certidões', 'url'=>array('/certidao/admin','participante'=>$model->id)),
+	array('label'=>'Adicionar', 'url'=>array('create')),
+	array('label'=>'Editar', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Excluir', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Deseja realmente excluir este item?')),
+	array('label'=>'Gerar REM', 'url'=>array('geraREM', 'id'=>$model->id)),
 );
 ?>
-
-<h1>View ParticipanteLicitacao #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
-		'nu_ProcessoLicitatorio',
 		'cd_CicParticipante',
-		'tp_Pessoa',
+		'pessoa.descricao',
 		'nm_Participante',
-		'tp_Participacao',
-		'cd_CGCConsorcio',
+		'participacao.descricao',
+		array(
+			'name'=>'cd_CGCConsorcio',
+			'visible'=>$model->cd_CGCConsorcio,
+		),
+		'convidadoText',
 	),
 )); ?>

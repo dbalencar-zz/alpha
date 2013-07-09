@@ -3,16 +3,11 @@
 /* @var $model Certidao */
 
 $this->breadcrumbs=array(
-	'Certidaos'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Certidao', 'url'=>array('index')),
-	array('label'=>'Manage Certidao', 'url'=>array('admin')),
+	'Licitação '.$model->participante->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->participante->licitacao_id),
+	'Participante '.$model->participante->cd_CicParticipante=>array('/participanteLicitacao/view','id'=>$model->participante_licitacao_id),
+	'Certidões'=>array('/certidao/admin','participante'=>$model->participante_licitacao_id),
+	'Adicionar'
 );
 ?>
-
-<h1>Create Certidao</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

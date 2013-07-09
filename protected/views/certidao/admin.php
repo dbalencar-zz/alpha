@@ -3,13 +3,14 @@
 /* @var $model Certidao */
 
 $this->breadcrumbs=array(
-	'Certidaos'=>array('index'),
-	'Manage',
+	'Licitação '.$model->participante->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->participante->licitacao->id),
+	'Participante '.$model->participante->cd_CicParticipante=>array('/participanteLicitacao/view','id'=>$model->participante->id),
+	'Certidões',
 );
 
 $this->menu=array(
-	array('label'=>'List Certidao', 'url'=>array('index')),
-	array('label'=>'Create Certidao', 'url'=>array('create')),
+	array('label'=>'Adicionar', 'url'=>array('create','participante'=>$model->participante->id)),
+	array('label'=>'Gerar REM', 'url'=>'#', 'linkOptions'=>array('onclick'=>'alert($.fn.yiiGridView.getSelection("item-grid"));')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,14 +27,14 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Certidaos</h1>
+<h1>Gerenciar</h1>
 
 <p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
+Você pode opcionalmente usar um operador de comparação (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+ou <b>=</b>) no início de cada um de seus valores para especificar como a comparação deve ser feita.
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Pesquisa Avançada','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
@@ -42,19 +43,17 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'certidao-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->search($model->participante),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'nu_ProcessoLicitatorio',
-		'cd_CicParticipante',
-		'tp_Certidao',
-		'tp_Pessoa',
 		'nu_Certidao',
-		/*
+		array(
+			'name'=>'tp_Certidao',
+			'filter'=>TipoCertidao::model()->listAll(),
+			'value'=>'$data->tipo->descricao',
+		),
 		'dt_EmissaoCertidao',
 		'dt_ValidadeCertidao',
-		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

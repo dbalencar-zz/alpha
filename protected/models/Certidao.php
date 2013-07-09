@@ -41,12 +41,12 @@ class Certidao extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nu_ProcessoLicitatorio, cd_CicParticipante, tp_Certidao, tp_Pessoa, nu_Certidao, dt_EmissaoCertidao, dt_ValidadeCertidao', 'required'),
-			array('cd_CicParticipante, tp_Certidao, tp_Pessoa', 'numerical', 'integerOnly'=>true),
-			array('nu_ProcessoLicitatorio, nu_Certidao', 'length', 'max'=>16),
+			array('tp_Certidao, tp_Pessoa, nu_Certidao, dt_EmissaoCertidao, dt_ValidadeCertidao', 'required'),
+			array('tp_Certidao, tp_Pessoa', 'numerical', 'integerOnly'=>true),
+			array('nu_Certidao', 'length', 'max'=>16),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nu_ProcessoLicitatorio, cd_CicParticipante, tp_Certidao, tp_Pessoa, nu_Certidao, dt_EmissaoCertidao, dt_ValidadeCertidao', 'safe', 'on'=>'search'),
+			array('tp_Certidao, tp_Pessoa, nu_Certidao, dt_EmissaoCertidao, dt_ValidadeCertidao', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +58,9 @@ class Certidao extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'participante'=>array(self::BELONGS_TO,'ParticipanteLicitacao','participante_licitacao_id'),
+			'pessoa'=>array(self::BELONGS_TO,'TipoPessoa','tp_Pessoa'),
+			'tipo'=>array(self::BELONGS_TO,'TipoCertidao','tp_Certidao'),
 		);
 	}
 
@@ -67,14 +70,13 @@ class Certidao extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'nu_ProcessoLicitatorio' => 'Nu Processo Licitatorio',
-			'cd_CicParticipante' => 'Cd Cic Participante',
-			'tp_Certidao' => 'Tp Certidao',
+			'tp_Certidao' => 'Tipo',
+			'tipo.descricao' => 'Tipo',
 			'tp_Pessoa' => 'Tp Pessoa',
-			'nu_Certidao' => 'Nu Certidao',
-			'dt_EmissaoCertidao' => 'Dt Emissao Certidao',
-			'dt_ValidadeCertidao' => 'Dt Validade Certidao',
+			'pessoa.descricao' => 'Pessoa',
+			'nu_Certidao' => 'Certidão',
+			'dt_EmissaoCertidao' => 'Emissão',
+			'dt_ValidadeCertidao' => 'Validade',
 		);
 	}
 
@@ -89,9 +91,6 @@ class Certidao extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('nu_ProcessoLicitatorio',$this->nu_ProcessoLicitatorio,true);
-		$criteria->compare('cd_CicParticipante',$this->cd_CicParticipante);
 		$criteria->compare('tp_Certidao',$this->tp_Certidao);
 		$criteria->compare('tp_Pessoa',$this->tp_Pessoa);
 		$criteria->compare('nu_Certidao',$this->nu_Certidao,true);
@@ -101,5 +100,62 @@ class Certidao extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function formataREM()
+	{
+		$formatado=str_pad($this->participante->licitacao->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->participante->cd_CicParticipante, 14, '0', STR_PAD_LEFT);
+		$formatado.=str_pad($this->tp_Certidao, 2, '0', STR_PAD_LEFT);
+		$formatado.=$this->tp_Pessoa;
+		$formatado.=str_pad($this->nu_Certidao, 16, '0', STR_PAD_LEFT);		
+		$formatado.=$this->formataData($this->dt_EmissaoCertidao);
+		$formatado.=$this->formataData($this->dt_ValidadeCertidao);
+		$formatado.=chr(13).chr(10);
+	
+		//iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);
+	
+		return $formatado;
+	}
+	
+	private function formataData($data)
+	{
+		return date('Ymd', CDateTimeParser::parse($data, Yii::app()->locale->dateFormat));
+	}
+	
+	protected function beforeSave()
+	{
+		foreach($this->metadata->tableSchema->columns as $columnName => $column)
+		{
+			if ($column->dbType == 'date')
+			{
+				$this->$columnName = date('Y-m-d', CDateTimeParser::parse($this->$columnName, Yii::app()->locale->dateFormat));
+			}
+			elseif ($column->dbType == 'datetime')
+			{
+				$this->$columnName = date('Y-m-d H:i:s', CDateTimeParser::parse($this->$columnName, Yii::app()->locale->dateFormat));
+			}
+		}
+	
+		return parent::beforeSave();
+	}
+	
+	protected function afterFind()
+	{
+		foreach($this->metadata->tableSchema->columns as $columnName => $column)
+		{
+			if (!strlen($this->$columnName)) continue;
+				
+			if ($column->dbType == 'date')
+			{
+				$this->$columnName = Yii::app()->dateFormatter->formatDateTime(CDateTimeParser::parse($this->$columnName, 'yyyy-MM-dd'),'medium',null);
+			}
+			elseif ($column->dbType == 'datetime')
+			{
+				$this->$columnName = Yii::app()->dateFormatter->formatDateTime(CDateTimeParser::parse($this->$columnName, 'yyyy-MM-dd hh:mm:ss'));
+			}
+		}
+	
+		return parent::afterFind();
 	}
 }

@@ -33,7 +33,7 @@ class LicitacaoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','geraREM'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -131,6 +131,24 @@ class LicitacaoController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+	
+	public function actionGeraREM($id)
+	{
+		$model=$this->loadModel($id);
+	
+		$handle = fopen("licitacao.rem", "w");
+		fwrite($handle, $model->formataREM());
+		fclose($handle);
+	
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename='.basename('licitacao.rem'));
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize('licitacao.rem'));
+		readfile('licitacao.rem');
+		exit;
 	}
 
 	/**

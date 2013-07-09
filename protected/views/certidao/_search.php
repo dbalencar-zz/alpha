@@ -12,28 +12,8 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'nu_ProcessoLicitatorio'); ?>
-		<?php echo $form->textField($model,'nu_ProcessoLicitatorio',array('size'=>16,'maxlength'=>16)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'cd_CicParticipante'); ?>
-		<?php echo $form->textField($model,'cd_CicParticipante'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'tp_Certidao'); ?>
-		<?php echo $form->textField($model,'tp_Certidao'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'tp_Pessoa'); ?>
-		<?php echo $form->textField($model,'tp_Pessoa'); ?>
+		<?php echo $form->dropDownList($model,'tp_Certidao',TipoCertidao::model()->listAll(),array('empty'=>'Todos')); ?>
 	</div>
 
 	<div class="row">

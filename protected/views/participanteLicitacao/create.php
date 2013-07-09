@@ -3,16 +3,10 @@
 /* @var $model ParticipanteLicitacao */
 
 $this->breadcrumbs=array(
-	'Participante Licitacaos'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List ParticipanteLicitacao', 'url'=>array('index')),
-	array('label'=>'Manage ParticipanteLicitacao', 'url'=>array('admin')),
+	'Licitação '.$model->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->licitacao->id),
+	'Participantes'=>array('admin','licitacao'=>$model->licitacao->id),
+	'Adicionar',
 );
 ?>
-
-<h1>Create ParticipanteLicitacao</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

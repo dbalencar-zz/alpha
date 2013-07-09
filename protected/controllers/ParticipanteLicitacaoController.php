@@ -28,7 +28,7 @@ class ParticipanteLicitacaoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -60,9 +60,11 @@ class ParticipanteLicitacaoController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($licitacao)
 	{
 		$model=new ParticipanteLicitacao;
+		$model->licitacao=Licitacao::model()->findByPk($licitacao);
+		$model->licitacao_id=$model->licitacao->id;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -131,10 +133,11 @@ class ParticipanteLicitacaoController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($licitacao)
 	{
 		$model=new ParticipanteLicitacao('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->licitacao=Licitacao::model()->findByPk($licitacao);
 		if(isset($_GET['ParticipanteLicitacao']))
 			$model->attributes=$_GET['ParticipanteLicitacao'];
 

@@ -84,4 +84,11 @@ class TipoCertidao extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function listAll()
+	{
+		$criteria=new CDbCriteria();
+		$criteria->order='descricao';
+		return CHtml::listData($this->findAll($criteria), 'codigo', 'descricao');
+	}
 }

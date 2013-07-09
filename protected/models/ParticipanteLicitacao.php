@@ -40,13 +40,12 @@ class ParticipanteLicitacao extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nu_ProcessoLicitatorio, cd_CicParticipante, tp_Pessoa, nm_Participante, tp_Participacao, cd_CGCConsorcio, tp_Convidado', 'required'),
+			array('cd_CicParticipante, tp_Pessoa, nm_Participante, tp_Participacao, tp_Convidado', 'required'),
 			array('cd_CicParticipante, tp_Pessoa, tp_Participacao, cd_CGCConsorcio', 'numerical', 'integerOnly'=>true),
-			array('nu_ProcessoLicitatorio', 'length', 'max'=>16),
 			array('nm_Participante', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nu_ProcessoLicitatorio, cd_CicParticipante, tp_Pessoa, nm_Participante, tp_Participacao, cd_CGCConsorcio', 'safe', 'on'=>'search'),
+			array('cd_CicParticipante, tp_Pessoa, nm_Participante, tp_Participacao, cd_CGCConsorcio, tp_Convidado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +57,9 @@ class ParticipanteLicitacao extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'licitacao'=>array(self::BELONGS_TO,'Licitacao','licitacao_id'),
+			'pessoa'=>array(self::BELONGS_TO,'TipoPessoa','tp_Pessoa'),
+			'participacao'=>array(self::BELONGS_TO,'TipoParticipante','tp_Participacao'),
 		);
 	}
 
@@ -67,14 +69,15 @@ class ParticipanteLicitacao extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'nu_ProcessoLicitatorio' => 'Nu Processo Licitatorio',
-			'cd_CicParticipante' => 'Cd Cic Participante',
-			'tp_Pessoa' => 'Tp Pessoa',
-			'nm_Participante' => 'Nm Participante',
-			'tp_Participacao' => 'Tp Participacao',
-			'cd_CGCConsorcio' => 'Cd Cgcconsorcio',
+			'cd_CicParticipante' => 'CPF/CNPJ',
+			'tp_Pessoa' => 'Tipo',
+			'pessoa.descricao' => 'Tipo',
+			'nm_Participante' => 'Nome',
+			'tp_Participacao' => 'Participação',
+			'participacao.descricao' => 'Participação',
+			'cd_CGCConsorcio' => 'Consórcio',
 			'tp_Convidado' => 'Convidado',
+			'convidadoText' => 'Convidado',
 		);
 	}
 
@@ -82,15 +85,14 @@ class ParticipanteLicitacao extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($licitacao)
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('nu_ProcessoLicitatorio',$this->nu_ProcessoLicitatorio,true);
+		$criteria->compare('licitacao_id',$licitacao->id,true);
 		$criteria->compare('cd_CicParticipante',$this->cd_CicParticipante);
 		$criteria->compare('tp_Pessoa',$this->tp_Pessoa);
 		$criteria->compare('nm_Participante',$this->nm_Participante,true);
@@ -101,5 +103,19 @@ class ParticipanteLicitacao extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function getSimNaoOptions()
+	{
+		return array(
+				'S'=>'Sim',
+				'N'=>'Não',
+		);
+	}
+	
+	public function getConvidadoText()
+	{
+		$options=$this->simNaoOptions;
+		return $options[$this->tp_Convidado];
 	}
 }

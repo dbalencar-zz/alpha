@@ -224,7 +224,7 @@ class Contrato extends CActiveRecord
 		$formatado.=str_pad($this->tp_Contrato, 2, '0', STR_PAD_LEFT);
 		$formatado.=chr(13).chr(10);
 	
-		iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);
+		//iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);
 		
 		return $formatado;
 	}

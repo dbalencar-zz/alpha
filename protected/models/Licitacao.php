@@ -123,6 +123,23 @@ class Licitacao extends CActiveRecord
 		return $options[$this->tp_Licitacao];
 	}
 	
+	public function formataREM()
+	{
+		$formatado=str_pad($this->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->nu_DiarioOficial, 6, '0', STR_PAD_LEFT);
+		$formatado.=$this->formataData($this->dt_PublicacaoEdital);
+		$formatado.=str_pad($this->cd_Modalidade, 2, '0', STR_PAD_LEFT);
+		$formatado.=str_pad($this->de_ObjetoLicitacao, 52, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->formataValor($this->vl_TotalPrevisto), 16, '0', STR_PAD_LEFT);
+		$formatado.=str_pad($this->nu_Edital, 16, chr(32), STR_PAD_RIGHT);
+		$formatado.=$this->tp_Licitacao;
+		$formatado.=chr(13).chr(10);
+	
+		//iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);
+	
+		return $formatado;
+	}
+	
 	private function formataValor($valor)
 	{
 		return str_replace('.', ',', $valor);

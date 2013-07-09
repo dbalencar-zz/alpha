@@ -28,11 +28,11 @@ class CertidaoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','geraREM'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -60,9 +60,11 @@ class CertidaoController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($participante)
 	{
 		$model=new Certidao;
+		$model->participante=ParticipanteLicitacao::model()->findByPk($participante);
+		$model->participante_licitacao_id=$model->participante->id;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -118,23 +120,13 @@ class CertidaoController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Certidao');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($participante)
 	{
 		$model=new Certidao('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->participante=ParticipanteLicitacao::model()->findByPk($participante);
 		if(isset($_GET['Certidao']))
 			$model->attributes=$_GET['Certidao'];
 
@@ -143,6 +135,24 @@ class CertidaoController extends Controller
 		));
 	}
 
+	public function actionGeraREM($id)
+	{
+		$model=$this->loadModel($id);
+	
+		$handle = fopen("certidao.rem", "w");
+		fwrite($handle, $model->formataREM());
+		fclose($handle);
+	
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename='.basename('certidao.rem'));
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize('certidao.rem'));
+		readfile('certidao.rem');
+		exit;
+	}
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

@@ -103,6 +103,22 @@ class Item extends CActiveRecord
 		));
 	}
 	
+	public function formataREM()
+	{
+		$formatado=str_pad($this->licitacao->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->nu_SequencialItem, 5, '0', STR_PAD_LEFT);
+		$formatado.=str_pad($this->de_ItemLicitacao, 60, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->qt_ItemLicitado, 16, '0', STR_PAD_LEFT);
+		$formatado.=$this->formataData($this->dt_HomologacaoItem);
+		$formatado.=$this->formataData($this->dt_PublicacaoHomologacao);
+		$formatado.=str_pad($this->cd_ItemLote, 10, chr(32), STR_PAD_RIGHT);
+		$formatado.=chr(13).chr(10);
+	
+		//iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);
+	
+		return $formatado;
+	}
+	
 	private function formataValor($valor)
 	{
 		return str_replace('.', ',', $valor);

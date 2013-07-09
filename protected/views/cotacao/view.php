@@ -10,11 +10,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Cotacao', 'url'=>array('index')),
-	array('label'=>'Create Cotacao', 'url'=>array('create')),
-	array('label'=>'Update Cotacao', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Cotacao', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Cotacao', 'url'=>array('admin')),
+	array('label'=>'Adicionar', 'url'=>array('create')),
+	array('label'=>'Editar', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Excluir', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Deseja realmente excluir este item?')),
+	array('label'=>'Gerar REM', 'url'=>array('geraREM', 'id'=>$model->id)),
 );
 ?>
 

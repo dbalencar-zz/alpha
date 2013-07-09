@@ -75,7 +75,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'tp_Licitacao'); ?>
-		<?php echo $form->dropDownList($model,'tp_Licitacao',$model->tipoLicitacaoOptions()); ?>
+		<?php echo $form->dropDownList($model,'tp_Licitacao',$model->tipoLicitacaoOptions); ?>
 		<?php echo $form->error($model,'tp_Licitacao'); ?>
 	</div>
 
