@@ -118,4 +118,18 @@ class ParticipanteLicitacao extends CActiveRecord
 		$options=$this->simNaoOptions;
 		return $options[$this->tp_Convidado];
 	}
+	
+	public function formataREM()
+	{
+		$formatado=str_pad($this->licitacao->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->cd_CicParticipante, 14, '0', STR_PAD_LEFT);
+		$formatado.=$this->tp_Pessoa;
+		$formatado.=str_pad($this->nm_Participante, 50, chr(32), STR_PAD_RIGHT);
+		$formatado.=$this->tp_Participacao;
+		$formatado.=str_pad($this->cd_CGCConsorcio, 14, '0', STR_PAD_LEFT);
+		$formatado.=$this->tp_Convidado;
+		$formatado.=chr(13).chr(10);
+	
+		return $formatado;
+	}
 }

@@ -32,7 +32,7 @@ class ParticipanteLicitacaoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','geraREM'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -120,17 +120,6 @@ class ParticipanteLicitacaoController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('ParticipanteLicitacao');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin($licitacao)
@@ -144,6 +133,24 @@ class ParticipanteLicitacaoController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+	
+	public function actionGeraREM($id)
+	{
+		$model=$this->loadModel($id);
+	
+		$handle = fopen("participantelicitacao.rem", "w");
+		fwrite($handle, $model->formataREM());
+		fclose($handle);
+	
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename='.basename('participantelicitacao.rem'));
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize('participantelicitacao.rem'));
+		readfile('participantelicitacao.rem');
+		exit;
 	}
 
 	/**

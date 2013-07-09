@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Adicionar', 'url'=>array('create')),
-	array('label'=>'Exibir', 'url'=>array('view', 'id'=>$model->id)),
 );
 ?>
 

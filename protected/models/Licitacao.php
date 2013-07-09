@@ -80,6 +80,7 @@ class Licitacao extends CActiveRecord
 			'vl_TotalPrevisto' => 'Valor Total',
 			'nu_Edital' => 'Edital',
 			'tp_Licitacao' => 'Tipo',
+			'tipoLicitacaoText' => 'Tipo',
 		);
 	}
 
@@ -109,7 +110,7 @@ class Licitacao extends CActiveRecord
 		));
 	}
 	
-	public function tipoLicitacaoOptions()
+	public function getTipoLicitacaoOptions()
 	{
 		return array(
 			'I'=>'Item',
@@ -119,7 +120,7 @@ class Licitacao extends CActiveRecord
 	
 	public function getTipoLicitacaoText()
 	{
-		$options=$this->tipoLicitacaoOptions();
+		$options=$this->tipoLicitacaoOptions;
 		return $options[$this->tp_Licitacao];
 	}
 	
@@ -129,7 +130,7 @@ class Licitacao extends CActiveRecord
 		$formatado.=str_pad($this->nu_DiarioOficial, 6, '0', STR_PAD_LEFT);
 		$formatado.=$this->formataData($this->dt_PublicacaoEdital);
 		$formatado.=str_pad($this->cd_Modalidade, 2, '0', STR_PAD_LEFT);
-		$formatado.=str_pad($this->de_ObjetoLicitacao, 52, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->de_ObjetoLicitacao, 50, chr(32), STR_PAD_RIGHT);
 		$formatado.=str_pad($this->formataValor($this->vl_TotalPrevisto), 16, '0', STR_PAD_LEFT);
 		$formatado.=str_pad($this->nu_Edital, 16, chr(32), STR_PAD_RIGHT);
 		$formatado.=$this->tp_Licitacao;

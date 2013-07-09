@@ -3,19 +3,15 @@
 /* @var $model Item */
 
 $this->breadcrumbs=array(
-	'Items'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Licitação '.$model->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->licitacao->id),
+	'Itens'=>array('admin','licitacao'=>$model->licitacao->id),
+	$model->nu_SequencialItem=>array('view','id'=>$model->id),
+	'Editar',
 );
 
 $this->menu=array(
-	array('label'=>'List Item', 'url'=>array('index')),
-	array('label'=>'Create Item', 'url'=>array('create')),
-	array('label'=>'View Item', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Item', 'url'=>array('admin')),
+	array('label'=>'Adicionar', 'url'=>array('create','licitacao'=>$model->licitacao_id)),
 );
 ?>
-
-<h1>Update Item <?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

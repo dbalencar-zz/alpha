@@ -3,19 +3,16 @@
 /* @var $model Certidao */
 
 $this->breadcrumbs=array(
-	'Certidaos'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Licitação '.$model->participante->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->participante->licitacao_id),
+	'Participante '.$model->participante->cd_CicParticipante=>array('/participanteLicitacao/view','id'=>$model->participante_licitacao_id),
+	'Certidões'=>array('admin','participante'=>$model->participante_licitacao_id),
+	$model->nu_Certidao=>array('view','id'=>$model->id),
+	'Editar'
 );
 
 $this->menu=array(
-	array('label'=>'List Certidao', 'url'=>array('index')),
-	array('label'=>'Create Certidao', 'url'=>array('create')),
-	array('label'=>'View Certidao', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Certidao', 'url'=>array('admin')),
+	array('label'=>'Adicionar', 'url'=>array('create','participante'=>$model->participante_licitacao_id)),
 );
 ?>
-
-<h1>Update Certidao <?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
