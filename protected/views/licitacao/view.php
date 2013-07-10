@@ -30,3 +30,13 @@ $this->menu=array(
 		'tipoLicitacaoText',
 	),
 )); ?>
+
+<?php $this->widget('zii.widgets.jui.CJuiAccordion',array(
+	'panels'=>array(
+		'Itens'=>$this->renderPartial('_itens',array('model'=>$model),true),
+		'Participantes'=>$this->renderPartial('_participantes',array('model'=>$model),true),
+	),
+	'options'=>array(
+		'animated'=>'bounceslide',
+	),
+)); ?>

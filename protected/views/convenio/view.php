@@ -34,3 +34,12 @@ $this->menu=array(
 		'tipo.descricao',
 	),
 )); ?>
+
+<?php $this->widget('zii.widgets.jui.CJuiAccordion',array(
+	'panels'=>array(
+		'Participantes'=>$this->renderPartial('_participantes',array('model'=>$model),true),
+	),
+	'options'=>array(
+		'animated'=>'bounceslide',
+	),
+)); ?>

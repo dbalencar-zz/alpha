@@ -27,3 +27,12 @@ $this->menu=array(
 		'cd_ItemLote',
 	),
 )); ?>
+
+<?php $this->widget('zii.widgets.jui.CJuiAccordion',array(
+	'panels'=>array(
+		'Cotações'=>$this->renderPartial('_cotacoes',array('model'=>$model),true),
+	),
+	'options'=>array(
+		'animated'=>'bounceslide',
+	),
+)); ?>

@@ -31,3 +31,12 @@ $this->menu=array(
 		'convidadoText',
 	),
 )); ?>
+
+<?php $this->widget('zii.widgets.jui.CJuiAccordion',array(
+	'panels'=>array(
+		'Certidões'=>$this->renderPartial('_certidoes',array('model'=>$model),true),
+	),
+	'options'=>array(
+		'animated'=>'bounceslide',
+	),
+)); ?>
