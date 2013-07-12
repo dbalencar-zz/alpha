@@ -66,6 +66,7 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 	'id'=>'licitacao-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	'selectableRows'=>'2',
 	'columns'=>array(
 		'nu_ProcessoLicitatorio',
 		'nu_DiarioOficial',
