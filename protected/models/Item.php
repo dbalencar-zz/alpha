@@ -61,6 +61,7 @@ class Item extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'licitacao'=>array(self::BELONGS_TO,'Licitacao','licitacao_id'),
+			'cotacoes'=>array(self::HAS_MANY,'Cotacao','item_id'),
 		);
 	}
 

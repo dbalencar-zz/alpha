@@ -32,7 +32,7 @@ class CertidaoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','geraREM'),
+				'actions'=>array('create','update','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -112,11 +112,13 @@ class CertidaoController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
-
+		$certidao=$this->loadModel($id);
+		$participante=$certidao->participante_licitacao_id;
+		$certidao->delete();
+		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin','participante'=>$participante));
 	}
 
 	/**
@@ -135,14 +137,8 @@ class CertidaoController extends Controller
 		));
 	}
 
-	public function actionGeraREM($id)
+	public function actionDownload()
 	{
-		$model=$this->loadModel($id);
-	
-		$handle = fopen("certidao.rem", "w");
-		fwrite($handle, $model->formataREM());
-		fclose($handle);
-	
 		header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.basename('certidao.rem'));
 		header('Expires: 0');
@@ -150,7 +146,6 @@ class CertidaoController extends Controller
 		header('Pragma: public');
 		header('Content-Length: ' . filesize('certidao.rem'));
 		readfile('certidao.rem');
-		exit;
 	}
 	
 	/**

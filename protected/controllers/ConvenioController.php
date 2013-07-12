@@ -33,7 +33,7 @@ class ConvenioController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','geraREM'),
+				'actions'=>array('create','update','geraREM','arquivo','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -133,14 +133,39 @@ class ConvenioController extends Controller
 		));
 	}
 	
-	public function actionGeraREM($id)
+	public function actionGeraREM()
 	{
-		$model=$this->loadModel($id);
-		
-		$handle = fopen("convenio.rem", "w");
-		fwrite($handle, $model->formataREM());
-		fclose($handle);
-		
+		if(isset($_POST['convenios']))
+		{
+			$convenios=Convenio::model()->findAllByPk($_POST['convenios']);
+
+			$handle = fopen("convenio.rem", "w");
+			$handle_participante = fopen("participanteconvenio.rem", "w");
+			foreach ($convenios as $c=>$convenio)
+			{
+				fwrite($handle, $convenio->formataREM());
+				
+				$participantes=$convenio->participantes;
+				foreach ($participantes as $p=>$participante)
+				{
+					fwrite($handle_participante, $participante->formataREM());
+				}
+			}				
+			fclose($handle_participante);
+			fclose($handle);
+
+			exit;
+		}
+		else exit('fail');
+	}
+	
+	public function actionArquivo()
+	{
+		$this->render('arquivo');
+	}
+	
+	public function actionDownload()
+	{
 		header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.basename('convenio.rem'));
 		header('Expires: 0');
@@ -148,7 +173,6 @@ class ConvenioController extends Controller
 		header('Pragma: public');
 		header('Content-Length: ' . filesize('convenio.rem'));
 		readfile('convenio.rem');
-		exit;
 	}
 
 	/**

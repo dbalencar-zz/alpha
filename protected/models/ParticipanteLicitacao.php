@@ -60,6 +60,7 @@ class ParticipanteLicitacao extends CActiveRecord
 			'licitacao'=>array(self::BELONGS_TO,'Licitacao','licitacao_id'),
 			'pessoa'=>array(self::BELONGS_TO,'TipoPessoa','tp_Pessoa'),
 			'participacao'=>array(self::BELONGS_TO,'TipoParticipante','tp_Participacao'),
+			'certidoes'=>array(self::HAS_MANY,'Certidao','participante_licitacao_id'),
 		);
 	}
 

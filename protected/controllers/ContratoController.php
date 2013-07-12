@@ -33,7 +33,7 @@ class ContratoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','geraREM'),
+				'actions'=>array('create','update','geraREM','arquivo','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -134,14 +134,31 @@ class ContratoController extends Controller
 		));
 	}
 
-	public function actionGeraREM($id)
+	public function actionGeraREM()
+	{	
+		if(isset($_POST['contratos']))
+		{
+			$models=Contrato::model()->findAllByPk($_POST['contratos']);
+	
+			$handle = fopen("contrato.rem", "w");
+		
+			foreach ($models as $n=>$model)
+				fwrite($handle, $model->formataREM());
+		
+			fclose($handle);
+			
+			exit;
+		}
+		else exit('fail');
+	}
+	
+	public function actionArquivo()
 	{
-		$model=$this->loadModel($id);
+		$this->render('arquivo');
+	}
 	
-		$handle = fopen("contrato.rem", "w");
-		fwrite($handle, $model->formataREM());
-		fclose($handle);
-	
+	public function actionDownload()
+	{
 		header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.basename('contrato.rem'));
 		header('Expires: 0');
@@ -149,7 +166,6 @@ class ContratoController extends Controller
 		header('Pragma: public');
 		header('Content-Length: ' . filesize('contrato.rem'));
 		readfile('contrato.rem');
-		exit;
 	}
 	
 	/**

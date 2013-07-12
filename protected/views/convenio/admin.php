@@ -8,7 +8,14 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Adicionar', 'url'=>array('create')),
-	array('label'=>'Gerar REM', 'url'=>'#', 'linkOptions'=>array('onclick'=>'alert($.fn.yiiGridView.getSelection("convenio-grid"));')),
+	array('label'=>'Arquivos', 'url'=>'#', 'linkOptions'=>array(
+		'onclick'=>CHtml::ajax(array(
+			'type'=>'POST',
+			'url'=>array('geraREM'),
+			'data'=>array('convenios'=>'js:$.fn.yiiGridView.getSelection("convenio-grid")'),
+			'success'=>'js:downloadrem',
+		))
+	)),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,6 +31,22 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+
+<script>
+<!--
+function downloadrem(data)
+{
+	if(data==='fail')
+	{
+		alert("Nenhum item selecionado!");
+	}
+	else
+	{
+		window.location='index.php?r=convenio/arquivo';	
+	}
+}
+//-->
+</script>
 
 <h1>Gerenciar</h1>
 

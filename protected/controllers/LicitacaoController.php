@@ -33,7 +33,7 @@ class LicitacaoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','geraREM'),
+				'actions'=>array('create','update','geraREM','arquivo','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -133,14 +133,59 @@ class LicitacaoController extends Controller
 		));
 	}
 	
-	public function actionGeraREM($id)
+	public function actionGeraREM()
 	{
-		$model=$this->loadModel($id);
+		if(isset($_POST['licitacoes']))
+		{
+			$licitacoes=Licitacao::model()->findAllByPk($_POST['licitacoes']);
+			
+			$handle = fopen("licitacao.rem", "w");
+			foreach ($licitacoes as $l=>$licitacao)
+			{
+				fwrite($handle, $licitacao->formataREM());
+				
+				$handle_item = fopen("item.rem", "w");
+				$handle_cotacao = fopen("cotacao.rem", "w");
+				$itens=$licitacao->itens;
+				foreach ($itens as $i=>$item)
+				{
+					fwrite($handle_item, $item->formataREM());
+					
+					$cotacoes=$item->cotacoes;					
+					foreach ($cotacoes as $c1=>$cotacao)
+						fwrite($handle_cotacao, $cotacao->formataREM());
+				}
+				fclose($handle_cotacao);
+				fclose($handle_item);
+				
+				$handle_participante = fopen("participantelicitacao.rem", "w");
+				$handle_certidao = fopen("certidao.rem", "w");
+				$participantes=$licitacao->participantes;
+				foreach ($participantes as $p=>$participante)
+				{
+					fwrite($handle_participante, $participante->formataREM());
+					
+					$certidoes=$participante->certidoes;					
+					foreach ($certidoes as $c2=>$certidao)
+						fwrite($handle_certidao, $certidao->formataREM());
+				}
+				fclose($handle_certidao);
+				fclose($handle_participante);
+			}
+			fclose($handle);
 	
-		$handle = fopen("licitacao.rem", "w");
-		fwrite($handle, $model->formataREM());
-		fclose($handle);
+			exit;
+		}
+		else exit('fail');
+	}
 	
+	public function actionArquivo()
+	{
+		$this->render('arquivo');
+	}
+
+	public function actionDownload()
+	{
 		header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.basename('licitacao.rem'));
 		header('Expires: 0');
@@ -148,9 +193,8 @@ class LicitacaoController extends Controller
 		header('Pragma: public');
 		header('Content-Length: ' . filesize('licitacao.rem'));
 		readfile('licitacao.rem');
-		exit;
 	}
-
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

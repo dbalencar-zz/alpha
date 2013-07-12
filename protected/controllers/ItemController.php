@@ -33,7 +33,7 @@ class ItemController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','geraREM'),
+				'actions'=>array('create','update','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -113,11 +113,13 @@ class ItemController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$item=$this->loadModel($id);
+		$licitacao=$item->licitacao_id;
+		$item->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin','licitacao'=>$licitacao));
 	}
 
 	/**
@@ -136,14 +138,8 @@ class ItemController extends Controller
 		));
 	}
 	
-	public function actionGeraREM($id)
+	public function actionDownload()
 	{
-		$model=$this->loadModel($id);
-	
-		$handle = fopen("item.rem", "w");
-		fwrite($handle, $model->formataREM());
-		fclose($handle);
-	
 		header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.basename('item.rem'));
 		header('Expires: 0');
@@ -151,7 +147,6 @@ class ItemController extends Controller
 		header('Pragma: public');
 		header('Content-Length: ' . filesize('item.rem'));
 		readfile('item.rem');
-		exit;
 	}
 
 	/**

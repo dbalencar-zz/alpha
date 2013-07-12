@@ -63,6 +63,8 @@ class Licitacao extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'modalidade'=>array(self::BELONGS_TO,'Modalidade','cd_Modalidade'),
+			'participantes'=>array(self::HAS_MANY,'ParticipanteLicitacao','licitacao_id'),
+			'itens'=>array(self::HAS_MANY,'Item','licitacao_id'),
 		);
 	}
 

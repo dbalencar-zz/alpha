@@ -32,7 +32,7 @@ class CotacaoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','geraREM'),
+				'actions'=>array('create','update','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -112,11 +112,13 @@ class CotacaoController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$cotacao=$this->loadModel($id);
+		$item=$cotacao->item_id;
+		$cotacao->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin','item'=>$item));
 	}
 
 	/**
@@ -135,14 +137,8 @@ class CotacaoController extends Controller
 		));
 	}
 	
-	public function actionGeraREM($id)
-	{
-		$model=$this->loadModel($id);
-	
-		$handle = fopen("cotacao.rem", "w");
-		fwrite($handle, $model->formataREM());
-		fclose($handle);
-	
+	public function actionDownload()
+	{	
 		header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.basename('cotacao.rem'));
 		header('Expires: 0');
@@ -150,7 +146,6 @@ class CotacaoController extends Controller
 		header('Pragma: public');
 		header('Content-Length: ' . filesize('cotacao.rem'));
 		readfile('cotacao.rem');
-		exit;
 	}
 
 	/**

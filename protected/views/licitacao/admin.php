@@ -8,7 +8,14 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Adicionar', 'url'=>array('create')),
-	array('label'=>'Gerar REM', 'url'=>'#', 'linkOptions'=>array('onclick'=>'alert($.fn.yiiGridView.getSelection("licitacao-grid"));')),
+	array('label'=>'Arquivos', 'url'=>'#', 'linkOptions'=>array(
+		'onclick'=>CHtml::ajax(array(
+			'type'=>'POST',
+			'url'=>array('geraREM'),
+			'data'=>array('licitacoes'=>'js:$.fn.yiiGridView.getSelection("licitacao-grid")'),
+			'success'=>'js:downloadrem',
+		))
+	)),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,6 +31,22 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+
+<script>
+<!--
+function downloadrem(data)
+{
+	if(data==='fail')
+	{
+		alert("Nenhum item selecionado!");
+	}
+	else
+	{
+		window.location='index.php?r=licitacao/arquivo';	
+	}
+}
+//-->
+</script>
 
 <h1>Gerenciar</h1>
 
