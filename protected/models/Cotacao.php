@@ -98,7 +98,7 @@ class Cotacao extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('item_id',$item->id,true);
+		$criteria->compare('item_id',$item->id);
 		$criteria->compare('tp_Valor',$this->tp_Valor,true);
 		$criteria->compare('tp_Pessoa',$this->tp_Pessoa);
 		$criteria->compare('cd_CicParticipante',$this->cd_CicParticipante);

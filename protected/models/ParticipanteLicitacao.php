@@ -123,7 +123,7 @@ class ParticipanteLicitacao extends CActiveRecord {
 		// should not be searched.
 		$criteria = new CDbCriteria ();
 		
-		$criteria->compare ( 'licitacao_id', $licitacao->id, true );
+		$criteria->compare ( 'licitacao_id', $licitacao->id );
 		$criteria->compare ( 'cd_CicParticipante', $this->cd_CicParticipante );
 		$criteria->compare ( 'tp_Pessoa', $this->tp_Pessoa );
 		$criteria->compare ( 'nm_Participante', $this->nm_Participante, true );
