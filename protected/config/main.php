@@ -52,6 +52,7 @@ return array(
 		),
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=econtas',
+			'initSQLs'=>array('SET NAMES utf8 ;'),
 			'emulatePrepare' => true,
 			'username' => 'econtas',
 			'password' => 'econtas',

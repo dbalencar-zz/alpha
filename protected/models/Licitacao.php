@@ -126,19 +126,64 @@ class Licitacao extends CActiveRecord
 		return $options[$this->tp_Licitacao];
 	}
 	
+	private function mb_str_pad($ps_input, $pn_pad_length, $ps_pad_string = " ", $pn_pad_type = STR_PAD_RIGHT, $ps_encoding = NULL) {
+		mb_internal_encoding('utf-8');
+		$ret = "";
+	
+		if (is_null($ps_encoding))
+			$ps_encoding = mb_internal_encoding();
+	
+		$hn_length_of_padding = $pn_pad_length - mb_strlen($ps_input, $ps_encoding);
+		$hn_psLength = mb_strlen($ps_pad_string, $ps_encoding); // pad string length
+	
+		if ($hn_psLength <= 0 || $hn_length_of_padding <= 0) {
+			// Padding string equal to 0:
+			//
+			$ret = $ps_input;
+		}
+		else {
+			$hn_repeatCount = floor($hn_length_of_padding / $hn_psLength); // how many times repeat
+	
+			if ($pn_pad_type == STR_PAD_BOTH) {
+				$hs_lastStrLeft = "";
+				$hs_lastStrRight = "";
+				$hn_repeatCountLeft = $hn_repeatCountRight = ($hn_repeatCount - $hn_repeatCount % 2) / 2;
+	
+				$hs_lastStrLength = $hn_length_of_padding - 2 * $hn_repeatCountLeft * $hn_psLength; // the rest length to pad
+				$hs_lastStrLeftLength = $hs_lastStrRightLength = floor($hs_lastStrLength / 2);      // the rest length divide to 2 parts
+				$hs_lastStrRightLength += $hs_lastStrLength % 2; // the last char add to right side
+	
+				$hs_lastStrLeft = mb_substr($ps_pad_string, 0, $hs_lastStrLeftLength, $ps_encoding);
+				$hs_lastStrRight = mb_substr($ps_pad_string, 0, $hs_lastStrRightLength, $ps_encoding);
+	
+				$ret = str_repeat($ps_pad_string, $hn_repeatCountLeft) . $hs_lastStrLeft;
+				$ret .= $ps_input;
+				$ret .= str_repeat($ps_pad_string, $hn_repeatCountRight) . $hs_lastStrRight;
+			}
+			else {
+				$hs_lastStr = mb_substr($ps_pad_string, 0, $hn_length_of_padding % $hn_psLength, $ps_encoding); // last part of pad string
+	
+				if ($pn_pad_type == STR_PAD_LEFT)
+					$ret = str_repeat($ps_pad_string, $hn_repeatCount) . $hs_lastStr . $ps_input;
+				else
+					$ret = $ps_input . str_repeat($ps_pad_string, $hn_repeatCount) . $hs_lastStr;
+			}
+		}
+	
+		return $ret;
+	}
+	
 	public function formataREM()
 	{
 		$formatado=str_pad($this->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
 		$formatado.=str_pad($this->nu_DiarioOficial, 6, '0', STR_PAD_LEFT);
 		$formatado.=$this->formataData($this->dt_PublicacaoEdital);
 		$formatado.=str_pad($this->cd_Modalidade, 2, '0', STR_PAD_LEFT);
-		$formatado.=str_pad($this->de_ObjetoLicitacao, 50, chr(32), STR_PAD_RIGHT);
+		$formatado.=$this->mb_str_pad($this->de_ObjetoLicitacao, 50, chr(32), STR_PAD_RIGHT);
 		$formatado.=str_pad($this->formataValor($this->vl_TotalPrevisto), 16, '0', STR_PAD_LEFT);
 		$formatado.=str_pad($this->nu_Edital, 16, chr(32), STR_PAD_RIGHT);
 		$formatado.=$this->tp_Licitacao;
 		$formatado.=chr(13).chr(10);
-	
-		//iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);
 	
 		return $formatado;
 	}
