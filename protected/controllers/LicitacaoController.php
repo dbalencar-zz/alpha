@@ -136,16 +136,18 @@ class LicitacaoController extends Controller
 	public function actionGeraREM()
 	{
 		if(isset($_POST['licitacoes']))
-		{
-			$licitacoes=Licitacao::model()->findAllByPk($_POST['licitacoes']);
-			
+		{	
 			$handle = fopen("licitacao.rem", "w");
+			$handle_item = fopen("item.rem", "w");
+			$handle_cotacao = fopen("cotacao.rem", "w");
+			$handle_participante = fopen("participantelicitacao.rem", "w");
+			$handle_certidao = fopen("certidao.rem", "w");
+
+			$licitacoes=Licitacao::model()->findAllByPk($_POST['licitacoes']);
 			foreach ($licitacoes as $l=>$licitacao)
 			{
 				fwrite($handle, $licitacao->formataREM());
 				
-				$handle_item = fopen("item.rem", "w");
-				$handle_cotacao = fopen("cotacao.rem", "w");
 				$itens=$licitacao->itens;
 				foreach ($itens as $i=>$item)
 				{
@@ -155,11 +157,7 @@ class LicitacaoController extends Controller
 					foreach ($cotacoes as $c1=>$cotacao)
 						fwrite($handle_cotacao, $cotacao->formataREM());
 				}
-				fclose($handle_cotacao);
-				fclose($handle_item);
 				
-				$handle_participante = fopen("participantelicitacao.rem", "w");
-				$handle_certidao = fopen("certidao.rem", "w");
 				$participantes=$licitacao->participantes;
 				foreach ($participantes as $p=>$participante)
 				{
@@ -169,9 +167,11 @@ class LicitacaoController extends Controller
 					foreach ($certidoes as $c2=>$certidao)
 						fwrite($handle_certidao, $certidao->formataREM());
 				}
-				fclose($handle_certidao);
-				fclose($handle_participante);
 			}
+			fclose($handle_certidao);
+			fclose($handle_participante);
+			fclose($handle_cotacao);
+			fclose($handle_item);
 			fclose($handle);
 	
 			exit;
