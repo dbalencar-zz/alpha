@@ -284,11 +284,11 @@ class Contrato extends CActiveRecord {
 		return $ret;
 	}
 	public function formataREM() {
-		$formatado = str_pad ( $this->nu_Contrato, 16, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado = $this->mb_str_pad ( $this->nu_Contrato, 16, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->formataValor ( $this->vl_Contrato ), 16, '0', STR_PAD_LEFT );
 		$formatado .= $this->formataData ( $this->dt_AssinaturaContrato );
 		$formatado .= $this->mb_str_pad ( $this->de_ObjetivoContrato, 50, chr ( 32 ), STR_PAD_RIGHT ); // Diferente do Documento
-		$formatado .= str_pad ( $this->nu_ProcessoLicitatorio, 16, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= $this->mb_str_pad ( $this->nu_ProcessoLicitatorio, 16, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->cd_Moeda, 3, '0', STR_PAD_LEFT );
 		$formatado .= $this->tp_PessoaContratado;
 		$formatado .= str_pad ( $this->cd_CicContratado, 14, '0', STR_PAD_LEFT );
