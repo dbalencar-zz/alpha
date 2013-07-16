@@ -30,6 +30,7 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
+				array('label'=>'Competências', 'url'=>array('/competencia'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Convênios', 'url'=>array('/convenio'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Contratos', 'url'=>array('/contrato'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Licitações', 'url'=>array('/licitacao'), 'visible'=>!Yii::app()->user->isGuest),

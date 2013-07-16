@@ -49,7 +49,7 @@ class Contrato extends CActiveRecord {
 	public static function model($className = __CLASS__) {
 		return parent::model ( $className );
 	}
-	
+
 	/**
 	 *
 	 * @return string the associated database table name
@@ -57,7 +57,7 @@ class Contrato extends CActiveRecord {
 	public function tableName() {
 		return 'contrato';
 	}
-	
+
 	/**
 	 *
 	 * @return array validation rules for model attributes.
@@ -67,13 +67,13 @@ class Contrato extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'nu_Contrato, vl_Contrato, dt_AssinaturaContrato, de_ObjetivoContrato, nu_ProcessoLicitatorio, cd_Moeda, tp_PessoaContratado, cd_CicContratado, nm_Contratado, dt_VencimentoContrato, nu_DiarioOficial, dt_Publicacao, st_RecebeValor, tp_Contrato',
-						'required' 
+						'nu_Contrato, vl_Contrato, dt_AssinaturaContrato, de_ObjetivoContrato, nu_ProcessoLicitatorio, cd_Moeda, tp_PessoaContratado, cd_CicContratado, nm_Contratado, dt_VencimentoContrato, nu_DiarioOficial, dt_Publicacao, st_RecebeValor, tp_Contrato, competencia_id',
+						'required'
 				),
 				array (
 						'cd_Moeda, tp_PessoaContratado, nu_DiarioOficial, tp_Contrato',
 						'numerical',
-						'integerOnly' => true 
+						'integerOnly' => true
 				),
 				array (
 						'dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
@@ -84,44 +84,44 @@ class Contrato extends CActiveRecord {
 				array (
 						'dt_AssinaturaContrato, dt_VencimentoContrato, dt_Publicacao, dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
 						'date',
-						'format' => 'dd/MM/yyyy' 
-				),
+						'format' => 'dd/MM/yyyy'
+		),
 				array (
 						'vl_Contrato',
 						'numerical',
 						'numberPattern' => '/([0-9][0-9]*?)(\.[0-9]{2})/',
-						'message' => '{attribute} deve ter duas casas decimais, separadas por um ponto.' 
-				),
+						'message' => '{attribute} deve ter duas casas decimais, separadas por um ponto.'
+		),
 				array (
 						'nu_Contrato, nu_ProcessoLicitatorio, nu_CertidaoINSS, nu_CertidaoFGTS, nu_CertidaoFazendaEstadual, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoOutras',
 						'length',
-						'max' => 16 
+						'max' => 16
 				),
 				array (
 						'de_ObjetivoContrato, nm_Contratado',
 						'length',
-						'max' => 50 
+						'max' => 50
 				),
 				array (
 						'cd_CicContratado',
 						'length',
-						'max' => 14 
+						'max' => 14
 				),
 				array (
 						'st_RecebeValor',
 						'length',
-						'max' => 1 
+						'max' => 1
 				),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
 				array (
-						'nu_Contrato, vl_Contrato, dt_AssinaturaContrato, de_ObjetivoContrato, nu_ProcessoLicitatorio, cd_Moeda, tp_PessoaContratado, cd_CicContratado, nm_Contratado, dt_VencimentoContrato, nu_DiarioOficial, dt_Publicacao, st_RecebeValor, nu_CertidaoINSS, dt_CertidaoINSS, dt_ValidadeINSS, nu_CertidaoFGTS, dt_CertidaoFGTS, dt_ValidadeFGTS, nu_CertidaoFazendaEstadual, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, nu_CertidaoFazendaMunicipal, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, nu_CertidaoFazendaFederal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, nu_CertidaoOutras, dt_CertidaoOutras, dt_ValidadeCertidaoOutras, tp_Contrato',
+						'nu_Contrato, vl_Contrato, dt_AssinaturaContrato, de_ObjetivoContrato, nu_ProcessoLicitatorio, cd_Moeda, tp_PessoaContratado, cd_CicContratado, nm_Contratado, dt_VencimentoContrato, nu_DiarioOficial, dt_Publicacao, st_RecebeValor, nu_CertidaoINSS, dt_CertidaoINSS, dt_ValidadeINSS, nu_CertidaoFGTS, dt_CertidaoFGTS, dt_ValidadeFGTS, nu_CertidaoFazendaEstadual, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, nu_CertidaoFazendaMunicipal, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, nu_CertidaoFazendaFederal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, nu_CertidaoOutras, dt_CertidaoOutras, dt_ValidadeCertidaoOutras, tp_Contrato, competencia_id',
 						'safe',
-						'on' => 'search' 
-				) 
+						'on' => 'search'
+		)
 		);
 	}
-	
+
 	/**
 	 *
 	 * @return array relational rules.
@@ -133,21 +133,28 @@ class Contrato extends CActiveRecord {
 				'moeda' => array (
 						self::BELONGS_TO,
 						'TipoMoeda',
-						'cd_Moeda' 
+						'cd_Moeda'
 				),
 				'pessoa' => array (
 						self::BELONGS_TO,
 						'TipoPessoa',
-						'tp_PessoaContratado' 
+						'tp_PessoaContratado'
 				),
 				'tipo' => array (
 						self::BELONGS_TO,
 						'TipoContrato',
-						'tp_Contrato' 
-				) 
+						'tp_Contrato'
+				)
 		);
 	}
 	
+	public function defaultScope()
+	{
+		return array(
+			'condition'=>'competencia_id='.Yii::app()->competencia->id,
+		);
+	}
+
 	/**
 	 *
 	 * @return array customized attribute labels (name=>label)
@@ -188,10 +195,11 @@ class Contrato extends CActiveRecord {
 				'dt_CertidaoOutras' => 'Data Certidão Outra',
 				'dt_ValidadeCertidaoOutras' => 'Validade Certidão Outra',
 				'tp_Contrato' => 'Tipo',
-				'tipo.descricao' => 'Tipo' 
+				'tipo.descricao' => 'Tipo',
+				'competencia_id' => 'Competência',
 		);
 	}
-	
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -201,7 +209,8 @@ class Contrato extends CActiveRecord {
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 		$criteria = new CDbCriteria ();
-		
+
+		$criteria->compare ( 'competencia_id', $this->competencia_id );
 		$criteria->compare ( 'nu_Contrato', $this->nu_Contrato, true );
 		$criteria->compare ( 'vl_Contrato', $this->vl_Contrato, true );
 		$criteria->compare ( 'date_format(dt_AssinaturaContrato,"%d/%m/%Y")', $this->dt_AssinaturaContrato, true );
@@ -234,53 +243,53 @@ class Contrato extends CActiveRecord {
 		$criteria->compare ( 'date_format(dt_CertidaoOutras,"%d/%m/%Y")', $this->dt_CertidaoOutras, true );
 		$criteria->compare ( 'date_format(dt_ValidadeCertidaoOutras,"%d/%m/%Y")', $this->dt_ValidadeCertidaoOutras, true );
 		$criteria->compare ( 'tp_Contrato', $this->tp_Contrato );
-		
+
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria 
+				'criteria' => $criteria
 		) );
 	}
 	private function mb_str_pad($ps_input, $pn_pad_length, $ps_pad_string = " ", $pn_pad_type = STR_PAD_RIGHT, $ps_encoding = NULL) {
 		mb_internal_encoding ( 'utf-8' );
 		$ret = "";
-		
+
 		if (is_null ( $ps_encoding ))
 			$ps_encoding = mb_internal_encoding ();
-		
+
 		$hn_length_of_padding = $pn_pad_length - mb_strlen ( $ps_input, $ps_encoding );
 		$hn_psLength = mb_strlen ( $ps_pad_string, $ps_encoding ); // pad string length
-		
+
 		if ($hn_psLength <= 0 || $hn_length_of_padding <= 0) {
 			// Padding string equal to 0:
 			//
 			$ret = $ps_input;
 		} else {
 			$hn_repeatCount = floor ( $hn_length_of_padding / $hn_psLength ); // how many times repeat
-			
+
 			if ($pn_pad_type == STR_PAD_BOTH) {
 				$hs_lastStrLeft = "";
 				$hs_lastStrRight = "";
 				$hn_repeatCountLeft = $hn_repeatCountRight = ($hn_repeatCount - $hn_repeatCount % 2) / 2;
-				
+
 				$hs_lastStrLength = $hn_length_of_padding - 2 * $hn_repeatCountLeft * $hn_psLength; // the rest length to pad
 				$hs_lastStrLeftLength = $hs_lastStrRightLength = floor ( $hs_lastStrLength / 2 ); // the rest length divide to 2 parts
 				$hs_lastStrRightLength += $hs_lastStrLength % 2; // the last char add to right side
-				
+
 				$hs_lastStrLeft = mb_substr ( $ps_pad_string, 0, $hs_lastStrLeftLength, $ps_encoding );
 				$hs_lastStrRight = mb_substr ( $ps_pad_string, 0, $hs_lastStrRightLength, $ps_encoding );
-				
+
 				$ret = str_repeat ( $ps_pad_string, $hn_repeatCountLeft ) . $hs_lastStrLeft;
 				$ret .= $ps_input;
 				$ret .= str_repeat ( $ps_pad_string, $hn_repeatCountRight ) . $hs_lastStrRight;
 			} else {
 				$hs_lastStr = mb_substr ( $ps_pad_string, 0, $hn_length_of_padding % $hn_psLength, $ps_encoding ); // last part of pad string
-				
+
 				if ($pn_pad_type == STR_PAD_LEFT)
 					$ret = str_repeat ( $ps_pad_string, $hn_repeatCount ) . $hs_lastStr . $ps_input;
 				else
 					$ret = $ps_input . str_repeat ( $ps_pad_string, $hn_repeatCount ) . $hs_lastStr;
 			}
 		}
-		
+
 		return $ret;
 	}
 	public function formataREM() {
@@ -317,15 +326,15 @@ class Contrato extends CActiveRecord {
 		$formatado .= $this->formataData ( $this->dt_ValidadeCertidaoOutras );
 		$formatado .= str_pad ( $this->tp_Contrato, 2, '0', STR_PAD_LEFT );
 		$formatado .= chr ( 13 ) . chr ( 10 );
-		
+
 		// iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);
-		
+
 		return $formatado;
 	}
 	public function getSimNaoOptions() {
 		return array (
 				'S' => 'Sim',
-				'N' => 'Não' 
+				'N' => 'Não'
 		);
 	}
 	public function getRecebeValorText() {
@@ -348,21 +357,21 @@ class Contrato extends CActiveRecord {
 				$this->$columnName = date ( 'Y-m-d H:i:s', CDateTimeParser::parse ( $this->$columnName, Yii::app ()->locale->dateFormat ) );
 			}
 		}
-		
+
 		return parent::beforeSave ();
 	}
 	protected function afterFind() {
 		foreach ( $this->metadata->tableSchema->columns as $columnName => $column ) {
 			if (! strlen ( $this->$columnName ))
 				continue;
-			
+
 			if ($column->dbType == 'date') {
 				$this->$columnName = Yii::app ()->dateFormatter->formatDateTime ( CDateTimeParser::parse ( $this->$columnName, 'yyyy-MM-dd' ), 'medium', null );
 			} elseif ($column->dbType == 'datetime') {
 				$this->$columnName = Yii::app ()->dateFormatter->formatDateTime ( CDateTimeParser::parse ( $this->$columnName, 'yyyy-MM-dd hh:mm:ss' ) );
 			}
 		}
-		
+
 		return parent::afterFind ();
 	}
 }

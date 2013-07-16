@@ -48,7 +48,7 @@ class Convenio extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'tp_EsferaConvenio, st_RecebeValor, nu_Convenio, cd_MoedaConvenio, dt_AssinaturaConvenio, de_ObjetivoConvenio, dt_VencimentoConvenio, nu_LeiAutorizativa, dt_LeiAutorizativa, nu_DiarioOficial, dt_PublicacaoConvenio, tp_Convenio',
+						'tp_EsferaConvenio, st_RecebeValor, nu_Convenio, cd_MoedaConvenio, dt_AssinaturaConvenio, de_ObjetivoConvenio, dt_VencimentoConvenio, nu_LeiAutorizativa, dt_LeiAutorizativa, nu_DiarioOficial, dt_PublicacaoConvenio, tp_Convenio, competencia_id',
 						'required' 
 				),
 				array (
@@ -85,7 +85,7 @@ class Convenio extends CActiveRecord {
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
 				array (
-						'tp_EsferaConvenio, st_RecebeValor, nu_Convenio, vl_Convenio, cd_MoedaConvenio, dt_AssinaturaConvenio, de_ObjetivoConvenio, dt_VencimentoConvenio, nu_LeiAutorizativa, dt_LeiAutorizativa, nu_DiarioOficial, dt_PublicacaoConvenio, tp_Convenio',
+						'tp_EsferaConvenio, st_RecebeValor, nu_Convenio, vl_Convenio, cd_MoedaConvenio, dt_AssinaturaConvenio, de_ObjetivoConvenio, dt_VencimentoConvenio, nu_LeiAutorizativa, dt_LeiAutorizativa, nu_DiarioOficial, dt_PublicacaoConvenio, tp_Convenio, competencia_id',
 						'safe',
 						'on' => 'search' 
 				) 
@@ -123,6 +123,13 @@ class Convenio extends CActiveRecord {
 		);
 	}
 	
+	public function defaultScope()
+	{
+		return array(
+				'condition'=>'competencia_id='.Yii::app()->competencia->id,
+		);
+	}
+	
 	/**
 	 *
 	 * @return array customized attribute labels (name=>label)
@@ -146,7 +153,8 @@ class Convenio extends CActiveRecord {
 				'nu_DiarioOficial' => 'DOE',
 				'dt_PublicacaoConvenio' => 'Dt. Publicação',
 				'tp_Convenio' => 'Tipo',
-				'tipo.descricao' => 'Tipo' 
+				'tipo.descricao' => 'Tipo',
+				'competencia_id' => 'Competência',
 		);
 	}
 	
@@ -160,6 +168,7 @@ class Convenio extends CActiveRecord {
 		// should not be searched.
 		$criteria = new CDbCriteria ();
 		
+		$criteria->compare ( 'competencia_id', $this->competencia_id );
 		$criteria->compare ( 'tp_EsferaConvenio', $this->tp_EsferaConvenio );
 		$criteria->compare ( 'st_RecebeValor', $this->st_RecebeValor );
 		$criteria->compare ( 'nu_Convenio', $this->nu_Convenio, true );

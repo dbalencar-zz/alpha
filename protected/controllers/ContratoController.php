@@ -71,6 +71,7 @@ class ContratoController extends Controller
 		if(isset($_POST['Contrato']))
 		{
 			$model->attributes=$_POST['Contrato'];
+			$model->competencia_id=Yii::app()->competencia->id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -123,6 +124,12 @@ class ContratoController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		if(Yii::app()->competencia->id==='0')
+		{
+			$this->render('competencia');
+			exit;
+		}
+			
 		$model=new Contrato('search');
 		
 		$model->unsetAttributes();  // clear any default values

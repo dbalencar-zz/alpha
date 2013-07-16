@@ -71,6 +71,7 @@ class ConvenioController extends Controller
 		if(isset($_POST['Convenio']))
 		{
 			$model->attributes=$_POST['Convenio'];
+			$model->competencia_id=Yii::app()->competencia->id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -123,6 +124,15 @@ class ConvenioController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		if(Yii::app()->competencia->id==='0')
+		{
+			$this->render('competencia');
+			exit;
+		}
+		
+		if(Yii::app()->competencia->id==='0')
+			$this->render('competencia');
+		
 		$model=new Convenio('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Convenio']))

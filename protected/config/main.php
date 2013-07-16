@@ -77,6 +77,9 @@ return array(
 				*/
 			),
 		),
+		'competencia'=>array(
+			'class'=>'CompetenciaSingleton',
+		),
 	),
 
 	// application-level parameters that can be accessed
