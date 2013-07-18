@@ -1,6 +1,6 @@
 <?php
 
-class ContratoController extends Controller
+class ContratoEmpenhoController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -29,11 +29,11 @@ class ContratoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('view'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','geraREM','arquivo','download'),
+				'actions'=>array('create','update','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -61,17 +61,18 @@ class ContratoController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($contrato)
 	{
-		$model=new Contrato;
+		$model=new ContratoEmpenho;
+		$model->contrato=Contrato::model()->findByPk($contrato);
+		$model->contrato_id=$model->contrato->id;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Contrato']))
+		if(isset($_POST['ContratoEmpenho']))
 		{
-			$model->attributes=$_POST['Contrato'];
-			$model->competencia_id=Yii::app()->competencia->id;
+			$model->attributes=$_POST['ContratoEmpenho'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -93,9 +94,9 @@ class ContratoController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Contrato']))
+		if(isset($_POST['ContratoEmpenho']))
 		{
-			$model->attributes=$_POST['Contrato'];
+			$model->attributes=$_POST['ContratoEmpenho'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -112,87 +113,52 @@ class ContratoController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$empenho=$this->loadModel($id);
+		$contrato=$empenho->contrato_id;
+		$empenho->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin','contrato'=>$contrato));
 	}
 
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($contrato)
 	{
-		if(Yii::app()->competencia->id==='0')
-		{
-			$this->render('competencia');
-			exit;
-		}
-			
-		$model=new Contrato('search');
-		
+		$model=new ContratoEmpenho('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Contrato']))
-			$model->attributes=$_GET['Contrato'];
+		$model->contrato=Contrato::model()->findByPk($contrato);
+		if(isset($_GET['ContratoEmpenho']))
+			$model->attributes=$_GET['ContratoEmpenho'];
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
 	}
-
-	public function actionGeraREM()
-	{	
-		if(isset($_POST['contratos']))
-		{
-			$contratos=Contrato::model()->findAllByPk($_POST['contratos']);
-			
-			$handle = fopen("contrato.rem", "w");
-			$handle_empenho = fopen("contratoempenho.rem", "w");
-			foreach ($contratos as $n=>$contrato)
-			{
-				fwrite($handle, $contrato->formataREM());
-				
-				$empenhos=$contrato->empenhos;
-				foreach ($empenhos as $e=>$empenho)
-				{
-					fwrite($handle_empenho, $empenho->formataREM());
-				}
-			}
-			fclose($handle_empenho);
-			fclose($handle);
-			
-			exit;
-		}
-		else exit('fail');
-	}
-	
-	public function actionArquivo()
-	{
-		$this->render('arquivo');
-	}
 	
 	public function actionDownload()
 	{
 		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.basename('contrato.rem'));
+		header('Content-Disposition: attachment; filename='.basename('contratoempenho.rem'));
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate');
 		header('Pragma: public');
-		header('Content-Length: ' . filesize('contrato.rem'));
-		readfile('contrato.rem');
+		header('Content-Length: ' . filesize('contratoempenho.rem'));
+		readfile('contratoempenho.rem');
 	}
-	
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Contrato the loaded model
+	 * @return ContratoEmpenho the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Contrato::model()->findByPk($id);
+		$model=ContratoEmpenho::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -200,11 +166,11 @@ class ContratoController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Contrato $model the model to be validated
+	 * @param ContratoEmpenho $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='contrato-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='contrato-empenho-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

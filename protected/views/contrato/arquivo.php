@@ -12,4 +12,5 @@ $this->breadcrumbs=array(
 
 <ul>
 <li><?php echo CHtml::link('Contratos', array('download')); ?></li>
+<li><?php echo CHtml::link('Empenhos', array('/contratoEmpenho/download')); ?></li>
 </ul>
