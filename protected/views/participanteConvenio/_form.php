@@ -31,8 +31,6 @@ $(function() {
 	<p class="note">Campos com <span class="required">*</span> são obrigatórios.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-	
-	<?php echo $form->hiddenField($model, 'convenio_id'); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'cd_CicParticipante'); ?>

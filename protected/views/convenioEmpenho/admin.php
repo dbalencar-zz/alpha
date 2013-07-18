@@ -1,11 +1,11 @@
 <?php
-/* @var $this ParticipanteConvenioController */
-/* @var $model ParticipanteConvenio */
+/* @var $this ConvenioEmpenhoController */
+/* @var $model ConvenioEmpenho */
 
 $this->breadcrumbs=array(
 	'Convênios'=>array('/convenio'),
 	$model->convenio->nu_Convenio=>array('/convenio/view','id'=>$model->convenio->id),
-	'Participantes',
+	'Empenhos',
 );
 
 $this->menu=array(
@@ -18,7 +18,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#participante-convenio-grid').yiiGridView('update', {
+	$('#convenio-empenho-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -41,17 +41,13 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'participante-convenio-grid',
+	'id'=>'convenio-empenho-grid',
 	'dataProvider'=>$model->search($model->convenio),
 	'filter'=>$model,
 	'columns'=>array(
-		array(
-			'name'=>'tp_PessoaParticipante',
-			'filter'=>TipoPessoa::model()->listAll(),
-			'value'=>'$data->pessoa->descricao',
-		),
-		'nm_Participante',
-		'cd_CicParticipante',
+		'nu_NotaEmpenho',
+		'ano_Empenho',
+		'cd_UnidadeOrcamentaria',
 		array(
 			'class'=>'CButtonColumn',
 		),

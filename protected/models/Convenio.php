@@ -119,7 +119,12 @@ class Convenio extends CActiveRecord {
 						self::HAS_MANY,
 						'ParticipanteConvenio',
 						'convenio_id' 
-				) 
+				),
+				'empenhos' => array (
+						self::HAS_MANY,
+						'ConvenioEmpenho',
+						'convenio_id'
+				)
 		);
 	}
 	
@@ -136,7 +141,6 @@ class Convenio extends CActiveRecord {
 	 */
 	public function attributeLabels() {
 		return array (
-				'id' => 'ID',
 				'tp_EsferaConvenio' => 'Esfera',
 				'esfera.descricao' => 'Esfera',
 				'st_RecebeValor' => 'Recebe Valor',

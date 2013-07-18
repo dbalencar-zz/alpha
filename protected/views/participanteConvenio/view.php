@@ -3,8 +3,7 @@
 /* @var $model ParticipanteConvenio */
 
 $this->breadcrumbs=array(
-	'Convênios'=>array('/convenio'),
-	$model->convenio->nu_Convenio=>array('/convenio/view','id'=>$model->convenio_id),
+	'Convênio '.$model->convenio->nu_Convenio=>array('/convenio/view','id'=>$model->convenio_id),
 	'Participantes'=>array('admin','convenio'=>$model->convenio_id),
 	$model->nm_Participante,
 );

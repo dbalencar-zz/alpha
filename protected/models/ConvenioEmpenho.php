@@ -1,26 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "contrato_empenho".
+ * This is the model class for table "convenio_empenho".
  *
- * The followings are the available columns in table 'contrato_empenho':
+ * The followings are the available columns in table 'convenio_empenho':
  * @property string $id
  * @property string $nu_NotaEmpenho
  * @property integer $ano_Empenho
- * @property string $cd_UnidadeOrcamentaria
- * @property string $contrato_id
+ * @property integer $cd_UnidadeOrcamentaria
+ * @property string $convenio_id
  *
  * The followings are the available model relations:
- * @property Contrato $contrato
+ * @property Convenio $convenio
  */
-class ContratoEmpenho extends CActiveRecord
+class ConvenioEmpenho extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'contrato_empenho';
+		return 'convenio_empenho';
 	}
 
 	/**
@@ -31,13 +31,12 @@ class ContratoEmpenho extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nu_NotaEmpenho, ano_Empenho, cd_UnidadeOrcamentaria, contrato_id', 'required'),
-			array('ano_Empenho', 'numerical', 'integerOnly'=>true),
-			array('nu_NotaEmpenho, contrato_id', 'length', 'max'=>10),
-			array('cd_UnidadeOrcamentaria', 'length', 'max'=>6),
+			array('nu_NotaEmpenho, ano_Empenho, cd_UnidadeOrcamentaria, convenio_id', 'required'),
+			array('ano_Empenho, cd_UnidadeOrcamentaria', 'numerical', 'integerOnly'=>true),
+			array('nu_NotaEmpenho, convenio_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nu_NotaEmpenho, ano_Empenho, cd_UnidadeOrcamentaria, contrato_id', 'safe', 'on'=>'search'),
+			array('id, nu_NotaEmpenho, ano_Empenho, cd_UnidadeOrcamentaria, convenio_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,7 +48,7 @@ class ContratoEmpenho extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'contrato' => array(self::BELONGS_TO, 'Contrato', 'contrato_id'),
+			'convenio' => array(self::BELONGS_TO, 'Convenio', 'convenio_id'),
 		);
 	}
 
@@ -77,16 +76,16 @@ class ContratoEmpenho extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search($contrato)
+	public function search($convenio)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('contrato_id',$contrato->id);
+		$criteria->compare('convenio_id',$convenio->id);
 		$criteria->compare('nu_NotaEmpenho',$this->nu_NotaEmpenho,true);
 		$criteria->compare('ano_Empenho',$this->ano_Empenho);
-		$criteria->compare('cd_UnidadeOrcamentaria',$this->cd_UnidadeOrcamentaria,true);
+		$criteria->compare('cd_UnidadeOrcamentaria',$this->cd_UnidadeOrcamentaria);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -139,7 +138,7 @@ class ContratoEmpenho extends CActiveRecord
 	}
 	
 	public function formataREM() {
-		$formatado = $this->mb_str_pad ( $this->contrato->nu_Contrato, 16, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado = $this->mb_str_pad ( $this->convenio->nu_Convenio, 16, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ($this->nu_NotaEmpenho, 10, chr(32), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->ano_Empenho, 4, '0', STR_PAD_LEFT );
 		$formatado .= str_pad ($this->cd_UnidadeOrcamentaria, 6, chr(32), STR_PAD_RIGHT );
@@ -152,7 +151,7 @@ class ContratoEmpenho extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ContratoEmpenho the static model class
+	 * @return ConvenioEmpenho the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

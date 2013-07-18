@@ -1,6 +1,6 @@
 <?php
 
-class ConvenioController extends Controller
+class ConvenioEmpenhoController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -29,11 +29,11 @@ class ConvenioController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('view'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','geraREM','arquivo','download'),
+				'actions'=>array('create','update','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -61,17 +61,18 @@ class ConvenioController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($convenio)
 	{
-		$model=new Convenio;
+		$model=new ConvenioEmpenho;
+		$model->convenio=Convenio::model()->findByPk($convenio);
+		$model->convenio_id=$model->convenio->id;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Convenio']))
+		if(isset($_POST['ConvenioEmpenho']))
 		{
-			$model->attributes=$_POST['Convenio'];
-			$model->competencia_id=Yii::app()->competencia->id;
+			$model->attributes=$_POST['ConvenioEmpenho'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -93,9 +94,9 @@ class ConvenioController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Convenio']))
+		if(isset($_POST['ConvenioEmpenho']))
 		{
-			$model->attributes=$_POST['Convenio'];
+			$model->attributes=$_POST['ConvenioEmpenho'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -112,97 +113,52 @@ class ConvenioController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$empenho=$this->loadModel($id);
+		$convenio=$empenho->convenio_id;
+		$empenho->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin','convenio'=>$convenio));
 	}
 
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($convenio)
 	{
-		if(Yii::app()->competencia->id==='0')
-		{
-			$this->render('competencia');
-			exit;
-		}
-		
-		if(Yii::app()->competencia->id==='0')
-			$this->render('competencia');
-		
-		$model=new Convenio('search');
+		$model=new ConvenioEmpenho('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Convenio']))
-			$model->attributes=$_GET['Convenio'];
+		$model->convenio=Convenio::model()->findByPk($convenio);
+		if(isset($_GET['ConvenioEmpenho']))
+			$model->attributes=$_GET['ConvenioEmpenho'];
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
 	}
-	
-	public function actionGeraREM()
-	{
-		if(isset($_POST['convenios']))
-		{
-			$convenios=Convenio::model()->findAllByPk($_POST['convenios']);
 
-			$handle = fopen("convenio.rem", "w");
-			$handle_participante = fopen("participanteconvenio.rem", "w");
-			$handle_empenho = fopen("convenioempenho.rem", "w");
-			foreach ($convenios as $c=>$convenio)
-			{
-				fwrite($handle, $convenio->formataREM());
-				
-				$participantes=$convenio->participantes;
-				foreach ($participantes as $p=>$participante)
-				{
-					fwrite($handle_participante, $participante->formataREM());
-				}
-				
-				$empenhos=$convenio->empenhos;
-				foreach ($empenhos as $e=>$empenho)
-				{
-					fwrite($handle_empenho, $empenho->formataREM());
-				}
-			}
-			fclose($handle_empenho);
-			fclose($handle_participante);
-			fclose($handle);
-
-			exit;
-		}
-		else exit('fail');
-	}
-	
-	public function actionArquivo()
-	{
-		$this->render('arquivo');
-	}
-	
 	public function actionDownload()
 	{
 		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.basename('convenio.rem'));
+		header('Content-Disposition: attachment; filename='.basename('convenioempenho.rem'));
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate');
 		header('Pragma: public');
-		header('Content-Length: ' . filesize('convenio.rem'));
-		readfile('convenio.rem');
+		header('Content-Length: ' . filesize('convenioempenho.rem'));
+		readfile('convenioempenho.rem');
 	}
-
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Convenio the loaded model
+	 * @return ConvenioEmpenho the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Convenio::model()->findByPk($id);
+		$model=ConvenioEmpenho::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -210,11 +166,11 @@ class ConvenioController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Convenio $model the model to be validated
+	 * @param ConvenioEmpenho $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='convenio-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='convenio-empenho-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
