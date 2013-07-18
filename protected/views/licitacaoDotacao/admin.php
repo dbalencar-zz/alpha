@@ -1,10 +1,10 @@
 <?php
-/* @var $this ItemController */
-/* @var $model Item */
+/* @var $this LicitacaoDotacaoController */
+/* @var $model LicitacaoDotacao */
 
 $this->breadcrumbs=array(
 	'Licitação '.$model->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->licitacao->id),
-	'Itens',
+	'Dotações',
 );
 
 $this->menu=array(
@@ -17,7 +17,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#item-grid').yiiGridView('update', {
+	$('#licitacao-dotacao-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -40,16 +40,20 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'item-grid',
+	'id'=>'licitacao-dotacao-grid',
 	'dataProvider'=>$model->search($model->licitacao),
 	'filter'=>$model,
 	'columns'=>array(
-		'nu_SequencialItem',
-		'de_ItemLicitacao',
-		'qt_ItemLicitado',
-		'dt_HomologacaoItem',
-		'dt_PublicacaoHomologacao',		
-		'cd_ItemLote',
+		'cd_CategoriaEconomica',
+		'cd_GrupoNatureza',
+		'cd_ModalidadeAplicacao',
+		'cd_Elemento',
+		'cd_UnidadeOrcamentaria',
+		'cd_FonteRecurso',
+		'nu_AcaoGoverno',
+		'cd_SubFuncao',
+		'cd_Funcao',
+		'cd_Programa',
 		array(
 			'class'=>'CButtonColumn',
 		),

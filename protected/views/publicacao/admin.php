@@ -1,10 +1,10 @@
 <?php
-/* @var $this ItemController */
-/* @var $model Item */
+/* @var $this PublicacaoController */
+/* @var $model Publicacao */
 
 $this->breadcrumbs=array(
 	'Licitação '.$model->licitacao->nu_ProcessoLicitatorio=>array('/licitacao/view','id'=>$model->licitacao->id),
-	'Itens',
+	'Publicações',
 );
 
 $this->menu=array(
@@ -17,7 +17,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#item-grid').yiiGridView('update', {
+	$('#publicacao-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -40,16 +40,13 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'item-grid',
+	'id'=>'publicacao-grid',
 	'dataProvider'=>$model->search($model->licitacao),
 	'filter'=>$model,
 	'columns'=>array(
-		'nu_SequencialItem',
-		'de_ItemLicitacao',
-		'qt_ItemLicitado',
-		'dt_HomologacaoItem',
-		'dt_PublicacaoHomologacao',		
-		'cd_ItemLote',
+		'dt_PublicacaoEdital',
+		'nu_SequencialPublicacao',
+		'nm_VeiculoComunicacao',
 		array(
 			'class'=>'CButtonColumn',
 		),

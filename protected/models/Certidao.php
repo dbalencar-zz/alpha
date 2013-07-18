@@ -109,7 +109,7 @@ class Certidao extends CActiveRecord
 		$formatado.=str_pad($this->participante->cd_CicParticipante, 14, '0', STR_PAD_LEFT);
 		$formatado.=str_pad($this->tp_Certidao, 2, '0', STR_PAD_LEFT);
 		$formatado.=$this->tp_Pessoa;
-		$formatado.=str_pad($this->nu_Certidao, 16, '0', STR_PAD_LEFT);		
+		$formatado.=str_pad($this->nu_Certidao, 25, '0', STR_PAD_LEFT);		
 		$formatado.=$this->formataData($this->dt_EmissaoCertidao);
 		$formatado.=$this->formataData($this->dt_ValidadeCertidao);
 		$formatado.=chr(13).chr(10);

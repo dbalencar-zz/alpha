@@ -141,12 +141,12 @@ class ItemController extends Controller
 	public function actionDownload()
 	{
 		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.basename('item.rem'));
+		header('Content-Disposition: attachment; filename='.basename('itemlicitacao.rem'));
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate');
 		header('Pragma: public');
-		header('Content-Length: ' . filesize('item.rem'));
-		readfile('item.rem');
+		header('Content-Length: ' . filesize('itemlicitacao.rem'));
+		readfile('itemlicitacao.rem');
 	}
 
 	/**

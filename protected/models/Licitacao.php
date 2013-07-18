@@ -65,6 +65,8 @@ class Licitacao extends CActiveRecord
 				'modalidade'=>array(self::BELONGS_TO,'Modalidade','cd_Modalidade'),
 				'participantes'=>array(self::HAS_MANY,'ParticipanteLicitacao','licitacao_id'),
 				'itens'=>array(self::HAS_MANY,'Item','licitacao_id'),
+				'dotacoes'=>array(self::HAS_MANY,'LicitacaoDotacao','licitacao_id'),
+				'publicacoes'=>array(self::HAS_MANY,'Publicacao','licitacao_id'),
 		);
 	}
 
