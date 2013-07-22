@@ -48,7 +48,7 @@ function downloadrem(data)
 //-->
 </script>
 
-<h1>Competência: <?php echo Yii::app()->competencia->descricao; ?></h1>
+<h1>Competência: <?php echo Yii::app()->user->competenciaText; ?></h1>
 
 <p>
 Você pode opcionalmente usar um operador de comparação (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

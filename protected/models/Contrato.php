@@ -161,7 +161,7 @@ class Contrato extends CActiveRecord {
 	public function defaultScope()
 	{
 		return array(
-				'condition'=>'competencia_id='.Yii::app()->competencia->id,
+				'condition'=>'competencia_id='.Yii::app()->user->competencia,
 		);
 	}
 

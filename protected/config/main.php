@@ -33,6 +33,7 @@ return array(
 	// application components
 	'components'=>array(
 		'user'=>array(
+			'class'=>'UsuarioWeb',
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
@@ -76,9 +77,6 @@ return array(
 				),
 				*/
 			),
-		),
-		'competencia'=>array(
-			'class'=>'CompetenciaSingleton',
 		),
 	),
 

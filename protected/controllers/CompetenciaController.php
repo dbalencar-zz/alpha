@@ -38,37 +38,18 @@ class CompetenciaController extends Controller
 	
 	public function actionAbrir($id)
 	{
-		$transaction=Competencia::model()->dbConnection->beginTransaction();
-		
-		try
-		{
-			$atual=Competencia::model()->findByAttributes(array('aberta'=>'S'));
-		
-			if(!is_null($atual))
-			{
-				$atual->aberta='N';
-				$atual->save();
-			}
-		
-			$nova=$this->loadModel($id);
-			$nova->aberta='S';
-		
-			if($nova->save())			
-				$transaction->commit();
-		}
-		catch (Exception $e)
-		{
-			$transaction->rollback();
-		} 
+		$model=Usuario::model()->findByAttributes(array('login'=>Yii::app()->user->id));
+		$model->competencia_id = $id;
+		$model->save(); 
 		
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 	
-	public function actionFechar($id)
+	public function actionFechar()
 	{
-		$model=$this->loadModel($id);
-		$model->aberta='N';
+		$model=Usuario::model()->findByAttributes(array('login'=>Yii::app()->user->id));
+		$model->competencia_id = 0;
 		$model->save();
 		
 		if(!isset($_GET['ajax']))

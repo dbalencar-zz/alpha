@@ -37,12 +37,12 @@ function fechar() {
              				'success'=>'js:function(data) { $.fn.yiiGridView.update("competencia-grid")}'
              			)
              		),
-					'visible'=>'$data->aberta=="N"',
+					'visible'=>'$data->id!=Yii::app()->user->competencia',
 				),
 				'delete'=>array(
 					'label'=>'Fechar',
 					'click'=>'fechar',
-					'url'=>'Yii::app()->createUrl("competencia/fechar", array("id"=>$data->id))',
+					'url'=>'Yii::app()->createUrl("competencia/fechar")',
              		'options'=>array(
              			'onClick'=>'if(confirm("Deseja realmente FECHAR este Competência?")) return false;',
              				'ajax'=>array(
@@ -51,7 +51,7 @@ function fechar() {
              				'success'=>'js:function(data) { $.fn.yiiGridView.update("competencia-grid")}'
              			)
              		),
-					'visible'=>'$data->aberta=="S"',
+					'visible'=>'$data->id==Yii::app()->user->competencia',
 				),
 			),
 		),
