@@ -85,7 +85,7 @@ class ParticipanteConvenio extends CActiveRecord {
 				array (
 						'nu_CertidaoCASAN, nu_CertidaoCELESC, nu_CertidaoIPESC, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoOutras',
 						'length',
-						'max' => 16 
+						'max' => 25 
 				),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.

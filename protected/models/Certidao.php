@@ -43,7 +43,7 @@ class Certidao extends CActiveRecord
 		return array(
 			array('tp_Certidao, tp_Pessoa, nu_Certidao, dt_EmissaoCertidao, dt_ValidadeCertidao', 'required'),
 			array('tp_Certidao, tp_Pessoa', 'numerical', 'integerOnly'=>true),
-			array('nu_Certidao', 'length', 'max'=>16),
+			array('nu_Certidao', 'length', 'max'=>25),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('tp_Certidao, tp_Pessoa, nu_Certidao, dt_EmissaoCertidao, dt_ValidadeCertidao', 'safe', 'on'=>'search'),

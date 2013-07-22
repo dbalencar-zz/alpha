@@ -85,17 +85,22 @@ class Contrato extends CActiveRecord {
 						'dt_AssinaturaContrato, dt_VencimentoContrato, dt_Publicacao, dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
 						'date',
 						'format' => 'dd/MM/yyyy'
-		),
+				),
 				array (
 						'vl_Contrato',
 						'numerical',
 						'numberPattern' => '/([0-9][0-9]*?)(\.[0-9]{2})/',
 						'message' => '{attribute} deve ter duas casas decimais, separadas por um ponto.'
-		),
+				),
 				array (
-						'nu_Contrato, nu_ProcessoLicitatorio, nu_CertidaoINSS, nu_CertidaoFGTS, nu_CertidaoFazendaEstadual, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoOutras',
+						'nu_Contrato, nu_ProcessoLicitatorio',
 						'length',
-						'max' => 16
+						'max'=>16
+				),
+				array (
+						'nu_CertidaoINSS, nu_CertidaoFGTS, nu_CertidaoFazendaEstadual, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoOutras',
+						'length',
+						'max' => 25
 				),
 				array (
 						'de_ObjetivoContrato, nm_Contratado',
@@ -152,11 +157,11 @@ class Contrato extends CActiveRecord {
 				),
 		);
 	}
-	
+
 	public function defaultScope()
 	{
 		return array(
-			'condition'=>'competencia_id='.Yii::app()->competencia->id,
+				'condition'=>'competencia_id='.Yii::app()->competencia->id,
 		);
 	}
 
