@@ -64,7 +64,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoCASAN'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoCASAN',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoCASAN',array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'nu_CertidaoCASAN'); ?>
 	</div>
 
@@ -90,7 +90,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoCELESC'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoCELESC',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoCELESC',array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'nu_CertidaoCELESC'); ?>
 	</div>
 
@@ -116,7 +116,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoIPESC'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoIPESC',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoIPESC',array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'nu_CertidaoIPESC'); ?>
 	</div>
 
@@ -142,7 +142,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaMunicipal'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaMunicipal',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaMunicipal',array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaMunicipal'); ?>
 	</div>
 
@@ -168,7 +168,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaFederal'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaFederal',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaFederal',array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaFederal'); ?>
 	</div>
 
@@ -194,7 +194,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoOutras'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoOutras',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoOutras',array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'nu_CertidaoOutras'); ?>
 	</div>
 

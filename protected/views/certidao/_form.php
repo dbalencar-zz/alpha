@@ -47,7 +47,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_Certidao'); ?>
-		<?php echo $form->textField($model,'nu_Certidao',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_Certidao',array('size'=>25,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'nu_Certidao'); ?>
 	</div>
 
