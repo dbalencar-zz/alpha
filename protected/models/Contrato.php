@@ -85,13 +85,13 @@ class Contrato extends CActiveRecord {
 						'dt_AssinaturaContrato, dt_VencimentoContrato, dt_Publicacao, dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
 						'date',
 						'format' => 'dd/MM/yyyy'
-				),
+		),
 				array (
 						'vl_Contrato',
 						'numerical',
 						'numberPattern' => '/([0-9][0-9]*?)(\.[0-9]{2})/',
 						'message' => '{attribute} deve ter duas casas decimais, separadas por um ponto.'
-				),
+		),
 				array (
 						'nu_Contrato, nu_ProcessoLicitatorio',
 						'length',
@@ -360,6 +360,16 @@ class Contrato extends CActiveRecord {
 		else return '00000000';
 	}
 	protected function beforeSave() {
+		if($this->isNewRecord)
+		{
+			$this->created_by=Yii::app()->user->UID;
+			$this->created_at=new CDbExpression('NOW()');
+		}
+		else
+		{
+			$this->updated_by=Yii::app()->user->UID;
+			$this->updated_at=new CDbExpression('NOW()');
+		}
 		foreach ( $this->metadata->tableSchema->columns as $columnName => $column ) {
 			if ($column->dbType == 'date' && isset($this->$columnName)) {
 				$this->$columnName = date ( 'Y-m-d', CDateTimeParser::parse ( $this->$columnName, Yii::app ()->locale->dateFormat ) );

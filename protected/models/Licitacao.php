@@ -210,6 +210,16 @@ class Licitacao extends CActiveRecord
 
 	protected function beforeSave()
 	{
+		if($this->isNewRecord)
+		{
+			$this->created_by=Yii::app()->user->UID;
+			$this->created_at=new CDbExpression('NOW()');
+		}
+		else
+		{
+			$this->updated_by=Yii::app()->user->UID;
+			$this->updated_at=new CDbExpression('NOW()');
+		}
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
 			if ($column->dbType == 'date')

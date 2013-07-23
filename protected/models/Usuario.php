@@ -38,7 +38,7 @@ class Usuario extends CActiveRecord
 			array('competencia_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nome, login, senha, competencia_id', 'safe', 'on'=>'search'),
+			array('nome, login, senha, competencia_id', 'safe', 'on'=>'search'),
 		);
 	}
 

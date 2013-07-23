@@ -16,6 +16,12 @@ class UsuarioWeb extends CWebUser
 		return $user->competencia->descricao;
 	}
 	
+	public function getUID()
+	{
+		$user = $this->loadModel(Yii::app()->user->id);
+		return $user->id;
+	}
+	
 	protected function loadModel($id=null)
 	{
 		if($this->_model===null)
