@@ -142,6 +142,8 @@ class LicitacaoDotacao extends CActiveRecord
 			$this->updated_by=Yii::app()->user->UID;
 			$this->updated_at=new CDbExpression('NOW()');
 		}
+		
+		return parent::beforeSave();
 	}
 	
 	/**
