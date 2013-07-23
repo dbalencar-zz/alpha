@@ -118,10 +118,10 @@ class Cotacao extends CActiveRecord
 		$formatado.=str_pad($this->item->licitacao->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
 		$formatado.=$this->tp_Pessoa;
 		$formatado.=str_pad($this->cd_CicParticipante, 14, '0', STR_PAD_LEFT);
-		$formatado.=str_pad($this->item->nu_SequencialItem, 5, '0', STR_PAD_LEFT);
+		$formatado.=str_pad($this->item->nu_SequencialItem, 5, chr(32), STR_PAD_RIGHT);
 		$formatado.=str_pad($this->formataValor($this->vl_TotalCotadoItem), 16, '0', STR_PAD_LEFT);
 		$formatado.=$this->cd_VencedorPerdedor;
-		$formatado.=str_pad($this->qt_ItemCotado, 16, '0', STR_PAD_LEFT);
+		$formatado.=str_pad($this->formataValor($this->qt_ItemCotado), 16, '0', STR_PAD_LEFT);
 		$formatado.=str_pad($this->dd_ItemLote, 10, chr(32), STR_PAD_RIGHT);
 		$formatado.=chr(13).chr(10);
 	

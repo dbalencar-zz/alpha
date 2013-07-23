@@ -141,7 +141,7 @@ class ConvenioEmpenho extends CActiveRecord
 		$formatado = $this->mb_str_pad ( $this->convenio->nu_Convenio, 16, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ($this->nu_NotaEmpenho, 10, chr(32), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->ano_Empenho, 4, '0', STR_PAD_LEFT );
-		$formatado .= str_pad ($this->cd_UnidadeOrcamentaria, 6, chr(32), STR_PAD_RIGHT );
+		$formatado .= str_pad ($this->cd_UnidadeOrcamentaria, 6, '0', STR_PAD_LEFT );
 		$formatado .= chr ( 13 ) . chr ( 10 );
 	
 		return $formatado;
