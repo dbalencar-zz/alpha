@@ -44,8 +44,8 @@ class Cotacao extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('tp_Valor, tp_Pessoa, cd_CicParticipante, vl_TotalCotadoItem, cd_VencedorPerdedor, qt_ItemCotado, dd_ItemLote', 'required'),
-			array('tp_Pessoa, cd_CicParticipante, qt_ItemCotado', 'numerical', 'integerOnly'=>true),
-			array('vl_TotalCotadoItem', 'numerical'),
+			array('tp_Pessoa, cd_CicParticipante', 'numerical', 'integerOnly'=>true),
+			array('vl_TotalCotadoItem, qt_ItemCotado', 'numerical'),
 			array('tp_Valor, cd_VencedorPerdedor', 'length', 'max'=>1),
 			array('dd_ItemLote', 'length', 'max'=>10),
 			// The following rule is used by search().
