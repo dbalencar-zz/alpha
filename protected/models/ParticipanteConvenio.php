@@ -58,13 +58,19 @@ class ParticipanteConvenio extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'cd_CicParticipante, tp_PessoaParticipante, nm_Participante, vl_Participacao, vl_PercentualParticipacao, nu_CertidaoCASAN, dt_CertidaoCASAN, dt_ValidadeCertidaoCASAN, nu_CertidaoCELESC, dt_CertidaoCELESC, dt_ValidadeCertidaoCELESC, nu_CertidaoIPESC, dt_CertidaoIPESC, dt_ValidadeCertidaoIPESC, nu_CertidaoFazendaMunicipal, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, nu_CertidaoFazendaFederal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, nu_CertidaoOutras, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
+						'cd_CicParticipante, tp_PessoaParticipante, nm_Participante, vl_Participacao, vl_PercentualParticipacao',
 						'required' 
 				),
 				array (
 						'cd_CicParticipante, tp_PessoaParticipante',
 						'numerical',
 						'integerOnly' => true 
+				),
+				array (
+						'dt_CertidaoCASAN, dt_ValidadeCertidaoCASAN, dt_CertidaoCELESC, dt_ValidadeCertidaoCELESC, dt_CertidaoIPESC, dt_ValidadeCertidaoIPESC, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
+						'default',
+						'setOnEmpty' => true,
+						'value' => null
 				),
 				array (
 						'dt_CertidaoCASAN, dt_ValidadeCertidaoCASAN, dt_CertidaoCELESC, dt_ValidadeCertidaoCELESC, dt_CertidaoIPESC, dt_ValidadeCertidaoIPESC, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
@@ -268,7 +274,9 @@ class ParticipanteConvenio extends CActiveRecord {
 		return str_replace ( '.', ',', $valor );
 	}
 	private function formataData($data) {
-		return date ( 'Ymd', CDateTimeParser::parse ( $data, Yii::app ()->locale->dateFormat ) );
+		if(isset($data))
+			return date ( 'Ymd', CDateTimeParser::parse ( $data, Yii::app ()->locale->dateFormat ) );
+		else return '00000000';
 	}
 	protected function beforeSave() {
 		if($this->isNewRecord)
