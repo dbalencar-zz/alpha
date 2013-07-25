@@ -290,7 +290,7 @@ class ParticipanteConvenio extends CActiveRecord {
 			$this->updated_at=new CDbExpression('NOW()');
 		}
 		foreach ( $this->metadata->tableSchema->columns as $columnName => $column ) {
-			if ($column->dbType == 'date') {
+			if ($column->dbType == 'date' && isset($this->$columnName)) {
 				$this->$columnName = date ( 'Y-m-d', CDateTimeParser::parse ( $this->$columnName, Yii::app ()->locale->dateFormat ) );
 			} elseif ($column->dbType == 'datetime') {
 				$this->$columnName = date ( 'Y-m-d H:i:s', CDateTimeParser::parse ( $this->$columnName, Yii::app ()->locale->dateFormat ) );
