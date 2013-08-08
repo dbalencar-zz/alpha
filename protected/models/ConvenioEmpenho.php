@@ -31,7 +31,13 @@ class ConvenioEmpenho extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nu_NotaEmpenho, ano_Empenho, cd_UnidadeOrcamentaria, convenio_id', 'required'),
+			array('convenio_id', 'required'),
+			array(
+				'nu_NotaEmpenho',
+				'default',
+				'setOnEmpty' => true,
+				'value' => null
+			),
 			array('ano_Empenho, cd_UnidadeOrcamentaria', 'numerical', 'integerOnly'=>true),
 			array('nu_NotaEmpenho, convenio_id', 'length', 'max'=>10),
 			// The following rule is used by search().
