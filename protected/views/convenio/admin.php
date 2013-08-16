@@ -9,12 +9,16 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Adicionar', 'url'=>array('create')),
 	array('label'=>'Arquivos', 'url'=>'#', 'linkOptions'=>array(
-		'onclick'=>CHtml::ajax(array(
+		'onclick'=>'if($.fn.yiiGridView.getSelection("convenio-grid")=="") if(!confirm("Você não selecionou nenhum Convênio, um arquivo de remessa com TODOS os Convênios da Competência atual será gerado. Confirma?")) return false;',
+		'ajax'=>array(
 			'type'=>'POST',
 			'url'=>array('geraREM'),
-			'data'=>array('convenios'=>'js:$.fn.yiiGridView.getSelection("convenio-grid")'),
+			'data'=>array(
+				'convenios'=>'js:$.fn.yiiGridView.getSelection("convenio-grid")',
+				'competencia'=>Yii::app()->user->competencia,
+			),
 			'success'=>'js:downloadrem',
-		))
+		)
 	)),
 );
 

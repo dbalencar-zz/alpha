@@ -138,13 +138,17 @@ class ConvenioController extends Controller
 	
 	public function actionGeraREM()
 	{
-		if(isset($_POST['convenios']))
+		if(isset($_POST['convenios'])||isset($_POST['competencia']))
 		{
-			$convenios=Convenio::model()->findAllByPk($_POST['convenios']);
-
 			$handle = fopen("convenio.rem", "w");
 			$handle_participante = fopen("participanteconvenio.rem", "w");
 			$handle_empenho = fopen("convenioempenho.rem", "w");
+			
+			if (!isset($_POST['convenios']))
+				$convenios=Convenio::model()->findAllByAttributes(array('competencia_id'=>$_POST['competencia']));
+			else
+				$convenios=Convenio::model()->findAllByPk($_POST['convenios']);
+			
 			foreach ($convenios as $c=>$convenio)
 			{
 				fwrite($handle, $convenio->formataREM());

@@ -139,12 +139,16 @@ class ContratoController extends Controller
 
 	public function actionGeraREM()
 	{	
-		if(isset($_POST['contratos']))
+		if(isset($_POST['contratos'])||isset($_POST['competencia']))
 		{
-			$contratos=Contrato::model()->findAllByPk($_POST['contratos']);
-			
 			$handle = fopen("contrato.rem", "w");
 			$handle_empenho = fopen("contratoempenho.rem", "w");
+			
+			if (!isset($_POST['contratos']))
+				$contratos=Contrato::model()->findAllByAttributes(array('competencia_id'=>$_POST['competencia']));
+			else
+				$contratos=Contrato::model()->findAllByPk($_POST['contratos']);
+			
 			foreach ($contratos as $n=>$contrato)
 			{
 				fwrite($handle, $contrato->formataREM());

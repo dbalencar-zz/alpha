@@ -138,7 +138,7 @@ class LicitacaoController extends Controller
 	
 	public function actionGeraREM()
 	{
-		if(isset($_POST['licitacoes']))
+		if(isset($_POST['licitacoes'])||isset($_POST['competencia']))
 		{	
 			$handle = fopen("licitacao.rem", "w");
 			$handle_item = fopen("itemlicitacao.rem", "w");
@@ -148,7 +148,11 @@ class LicitacaoController extends Controller
 			$handle_dotacao = fopen("licitacaodotacao.rem", "w");
 			$handle_publicacao = fopen("publicacao.rem", "w");
 
-			$licitacoes=Licitacao::model()->findAllByPk($_POST['licitacoes']);
+			if (!isset($_POST['licitacoes']))
+				$licitacoes=Licitacao::model()->findAllByAttributes(array('competencia_id'=>$_POST['competencia']));
+			else
+				$licitacoes=Licitacao::model()->findAllByPk($_POST['licitacoes']);
+			
 			foreach ($licitacoes as $l=>$licitacao)
 			{
 				fwrite($handle, $licitacao->formataREM());
