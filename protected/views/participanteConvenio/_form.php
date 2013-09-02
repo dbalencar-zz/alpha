@@ -33,15 +33,21 @@ $(function() {
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'cd_CicParticipante'); ?>
-		<?php echo $form->textField($model,'cd_CicParticipante'); ?>
-		<?php echo $form->error($model,'cd_CicParticipante'); ?>
+		<?php echo $form->labelEx($model,'tp_EsferaConvenio'); ?>
+		<?php echo $form->dropDownList($model,'tp_EsferaConvenio',EsferaConveniado::model()->listAll()); ?>
+		<?php echo $form->error($model,'tp_EsferaConvenio'); ?>
 	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'tp_PessoaParticipante'); ?>
 		<?php echo $form->dropDownList($model,'tp_PessoaParticipante',TipoPessoa::model()->listAll()); ?>
 		<?php echo $form->error($model,'tp_PessoaParticipante'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'cd_CicParticipante'); ?>
+		<?php echo $form->textField($model,'cd_CicParticipante'); ?>
+		<?php echo $form->error($model,'cd_CicParticipante'); ?>
 	</div>
 
 	<div class="row">
@@ -64,7 +70,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoCASAN'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoCASAN',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoCASAN',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoCASAN'); ?>
 	</div>
 
@@ -90,7 +96,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoCELESC'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoCELESC',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoCELESC',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoCELESC'); ?>
 	</div>
 
@@ -116,7 +122,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoIPESC'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoIPESC',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoIPESC',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoIPESC'); ?>
 	</div>
 
@@ -142,7 +148,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaMunicipal'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaMunicipal',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaMunicipal',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaMunicipal'); ?>
 	</div>
 
@@ -168,7 +174,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaFederal'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaFederal',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaFederal',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaFederal'); ?>
 	</div>
 
@@ -193,8 +199,34 @@ $(function() {
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'nu_CertidaoCNDT'); ?>
+		<?php echo $form->textField($model,'nu_CertidaoCNDT',array('size'=>60,'maxlength'=>60)); ?>
+		<?php echo $form->error($model,'nu_CertidaoCNDT'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'dt_CertidaoCNDT'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_CertidaoCNDT'
+		)); ?>
+		<?php echo $form->error($model,'dt_CertidaoCNDT'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'dt_ValidadeCertidaoCNDT'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_ValidadeCertidaoCNDT'
+		)); ?>
+		<?php echo $form->error($model,'dt_ValidadeCertidaoCNDT'); ?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoOutras'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoOutras',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoOutras',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoOutras'); ?>
 	</div>
 

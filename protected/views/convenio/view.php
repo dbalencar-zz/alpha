@@ -19,7 +19,6 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'esfera.descricao',
 		'recebeValorText',
 		'nu_Convenio',
 		'vl_Convenio',

@@ -39,10 +39,10 @@ class ConvenioEmpenho extends CActiveRecord
 				'value' => null
 			),
 			array('ano_Empenho, cd_UnidadeOrcamentaria', 'numerical', 'integerOnly'=>true),
-			array('nu_NotaEmpenho, convenio_id', 'length', 'max'=>10),
+			array('nu_NotaEmpenho', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nu_NotaEmpenho, ano_Empenho, cd_UnidadeOrcamentaria, convenio_id', 'safe', 'on'=>'search'),
+			array('nu_NotaEmpenho, ano_Empenho, cd_UnidadeOrcamentaria, convenio_id', 'safe', 'on'=>'search'),
 		);
 	}
 

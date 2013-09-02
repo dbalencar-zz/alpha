@@ -47,7 +47,6 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 	'columns'=>array(
 		'nu_NotaEmpenho',
 		'ano_Empenho',
-		'cd_UnidadeOrcamentaria',
 		array(
 			'class'=>'CButtonColumn',
 		),

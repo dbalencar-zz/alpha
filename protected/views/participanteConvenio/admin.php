@@ -46,6 +46,11 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 	'filter'=>$model,
 	'columns'=>array(
 		array(
+			'name'=>'tp_EsferaConvenio',
+			'filter'=>EsferaConveniado::model()->listAll(),
+			'value'=>'$data->esfera->descricao',
+		),
+		array(
 			'name'=>'tp_PessoaParticipante',
 			'filter'=>TipoPessoa::model()->listAll(),
 			'value'=>'$data->pessoa->descricao',

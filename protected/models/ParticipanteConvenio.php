@@ -58,24 +58,29 @@ class ParticipanteConvenio extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'cd_CicParticipante, tp_PessoaParticipante, nm_Participante, vl_Participacao, vl_PercentualParticipacao',
+						'cd_CicParticipante, tp_PessoaParticipante, nm_Participante, vl_Participacao, vl_PercentualParticipacao, tp_EsferaConvenio, convenio_id',
 						'required' 
 				),
 				array (
-						'cd_CicParticipante, tp_PessoaParticipante',
+						'cd_CicParticipante, tp_PessoaParticipante, tp_EsferaConvenio',
 						'numerical',
 						'integerOnly' => true 
 				),
 				array (
-						'dt_CertidaoCASAN, dt_ValidadeCertidaoCASAN, dt_CertidaoCELESC, dt_ValidadeCertidaoCELESC, dt_CertidaoIPESC, dt_ValidadeCertidaoIPESC, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
+						'nu_CertidaoCASAN, nu_CertidaoCELESC, nu_CertidaoIPESC, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoCNDT, nu_CertidaoOutras',
+						'length',
+						'max' => 60
+				),
+				array (
+						'dt_CertidaoCASAN, dt_ValidadeCertidaoCASAN, dt_CertidaoCELESC, dt_ValidadeCertidaoCELESC, dt_CertidaoIPESC, dt_ValidadeCertidaoIPESC, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoCNDT, dt_ValidadeCertidaoCNDT, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
+						'date',
+						'format' => 'dd/MM/yyyy' 
+				),
+				array (
+						'dt_CertidaoCASAN, dt_ValidadeCertidaoCASAN, dt_CertidaoCELESC, dt_ValidadeCertidaoCELESC, dt_CertidaoIPESC, dt_ValidadeCertidaoIPESC, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoCNDT, dt_ValidadeCertidaoCNDT, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
 						'default',
 						'setOnEmpty' => true,
 						'value' => null
-				),
-				array (
-						'dt_CertidaoCASAN, dt_ValidadeCertidaoCASAN, dt_CertidaoCELESC, dt_ValidadeCertidaoCELESC, dt_CertidaoIPESC, dt_ValidadeCertidaoIPESC, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
-						'date',
-						'format' => 'dd/MM/yyyy' 
 				),
 				array (
 						'vl_Participacao, vl_PercentualParticipacao',
@@ -88,15 +93,10 @@ class ParticipanteConvenio extends CActiveRecord {
 						'length',
 						'max' => 50 
 				),
-				array (
-						'nu_CertidaoCASAN, nu_CertidaoCELESC, nu_CertidaoIPESC, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoOutras',
-						'length',
-						'max' => 25 
-				),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
 				array (
-						'cd_CicParticipante, tp_PessoaParticipante, nm_Participante, vl_Participacao, vl_PercentualParticipacao, nu_CertidaoCASAN, dt_CertidaoCASAN, dt_ValidadeCertidaoCASAN, nu_CertidaoCELESC, dt_CertidaoCELESC, dt_ValidadeCertidaoCELESC, nu_CertidaoIPESC, dt_CertidaoIPESC, dt_ValidadeCertidaoIPESC, nu_CertidaoFazendaMunicipal, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, nu_CertidaoFazendaFederal, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, nu_CertidaoOutras, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
+						'cd_CicParticipante, tp_PessoaParticipante, nm_Participante, vl_Participacao, vl_PercentualParticipacao, tp_EsferaConvenio',
 						'safe',
 						'on' => 'search' 
 				) 
@@ -120,7 +120,12 @@ class ParticipanteConvenio extends CActiveRecord {
 						self::BELONGS_TO,
 						'TipoPessoa',
 						'tp_PessoaParticipante' 
-				) 
+				),
+				'esfera' => array (
+						self::BELONGS_TO,
+						'EsferaConveniado',
+						'tp_EsferaConvenio'
+				),
 		);
 	}
 	
@@ -152,9 +157,14 @@ class ParticipanteConvenio extends CActiveRecord {
 				'nu_CertidaoFazendaFederal' => 'Certidão da Fazenda Federal',
 				'dt_CertidaoFazendaFederal' => 'Data Fazenda Federal',
 				'dt_ValidadeFazendaFederal' => 'Validade Fazenda Federal',
+				'nu_CertidaoCNDT' => 'Certidão CNDT',
+				'dt_CertidaoCNDT' => 'Data CNDT',
+				'dt_ValidadeCertidaoCNDT' => 'Validade CNDT',
 				'nu_CertidaoOutras' => 'Outra Certidão',
 				'dt_CertidaoOutras' => 'Data Outra Certidão',
-				'dt_ValidadeCertidaoOutras' => 'Validade Outra Certidão' 
+				'dt_ValidadeCertidaoOutras' => 'Validade Outra Certidão',
+				'tp_EsferaConvenio' => 'Esfera Conveniado', 
+				'esfera.descricao' => 'Esfera Conveniado',
 		);
 	}
 	
@@ -174,24 +184,7 @@ class ParticipanteConvenio extends CActiveRecord {
 		$criteria->compare ( 'nm_Participante', $this->nm_Participante, true );
 		$criteria->compare ( 'vl_Participacao', $this->vl_Participacao, true );
 		$criteria->compare ( 'vl_PercentualParticipacao', $this->vl_PercentualParticipacao, true );
-		$criteria->compare ( 'nu_CertidaoCASAN', $this->nu_CertidaoCASAN, true );
-		$criteria->compare ( 'date_format(dt_CertidaoCASAN,"%d/%m/%Y")', $this->dt_CertidaoCASAN, true );
-		$criteria->compare ( 'date_format(dt_ValidadeCertidaoCASAN,"%d/%m/%Y")', $this->dt_ValidadeCertidaoCASAN, true );
-		$criteria->compare ( 'nu_CertidaoCELESC', $this->nu_CertidaoCELESC, true );
-		$criteria->compare ( 'date_format(dt_CertidaoCELESC,"%d/%m/%Y")', $this->dt_CertidaoCELESC, true );
-		$criteria->compare ( 'date_format(dt_ValidadeCertidaoCELESC,"%d/%m/%Y")', $this->dt_ValidadeCertidaoCELESC, true );
-		$criteria->compare ( 'nu_CertidaoIPESC', $this->nu_CertidaoIPESC, true );
-		$criteria->compare ( 'date_format(dt_CertidaoIPESC,"%d/%m/%Y")', $this->dt_CertidaoIPESC, true );
-		$criteria->compare ( 'date_format(dt_ValidadeCertidaoIPESC,"%d/%m/%Y")', $this->dt_ValidadeCertidaoIPESC, true );
-		$criteria->compare ( 'nu_CertidaoFazendaMunicipal', $this->nu_CertidaoFazendaMunicipal, true );
-		$criteria->compare ( 'date_format(dt_CertidaoFazendaMunicipal,"%d/%m/%Y")', $this->dt_CertidaoFazendaMunicipal, true );
-		$criteria->compare ( 'date_format(dt_ValidadeFazendaMunicipal,"%d/%m/%Y")', $this->dt_ValidadeFazendaMunicipal, true );
-		$criteria->compare ( 'nu_CertidaoFazendaFederal', $this->nu_CertidaoFazendaFederal, true );
-		$criteria->compare ( 'date_format(dt_CertidaoFazendaFederal,"%d/%m/%Y")', $this->dt_CertidaoFazendaFederal, true );
-		$criteria->compare ( 'date_format(dt_ValidadeFazendaFederal,"%d/%m/%Y")', $this->dt_ValidadeFazendaFederal, true );
-		$criteria->compare ( 'nu_CertidaoOutras', $this->nu_CertidaoOutras, true );
-		$criteria->compare ( 'date_format(dt_CertidaoOutras,"%d/%m/%Y")', $this->dt_CertidaoOutras, true );
-		$criteria->compare ( 'date_format(dt_ValidadeCertidaoOutras,"%d/%m/%Y")', $this->dt_ValidadeCertidaoOutras, true );
+		$criteria->compare ( 'tp_EsferaConvenio', $this->tp_EsferaConvenio, true );
 		
 		return new CActiveDataProvider ( $this, array (
 				'criteria' => $criteria 
@@ -247,25 +240,29 @@ class ParticipanteConvenio extends CActiveRecord {
 		$formatado .= $this->mb_str_pad ( $this->nm_Participante, 50, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->formataValor ( $this->vl_Participacao ), 16, '0', STR_PAD_LEFT );
 		$formatado .= str_pad ( $this->formataValor ( $this->vl_PercentualParticipacao), 7, '0', STR_PAD_LEFT );
-		$formatado .= str_pad ( $this->nu_CertidaoCASAN, 25, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoCASAN, 60, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoCASAN );
 		$formatado .= $this->formataData ( $this->dt_ValidadeCertidaoCASAN );
-		$formatado .= str_pad ( $this->nu_CertidaoCELESC, 25, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoCELESC, 60, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoCELESC );
 		$formatado .= $this->formataData ( $this->dt_ValidadeCertidaoCELESC );
-		$formatado .= str_pad ( $this->nu_CertidaoIPESC, 25, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoIPESC, 60, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoIPESC );
 		$formatado .= $this->formataData ( $this->dt_ValidadeCertidaoIPESC );
-		$formatado .= str_pad ( $this->nu_CertidaoFazendaMunicipal, 25, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoFazendaMunicipal, 60, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoFazendaMunicipal );
 		$formatado .= $this->formataData ( $this->dt_ValidadeFazendaMunicipal );
-		$formatado .= str_pad ( $this->nu_CertidaoFazendaFederal, 25, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoFazendaFederal, 60, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoFazendaFederal );
 		$formatado .= $this->formataData ( $this->dt_ValidadeFazendaFederal );
-		$formatado .= str_pad ( $this->nu_CertidaoOutras, 25, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoCNDT, 60, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= $this->formataData ( $this->dt_CertidaoCNDT );
+		$formatado .= $this->formataData ( $this->dt_ValidadeCertidaoCNDT );
+		$formatado .= str_pad ( $this->nu_CertidaoOutras, 60, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoOutras );
 		$formatado .= $this->formataData ( $this->dt_ValidadeCertidaoOutras );
 		$formatado .= str_pad ( $this->convenio->nu_Convenio, 16, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= $this->tp_EsferaConvenio;
 		$formatado .= chr ( 13 ) . chr ( 10 );
 		
 		return $formatado;

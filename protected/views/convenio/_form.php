@@ -28,12 +28,6 @@ $(function() {
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'tp_EsferaConvenio'); ?>
-		<?php echo $form->dropDownList($model,'tp_EsferaConvenio',EsferaConveniado::model()->listAll()); ?>
-		<?php echo $form->error($model,'tp_EsferaConvenio'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'st_RecebeValor'); ?>
 		<?php echo $form->dropDownList($model,'st_RecebeValor',$model->simNaoOptions); ?>
 		<?php echo $form->error($model,'st_RecebeValor'); ?>
@@ -69,7 +63,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'de_ObjetivoConvenio'); ?>
-		<?php echo $form->textField($model,'de_ObjetivoConvenio',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textArea($model,'de_ObjetivoConvenio',array('size'=>100,'maxlength'=>300)); ?>
 		<?php echo $form->error($model,'de_ObjetivoConvenio'); ?>
 	</div>
 

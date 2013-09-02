@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'convenio':
  * @property string $id
- * @property string $tp_EsferaConvenio
  * @property string $st_RecebeValor
  * @property string $nu_Convenio
  * @property integer $vl_Convenio
@@ -48,7 +47,7 @@ class Convenio extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'tp_EsferaConvenio, st_RecebeValor, nu_Convenio, cd_MoedaConvenio, dt_AssinaturaConvenio, de_ObjetivoConvenio, dt_VencimentoConvenio, nu_LeiAutorizativa, dt_LeiAutorizativa, nu_DiarioOficial, dt_PublicacaoConvenio, tp_Convenio, competencia_id',
+						'st_RecebeValor, nu_Convenio, vl_Convenio, cd_MoedaConvenio, dt_AssinaturaConvenio, de_ObjetivoConvenio, dt_VencimentoConvenio, nu_LeiAutorizativa, dt_LeiAutorizativa, nu_DiarioOficial, dt_PublicacaoConvenio, tp_Convenio, competencia_id',
 						'required' 
 				),
 				array (
@@ -68,7 +67,7 @@ class Convenio extends CActiveRecord {
 						'message' => '{attribute} deve ter duas casas decimais, separadas por um ponto.' 
 				),
 				array (
-						'tp_EsferaConvenio, st_RecebeValor',
+						'st_RecebeValor',
 						'length',
 						'max' => 1 
 				),
@@ -80,12 +79,12 @@ class Convenio extends CActiveRecord {
 				array (
 						'de_ObjetivoConvenio',
 						'length',
-						'max' => 50 
+						'max' => 300
 				),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
 				array (
-						'tp_EsferaConvenio, st_RecebeValor, nu_Convenio, vl_Convenio, cd_MoedaConvenio, dt_AssinaturaConvenio, de_ObjetivoConvenio, dt_VencimentoConvenio, nu_LeiAutorizativa, dt_LeiAutorizativa, nu_DiarioOficial, dt_PublicacaoConvenio, tp_Convenio, competencia_id',
+						'st_RecebeValor, nu_Convenio, vl_Convenio, cd_MoedaConvenio, dt_AssinaturaConvenio, de_ObjetivoConvenio, dt_VencimentoConvenio, nu_LeiAutorizativa, dt_LeiAutorizativa, nu_DiarioOficial, dt_PublicacaoConvenio, tp_Convenio, competencia_id',
 						'safe',
 						'on' => 'search' 
 				) 
@@ -109,11 +108,6 @@ class Convenio extends CActiveRecord {
 						self::BELONGS_TO,
 						'TipoConvenio',
 						'tp_Convenio' 
-				),
-				'esfera' => array (
-						self::BELONGS_TO,
-						'EsferaConveniado',
-						'tp_EsferaConvenio' 
 				),
 				'participantes' => array (
 						self::HAS_MANY,
@@ -141,8 +135,6 @@ class Convenio extends CActiveRecord {
 	 */
 	public function attributeLabels() {
 		return array (
-				'tp_EsferaConvenio' => 'Esfera',
-				'esfera.descricao' => 'Esfera',
 				'st_RecebeValor' => 'Recebe Valor',
 				'recebeValorText' => 'Recebe Valor',
 				'nu_Convenio' => 'Número',
@@ -173,7 +165,6 @@ class Convenio extends CActiveRecord {
 		$criteria = new CDbCriteria ();
 		
 		$criteria->compare ( 'competencia_id', $this->competencia_id );
-		$criteria->compare ( 'tp_EsferaConvenio', $this->tp_EsferaConvenio );
 		$criteria->compare ( 'st_RecebeValor', $this->st_RecebeValor );
 		$criteria->compare ( 'nu_Convenio', $this->nu_Convenio, true );
 		$criteria->compare ( 'vl_Convenio', $this->vl_Convenio, true );
@@ -236,13 +227,12 @@ class Convenio extends CActiveRecord {
 		return $ret;
 	}
 	public function formataREM() {
-		$formatado = $this->tp_EsferaConvenio;
-		$formatado .= $this->st_RecebeValor;
+		$formatado = $this->st_RecebeValor;
 		$formatado .= str_pad ( $this->nu_Convenio, 16, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->formataValor ( $this->vl_Convenio ), 16, '0', STR_PAD_LEFT );
 		$formatado .= str_pad ( $this->cd_MoedaConvenio, 3, '0', STR_PAD_LEFT );
 		$formatado .= $this->formataData ( $this->dt_AssinaturaConvenio );
-		$formatado .= $this->mb_str_pad ( $this->de_ObjetivoConvenio, 50, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= $this->mb_str_pad ( $this->de_ObjetivoConvenio, 300, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_VencimentoConvenio );
 		$formatado .= str_pad ( $this->nu_LeiAutorizativa, 6, '0', STR_PAD_LEFT );
 		$formatado .= $this->formataData ( $this->dt_LeiAutorizativa );

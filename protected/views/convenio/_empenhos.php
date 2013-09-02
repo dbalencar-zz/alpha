@@ -4,7 +4,6 @@
 	'columns'=>array(
 		'nu_NotaEmpenho',
 		'ano_Empenho',
-		'cd_UnidadeOrcamentaria',
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{view}',

@@ -9,6 +9,7 @@
 		),
 		'nm_Participante',
 		'cd_CicParticipante',
+		'esfera.nome',
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{view}',

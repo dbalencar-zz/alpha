@@ -21,11 +21,6 @@
 		<?php echo $form->textField($model,'ano_Empenho'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'cd_UnidadeOrcamentaria'); ?>
-		<?php echo $form->textField($model,'cd_UnidadeOrcamentaria'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Pesquisar'); ?>
 	</div>

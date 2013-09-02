@@ -18,8 +18,9 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'cd_CicParticipante',
+		'esfera.descricao',
 		'pessoa.descricao',
+		'cd_CicParticipante',
 		'nm_Participante',
 		'vl_Participacao',
 		'vl_PercentualParticipacao',
@@ -38,6 +39,9 @@ $this->menu=array(
 		'nu_CertidaoFazendaFederal',
 		'dt_CertidaoFazendaFederal',
 		'dt_ValidadeFazendaFederal',
+		'nu_CertidaoCNDT',
+		'dt_CertidaoCNDT',
+		'dt_ValidadeCertidaoCNDT',
 		'nu_CertidaoOutras',
 		'dt_CertidaoOutras',
 		'dt_ValidadeCertidaoOutras',
