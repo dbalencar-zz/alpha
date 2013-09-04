@@ -76,13 +76,13 @@ class Contrato extends CActiveRecord {
 						'integerOnly' => true
 				),
 				array (
-						'dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
+						'dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoCNDT, dt_ValidadeCertidaoCNDT, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
 						'default',
 						'setOnEmpty' => true,
 						'value' => null
 				),
 				array (
-						'dt_AssinaturaContrato, dt_VencimentoContrato, dt_Publicacao, dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
+						'dt_AssinaturaContrato, dt_VencimentoContrato, dt_Publicacao, dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoCNDT, dt_ValidadeCertidaoCNDT, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
 						'date',
 						'format' => 'dd/MM/yyyy'
 		),
@@ -98,12 +98,12 @@ class Contrato extends CActiveRecord {
 						'max'=>16
 				),
 				array (
-						'nu_CertidaoINSS, nu_CertidaoFGTS, nu_CertidaoFazendaEstadual, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoOutras',
+						'nu_CertidaoINSS, nu_CertidaoFGTS, nu_CertidaoFazendaEstadual, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoCNDT, nu_CertidaoOutras',
 						'length',
 						'max' => 60
 				),
 				array (
-						'de_ObjetivoContrato, nm_Contratado',
+						'de_ObjetivoContrato',
 						'length',
 						'max' => 300
 				),
