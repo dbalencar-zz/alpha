@@ -100,10 +100,15 @@ class Contrato extends CActiveRecord {
 				array (
 						'nu_CertidaoINSS, nu_CertidaoFGTS, nu_CertidaoFazendaEstadual, nu_CertidaoFazendaMunicipal, nu_CertidaoFazendaFederal, nu_CertidaoOutras',
 						'length',
-						'max' => 25
+						'max' => 60
 				),
 				array (
 						'de_ObjetivoContrato, nm_Contratado',
+						'length',
+						'max' => 300
+				),
+				array (
+						'nm_Contratado',
 						'length',
 						'max' => 50
 				),
@@ -201,6 +206,9 @@ class Contrato extends CActiveRecord {
 				'nu_CertidaoFazendaFederal' => 'Certidão Fazenda Federal',
 				'dt_CertidaoFazendaFederal' => 'Data Fazenda Federal',
 				'dt_ValidadeFazendaFederal' => 'Validade Fazenda Federal',
+				'nu_CertidaoCNDT' => 'Certidão CNDT',
+				'dt_CertidaoCNDT' => 'Data Certidão CNDT',
+				'dt_ValidadeCertidaoCNDT' => 'Validade Certidão CNDT',
 				'nu_CertidaoOutras' => 'Certidão Outra',
 				'dt_CertidaoOutras' => 'Data Certidão Outra',
 				'dt_ValidadeCertidaoOutras' => 'Validade Certidão Outra',
@@ -306,8 +314,8 @@ class Contrato extends CActiveRecord {
 		$formatado = $this->mb_str_pad ( $this->nu_Contrato, 16, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->formataValor ( $this->vl_Contrato ), 16, '0', STR_PAD_LEFT );
 		$formatado .= $this->formataData ( $this->dt_AssinaturaContrato );
-		$formatado .= $this->mb_str_pad ( $this->de_ObjetivoContrato, 50, chr ( 32 ), STR_PAD_RIGHT ); // Diferente do Documento
-		$formatado .= $this->mb_str_pad ( $this->nu_ProcessoLicitatorio, 16, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= $this->mb_str_pad ( $this->de_ObjetivoContrato, 300, chr ( 32 ), STR_PAD_RIGHT ); // Diferente do Documento
+		$formatado .= $this->mb_str_pad ( $this->nu_ProcessoLicitatorio, 18, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->cd_Moeda, 3, '0', STR_PAD_LEFT );
 		$formatado .= $this->tp_PessoaContratado;
 		$formatado .= str_pad ( $this->cd_CicContratado, 14, '0', STR_PAD_LEFT );
@@ -316,22 +324,25 @@ class Contrato extends CActiveRecord {
 		$formatado .= str_pad ( $this->nu_DiarioOficial, 6, '0', STR_PAD_LEFT );
 		$formatado .= $this->formataData ( $this->dt_Publicacao );
 		$formatado .= $this->st_RecebeValor;
-		$formatado .= str_pad ( $this->nu_CertidaoINSS, 25, chr(32), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoINSS, 60, chr(32), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoINSS );
 		$formatado .= $this->formataData ( $this->dt_ValidadeINSS );
-		$formatado .= str_pad ( $this->nu_CertidaoFGTS, 25, chr(32), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoFGTS, 60, chr(32), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoFGTS );
 		$formatado .= $this->formataData ( $this->dt_ValidadeFGTS );
-		$formatado .= str_pad ( $this->nu_CertidaoFazendaEstadual, 25, chr(32), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoFazendaEstadual, 60, chr(32), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoFazendaEstadual );
 		$formatado .= $this->formataData ( $this->dt_ValidadeFazendaEstadual );
-		$formatado .= str_pad ( $this->nu_CertidaoFazendaMunicipal, 25, chr(32), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoFazendaMunicipal, 60, chr(32), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoFazendaMunicipal );
 		$formatado .= $this->formataData ( $this->dt_ValidadeFazendaMunicipal );
-		$formatado .= str_pad ( $this->nu_CertidaoFazendaFederal, 25, chr(32), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoFazendaFederal, 60, chr(32), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoFazendaFederal );
 		$formatado .= $this->formataData ( $this->dt_ValidadeFazendaFederal );
-		$formatado .= str_pad ( $this->nu_CertidaoOutras, 25, chr(32), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_CertidaoCNDT, 60, chr(32), STR_PAD_RIGHT );
+		$formatado .= $this->formataData ( $this->dt_CertidaoCNDT );
+		$formatado .= $this->formataData ( $this->dt_ValidadeCertidaoCNDT );
+		$formatado .= str_pad ( $this->nu_CertidaoOutras, 60, chr(32), STR_PAD_RIGHT );
 		$formatado .= $this->formataData ( $this->dt_CertidaoOutras );
 		$formatado .= $this->formataData ( $this->dt_ValidadeCertidaoOutras );
 		$formatado .= str_pad ( $this->tp_Contrato, 2, '0', STR_PAD_LEFT );

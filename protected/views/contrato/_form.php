@@ -51,13 +51,13 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'de_ObjetivoContrato'); ?>
-		<?php echo $form->textField($model,'de_ObjetivoContrato',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textArea($model,'de_ObjetivoContrato',array('size'=>100,'maxlength'=>300)); ?>
 		<?php echo $form->error($model,'de_ObjetivoContrato'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_ProcessoLicitatorio'); ?>
-		<?php echo $form->textField($model,'nu_ProcessoLicitatorio',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_ProcessoLicitatorio',array('size'=>18,'maxlength'=>18)); ?>
 		<?php echo $form->error($model,'nu_ProcessoLicitatorio'); ?>
 	</div>
 
@@ -119,7 +119,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoINSS'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoINSS',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoINSS',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoINSS'); ?>
 	</div>
 
@@ -145,7 +145,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFGTS'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFGTS',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFGTS',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFGTS'); ?>
 	</div>
 
@@ -171,7 +171,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaEstadual'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaEstadual',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaEstadual',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaEstadual'); ?>
 	</div>
 	
@@ -197,7 +197,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaMunicipal'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaMunicipal',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaMunicipal',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaMunicipal'); ?>
 	</div>
 
@@ -223,7 +223,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoFazendaFederal'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoFazendaFederal',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoFazendaFederal',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoFazendaFederal'); ?>
 	</div>
 
@@ -246,10 +246,36 @@ $(function() {
 		)); ?>
 		<?php echo $form->error($model,'dt_ValidadeFazendaFederal'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'nu_CertidaoCNDT'); ?>
+		<?php echo $form->textField($model,'nu_CertidaoCNDT',array('size'=>60,'maxlength'=>60)); ?>
+		<?php echo $form->error($model,'nu_CertidaoCNDT'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'dt_CertidaoCNDT'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_CertidaoCNDT'
+		)); ?>
+		<?php echo $form->error($model,'dt_CertidaoCNDT'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'dt_ValidadeCertidaoCNDT'); ?>
+		<?php $this->widget('CMaskedTextField', array(
+			'mask'=>'99/99/9999',
+			'model'=>$model,
+			'attribute'=>'dt_ValidadeCertidaoCNDT'
+		)); ?>
+		<?php echo $form->error($model,'dt_ValidadeCertidaoCNDT'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_CertidaoOutras'); ?>
-		<?php echo $form->textField($model,'nu_CertidaoOutras',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'nu_CertidaoOutras',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'nu_CertidaoOutras'); ?>
 	</div>
 
