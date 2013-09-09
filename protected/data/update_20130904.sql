@@ -10,3 +10,5 @@ CHANGE `nu_CertidaoOutras` `nu_CertidaoOutras` VARCHAR( 60 ) CHARACTER SET utf8 
 ALTER TABLE `contrato` ADD `nu_CertidaoCNDT` VARCHAR( 60 ) NULL DEFAULT NULL AFTER `dt_ValidadeFazendaFederal` ,
 ADD `dt_CertidaoCNDT` DATE NULL DEFAULT NULL AFTER `nu_CertidaoCNDT` ,
 ADD `dt_ValidadeCertidaoCNDT` DATE NULL DEFAULT NULL AFTER `dt_CertidaoCNDT`;
+
+ALTER TABLE `contrato` CHANGE `nu_ProcessoLicitatorio` `nu_ProcessoLicitatorio` VARCHAR( 18 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
