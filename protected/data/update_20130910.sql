@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 10, 2013 at 04:28 PM
+-- Generation Time: Sep 10, 2013 at 04:35 PM
 -- Server version: 5.5.32-0ubuntu0.13.04.1
 -- PHP Version: 5.4.9-4ubuntu2.3
 
@@ -45,8 +45,6 @@ CREATE TABLE IF NOT EXISTS `adesao_ata_licitacao` (
   KEY `tp_Adesao` (`tp_Adesao`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `item_adesao_ata`
 --
@@ -67,6 +65,24 @@ CREATE TABLE IF NOT EXISTS `item_adesao_ata` (
   PRIMARY KEY (`id`),
   KEY `adesao_ata_licitacao_id` (`adesao_ata_licitacao_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Table structure for table `tipo_adesao_ata`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_adesao_ata` (
+  `id` int(2) unsigned NOT NULL,
+  `descricao` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tipo_adesao_ata`
+--
+
+INSERT INTO `tipo_adesao_ata` (`id`, `descricao`) VALUES
+(1, 'Adesão Ata Própria (Participante)'),
+(2, 'Adesão Ata Externa (Carona)');
 
 --
 -- Constraints for dumped tables
