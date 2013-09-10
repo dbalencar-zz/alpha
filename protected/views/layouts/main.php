@@ -34,6 +34,7 @@
 				array('label'=>'Convênios', 'url'=>array('/convenio'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Contratos', 'url'=>array('/contrato'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Licitações', 'url'=>array('/licitacao'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Atas', 'url'=>array('/adesaoAtaLicitacao'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

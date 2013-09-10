@@ -4,18 +4,6 @@
 /* @var $form CActiveForm */
 ?>
 
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/jquery.price_format.1.8.min.js'); ?>
-
-<script>
-$(function() {
-	$('.value').priceFormat({
-		limit: 15,
-	    prefix: '',
-	    thousandsSeparator: ''
-	});
-});
-</script>
-
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
