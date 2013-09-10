@@ -49,7 +49,6 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 		'qt_ItemLicitado',
 		'dt_HomologacaoItem',
 		'dt_PublicacaoHomologacao',		
-		'cd_ItemLote',
 		array(
 			'class'=>'CButtonColumn',
 		),

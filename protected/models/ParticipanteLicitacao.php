@@ -190,7 +190,7 @@ class ParticipanteLicitacao extends CActiveRecord {
 		return $ret;
 	}
 	public function formataREM() {
-		$formatado = str_pad ( $this->licitacao->nu_ProcessoLicitatorio, 16, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado = str_pad ( $this->licitacao->nu_ProcessoLicitatorio, 18, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->cd_CicParticipante, 14, '0', STR_PAD_LEFT );
 		$formatado .= $this->tp_Pessoa;
 		$formatado .= $this->mb_str_pad ( $this->nm_Participante, 50, chr ( 32 ), STR_PAD_RIGHT );

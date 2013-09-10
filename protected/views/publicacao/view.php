@@ -19,7 +19,6 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'dt_PublicacaoEdital',
-		'nu_SequencialPublicacao',
 		'nm_VeiculoComunicacao',
 	),
 )); ?>

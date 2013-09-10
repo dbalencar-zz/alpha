@@ -17,11 +17,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'nu_SequencialPublicacao'); ?>
-		<?php echo $form->textField($model,'nu_SequencialPublicacao'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'nm_VeiculoComunicacao'); ?>
 		<?php echo $form->textField($model,'nm_VeiculoComunicacao',array('size'=>50,'maxlength'=>50)); ?>
 	</div>

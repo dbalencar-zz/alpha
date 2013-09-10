@@ -41,11 +41,6 @@
 		<?php echo $form->textField($model,'qt_ItemCotado'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'dd_ItemLote'); ?>
-		<?php echo $form->textField($model,'dd_ItemLote',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

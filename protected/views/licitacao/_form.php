@@ -29,7 +29,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nu_ProcessoLicitatorio'); ?>
-		<?php echo $form->textField($model,'nu_ProcessoLicitatorio',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->textField($model,'nu_ProcessoLicitatorio',array('size'=>18,'maxlength'=>18)); ?>
 		<?php echo $form->error($model,'nu_ProcessoLicitatorio'); ?>
 	</div>
 
@@ -57,7 +57,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'de_ObjetoLicitacao'); ?>
-		<?php echo $form->textField($model,'de_ObjetoLicitacao',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textArea($model,'de_ObjetoLicitacao',array('size'=>100,'maxlength'=>300)); ?>
 		<?php echo $form->error($model,'de_ObjetoLicitacao'); ?>
 	</div>
 

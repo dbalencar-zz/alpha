@@ -31,13 +31,12 @@ class Publicacao extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('dt_PublicacaoEdital, nu_SequencialPublicacao, nm_VeiculoComunicacao, licitacao_id', 'required'),
-			array('nu_SequencialPublicacao', 'numerical', 'integerOnly'=>true),
+			array('dt_PublicacaoEdital, nm_VeiculoComunicacao, licitacao_id', 'required'),
 			array('nm_VeiculoComunicacao', 'length', 'max'=>50),
 			array('licitacao_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, dt_PublicacaoEdital, nu_SequencialPublicacao, nm_VeiculoComunicacao, licitacao_id', 'safe', 'on'=>'search'),
+			array('id, dt_PublicacaoEdital, nm_VeiculoComunicacao, licitacao_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +59,6 @@ class Publicacao extends CActiveRecord
 	{
 		return array(
 			'dt_PublicacaoEdital' => 'Publicação Edital',
-			'nu_SequencialPublicacao' => 'Sequencial Publicação',
 			'nm_VeiculoComunicacao' => 'Veículo Comunicação',
 		);
 	}
@@ -85,7 +83,6 @@ class Publicacao extends CActiveRecord
 
 		$criteria->compare('licitacao_id',$licitacao->id);
 		$criteria->compare('dt_PublicacaoEdital',$this->dt_PublicacaoEdital,true);
-		$criteria->compare('nu_SequencialPublicacao',$this->nu_SequencialPublicacao);
 		$criteria->compare('nm_VeiculoComunicacao',$this->nm_VeiculoComunicacao,true);
 
 		return new CActiveDataProvider($this, array(
@@ -141,9 +138,8 @@ class Publicacao extends CActiveRecord
 	}
 	
 	public function formataREM() {
-		$formatado = str_pad ( $this->licitacao->nu_ProcessoLicitatorio, 16, chr ( 32 ), STR_PAD_RIGHT );
-		$formatado .= $this->formataData ($this->dt_PublicacaoEdital);
-		$formatado .= str_pad ( $this->nu_SequencialPublicacao, 2, '0', STR_PAD_LEFT );		
+		$formatado = str_pad ( $this->licitacao->nu_ProcessoLicitatorio, 18, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= $this->formataData ($this->dt_PublicacaoEdital);		
 		$formatado .= $this->mb_str_pad ( $this->nm_VeiculoComunicacao, 50, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= chr ( 13 ) . chr ( 10 );
 	

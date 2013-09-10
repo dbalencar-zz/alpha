@@ -30,12 +30,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'nu_SequencialPublicacao'); ?>
-		<?php echo $form->textField($model,'nu_SequencialPublicacao',array('size'=>2,'maxlength'=>2)); ?>
-		<?php echo $form->error($model,'nu_SequencialPublicacao'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'nm_VeiculoComunicacao'); ?>
 		<?php echo $form->textField($model,'nm_VeiculoComunicacao',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'nm_VeiculoComunicacao'); ?>

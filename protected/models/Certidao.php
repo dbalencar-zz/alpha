@@ -43,7 +43,7 @@ class Certidao extends CActiveRecord
 		return array(
 			array('tp_Certidao, tp_Pessoa, nu_Certidao, dt_EmissaoCertidao, dt_ValidadeCertidao', 'required'),
 			array('tp_Certidao, tp_Pessoa', 'numerical', 'integerOnly'=>true),
-			array('nu_Certidao', 'length', 'max'=>25),
+			array('nu_Certidao', 'length', 'max'=>60),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('tp_Certidao, tp_Pessoa, nu_Certidao, dt_EmissaoCertidao, dt_ValidadeCertidao', 'safe', 'on'=>'search'),
@@ -105,11 +105,11 @@ class Certidao extends CActiveRecord
 	
 	public function formataREM()
 	{
-		$formatado=str_pad($this->participante->licitacao->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
+		$formatado=str_pad($this->participante->licitacao->nu_ProcessoLicitatorio, 18, chr(32), STR_PAD_RIGHT);
 		$formatado.=str_pad($this->participante->cd_CicParticipante, 14, '0', STR_PAD_LEFT);
 		$formatado.=str_pad($this->tp_Certidao, 2, '0', STR_PAD_LEFT);
 		$formatado.=$this->tp_Pessoa;
-		$formatado.=str_pad($this->nu_Certidao, 25, chr(32), STR_PAD_RIGHT);		
+		$formatado.=str_pad($this->nu_Certidao, 60, chr(32), STR_PAD_RIGHT);		
 		$formatado.=$this->formataData($this->dt_EmissaoCertidao);
 		$formatado.=$this->formataData($this->dt_ValidadeCertidao);
 		$formatado.=chr(13).chr(10);

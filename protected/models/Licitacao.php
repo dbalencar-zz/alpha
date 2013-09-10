@@ -45,8 +45,9 @@ class Licitacao extends CActiveRecord
 				array('nu_ProcessoLicitatorio, nu_DiarioOficial, dt_PublicacaoEdital, cd_Modalidade, de_ObjetoLicitacao, vl_TotalPrevisto, nu_Edital, tp_Licitacao, competencia_id', 'required'),
 				array('nu_DiarioOficial, cd_Modalidade', 'numerical', 'integerOnly'=>true),
 				array('vl_TotalPrevisto', 'numerical'),
-				array('nu_ProcessoLicitatorio, nu_Edital', 'length', 'max'=>16),
-				array('de_ObjetoLicitacao', 'length', 'max'=>50),
+				array('nu_ProcessoLicitatorio', 'length', 'max'=>18),
+				array('nu_Edital', 'length', 'max'=>16),
+				array('de_ObjetoLicitacao', 'length', 'max'=>300),
 				array('tp_Licitacao', 'length', 'max'=>1),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
@@ -185,11 +186,11 @@ class Licitacao extends CActiveRecord
 
 	public function formataREM()
 	{
-		$formatado=str_pad($this->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
+		$formatado=str_pad($this->nu_ProcessoLicitatorio, 18, chr(32), STR_PAD_RIGHT);
 		$formatado.=str_pad($this->nu_DiarioOficial, 6, '0', STR_PAD_LEFT);
 		$formatado.=$this->formataData($this->dt_PublicacaoEdital);
 		$formatado.=str_pad($this->cd_Modalidade, 2, '0', STR_PAD_LEFT);
-		$formatado.=$this->mb_str_pad($this->de_ObjetoLicitacao, 50, chr(32), STR_PAD_RIGHT);
+		$formatado.=$this->mb_str_pad($this->de_ObjetoLicitacao, 300, chr(32), STR_PAD_RIGHT);
 		$formatado.=str_pad($this->formataValor($this->vl_TotalPrevisto), 16, '0', STR_PAD_LEFT);
 		$formatado.=str_pad($this->nu_Edital, 16, chr(32), STR_PAD_RIGHT);
 		$formatado.=$this->tp_Licitacao;

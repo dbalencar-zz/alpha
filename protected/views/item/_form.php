@@ -40,7 +40,7 @@ $(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'de_ItemLicitacao'); ?>
-		<?php echo $form->textField($model,'de_ItemLicitacao',array('size'=>60,'maxlength'=>60)); ?>
+		<?php echo $form->textArea($model,'de_ItemLicitacao',array('size'=>100,'maxlength'=>300)); ?>
 		<?php echo $form->error($model,'de_ItemLicitacao'); ?>
 	</div>
 
@@ -48,6 +48,18 @@ $(function() {
 		<?php echo $form->labelEx($model,'qt_ItemLicitado'); ?>
 		<?php echo $form->textField($model,'qt_ItemLicitado',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'qt_ItemLicitado'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'un_Medida'); ?>
+		<?php echo $form->textField($model,'un_Medida',array('size'=>30,'maxlength'=>30)); ?>
+		<?php echo $form->error($model,'un_Medida'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'st_Item'); ?>
+		<?php echo $form->dropDownList($model,'st_Item',StatusItemLicitacao::model()->listAll()); ?>
+		<?php echo $form->error($model,'st_Item'); ?>
 	</div>
 
 	<div class="row">
@@ -68,12 +80,6 @@ $(function() {
 			'attribute'=>'dt_PublicacaoHomologacao'
 		)); ?>
 		<?php echo $form->error($model,'dt_PublicacaoHomologacao'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'cd_ItemLote'); ?>
-		<?php echo $form->textField($model,'cd_ItemLote',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'cd_ItemLote'); ?>
 	</div>
 
 	<div class="row buttons">

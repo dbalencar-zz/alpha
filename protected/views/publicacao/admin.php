@@ -45,7 +45,6 @@ ou <b>=</b>) no início de cada um de seus valores para especificar como a compa
 	'filter'=>$model,
 	'columns'=>array(
 		'dt_PublicacaoEdital',
-		'nu_SequencialPublicacao',
 		'nm_VeiculoComunicacao',
 		array(
 			'class'=>'CButtonColumn',

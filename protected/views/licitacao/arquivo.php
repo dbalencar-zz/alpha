@@ -16,6 +16,5 @@ $this->breadcrumbs=array(
 <li><?php echo CHtml::link('Participantes', array('participanteLicitacao/download')); ?></li>
 <li><?php echo CHtml::link('Cotações', array('cotacao/download')); ?></li>
 <li><?php echo CHtml::link('Certidões', array('certidao/download')); ?></li>
-<li><?php echo CHtml::link('Dotações', array('licitacaoDotacao/download')); ?></li>
 <li><?php echo CHtml::link('Publicações', array('publicacao/download')); ?></li>
 </ul>

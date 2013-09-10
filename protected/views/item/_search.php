@@ -36,11 +36,6 @@
 		<?php echo $form->textField($model,'dt_PublicacaoHomologacao'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'cd_ItemLote'); ?>
-		<?php echo $form->textField($model,'cd_ItemLote',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

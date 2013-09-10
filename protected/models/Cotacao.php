@@ -43,14 +43,13 @@ class Cotacao extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tp_Valor, tp_Pessoa, cd_CicParticipante, vl_TotalCotadoItem, cd_VencedorPerdedor, qt_ItemCotado, dd_ItemLote', 'required'),
+			array('tp_Valor, tp_Pessoa, cd_CicParticipante, vl_TotalCotadoItem, cd_VencedorPerdedor, qt_ItemCotado', 'required'),
 			array('tp_Pessoa, cd_CicParticipante', 'numerical', 'integerOnly'=>true),
 			array('vl_TotalCotadoItem, qt_ItemCotado', 'numerical'),
 			array('tp_Valor, cd_VencedorPerdedor', 'length', 'max'=>1),
-			array('dd_ItemLote', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tp_Valor, nu_ProcessoLicitatorio, tp_Pessoa, cd_CicParticipante, nu_SequencialItem, vl_TotalCotadoItem, cd_VencedorPerdedor, qt_ItemCotado, dd_ItemLote', 'safe', 'on'=>'search'),
+			array('id, tp_Valor, nu_ProcessoLicitatorio, tp_Pessoa, cd_CicParticipante, nu_SequencialItem, vl_TotalCotadoItem, cd_VencedorPerdedor, qt_ItemCotado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,7 +82,6 @@ class Cotacao extends CActiveRecord
 			'cd_VencedorPerdedor' => 'Vencedor',
 			'vencedorPerdedorText' => 'Vencedor',
 			'qt_ItemCotado' => 'Qt Oferecido',
-			'dd_ItemLote' => 'Item/Lote',
 		);
 	}
 
@@ -105,7 +103,6 @@ class Cotacao extends CActiveRecord
 		$criteria->compare('vl_TotalCotadoItem',$this->vl_TotalCotadoItem);
 		$criteria->compare('cd_VencedorPerdedor',$this->cd_VencedorPerdedor,true);
 		$criteria->compare('qt_ItemCotado',$this->qt_ItemCotado);
-		$criteria->compare('dd_ItemLote',$this->dd_ItemLote,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -115,14 +112,13 @@ class Cotacao extends CActiveRecord
 	public function formataREM()
 	{
 		$formatado=$this->tp_Valor;
-		$formatado.=str_pad($this->item->licitacao->nu_ProcessoLicitatorio, 16, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->item->licitacao->nu_ProcessoLicitatorio, 18, chr(32), STR_PAD_RIGHT);
 		$formatado.=$this->tp_Pessoa;
 		$formatado.=str_pad($this->cd_CicParticipante, 14, '0', STR_PAD_LEFT);
-		$formatado.=str_pad($this->item->nu_SequencialItem, 5, chr(32), STR_PAD_RIGHT);
+		$formatado.=str_pad($this->item->nu_SequencialItem, 5, '0', STR_PAD_LEFT);
 		$formatado.=str_pad($this->formataValor($this->vl_TotalCotadoItem), 16, '0', STR_PAD_LEFT);
 		$formatado.=$this->cd_VencedorPerdedor;
 		$formatado.=str_pad($this->formataValor($this->qt_ItemCotado), 16, '0', STR_PAD_LEFT);
-		$formatado.=str_pad($this->dd_ItemLote, 10, chr(32), STR_PAD_RIGHT);
 		$formatado.=chr(13).chr(10);
 	
 		//iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);

@@ -69,12 +69,6 @@ $(function() {
 		<?php echo $form->error($model,'qt_ItemCotado'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'dd_ItemLote'); ?>
-		<?php echo $form->textField($model,'dd_ItemLote',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'dd_ItemLote'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Adicionar' : 'Salvar'); ?>
 	</div>

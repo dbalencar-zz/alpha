@@ -42,32 +42,36 @@ class Item extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'nu_SequencialItem, de_ItemLicitacao, qt_ItemLicitado, dt_HomologacaoItem, dt_PublicacaoHomologacao, cd_ItemLote',
-						'required' 
+					'nu_SequencialItem, de_ItemLicitacao, qt_ItemLicitado',
+					'required' 
 				),
 				array (
-						'qt_ItemLicitado',
-						'numerical'
+					'qt_ItemLicitado, nu_SequencialItem',
+					'numerical'
 				),
 				array (
-						'nu_SequencialItem',
-						'length',
-						'max' => 5 
+					'nu_SequencialItem',
+					'length',
+					'max' => 5 
 				),
 				array (
-						'de_ItemLicitacao',
-						'length',
-						'max' => 60 
+					'un_Medida',
+					'length',
+					'max' => 30
 				),
 				array (
-						'cd_ItemLote',
-						'length',
-						'max' => 10 
+					'de_ItemLicitacao',
+					'length',
+					'max' => 300 
+				),
+				array(
+					'st_Item',
+					'safe'
 				),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
 				array (
-						'nu_SequencialItem, de_ItemLicitacao, qt_ItemLicitado, dt_HomologacaoItem, dt_PublicacaoHomologacao, cd_ItemLote',
+						'nu_SequencialItem, de_ItemLicitacao, qt_ItemLicitado, dt_HomologacaoItem, dt_PublicacaoHomologacao',
 						'safe',
 						'on' => 'search' 
 				) 
@@ -82,16 +86,21 @@ class Item extends CActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array (
-				'licitacao' => array (
-						self::BELONGS_TO,
-						'Licitacao',
-						'licitacao_id' 
-				),
-				'cotacoes' => array (
-						self::HAS_MANY,
-						'Cotacao',
-						'item_id' 
-				) 
+			'licitacao' => array (
+				self::BELONGS_TO,
+				'Licitacao',
+				'licitacao_id' 
+			),
+			'cotacoes' => array (
+				self::HAS_MANY,
+				'Cotacao',
+				'item_id' 
+			),
+			'status' => array(
+				self::BELONGS_TO,
+				'StatusItemLicitacao',
+				'st_Item'
+			),
 		);
 	}
 	
@@ -106,7 +115,9 @@ class Item extends CActiveRecord {
 				'qt_ItemLicitado' => 'Quantidade',
 				'dt_HomologacaoItem' => 'Homologação',
 				'dt_PublicacaoHomologacao' => 'Publicação',
-				'cd_ItemLote' => 'Item/Lote' 
+				'un_Medida' => 'Unidade de Medida',
+				'st_Item' => 'Status',
+				'status.descricao' => 'Status'
 		);
 	}
 	
@@ -126,7 +137,6 @@ class Item extends CActiveRecord {
 		$criteria->compare ( 'qt_ItemLicitado', $this->qt_ItemLicitado, true );
 		$criteria->compare ( 'dt_HomologacaoItem', $this->dt_HomologacaoItem, true );
 		$criteria->compare ( 'dt_PublicacaoHomologacao', $this->dt_PublicacaoHomologacao, true );
-		$criteria->compare ( 'cd_ItemLote', $this->cd_ItemLote, true );
 		
 		return new CActiveDataProvider ( $this, array (
 				'criteria' => $criteria 
@@ -177,13 +187,14 @@ class Item extends CActiveRecord {
 		return $ret;
 	}
 	public function formataREM() {
-		$formatado = str_pad ( $this->licitacao->nu_ProcessoLicitatorio, 16, chr ( 32 ), STR_PAD_RIGHT );
-		$formatado .= str_pad ( $this->nu_SequencialItem, 5, chr ( 32 ), STR_PAD_RIGHT );
-		$formatado .= $this->mb_str_pad ( $this->de_ItemLicitacao, 60, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado = str_pad ( $this->licitacao->nu_ProcessoLicitatorio, 18, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= str_pad ( $this->nu_SequencialItem, 5, '0', STR_PAD_LEFT );
+		$formatado .= $this->mb_str_pad ( $this->de_ItemLicitacao, 300, chr ( 32 ), STR_PAD_RIGHT );
 		$formatado .= str_pad ( $this->formataValor($this->qt_ItemLicitado), 16, '0', STR_PAD_LEFT );
 		$formatado .= $this->formataData ( $this->dt_HomologacaoItem );
 		$formatado .= $this->formataData ( $this->dt_PublicacaoHomologacao );
-		$formatado .= str_pad ( $this->cd_ItemLote, 10, chr ( 32 ), STR_PAD_RIGHT );
+		$formatado .= $this->mb_str_pad ( $this->un_Medida, 30, chr(32), STR_PAD_RIGHT);
+		$formatado .= $this->mb_str_pad ( $this->st_Item, 2, '0', STR_PAD_LEFT );
 		$formatado .= chr ( 13 ) . chr ( 10 );
 		
 		// iconv(mb_detect_encoding($formatado, mb_detect_order(), true), "UTF-8", $formatado);

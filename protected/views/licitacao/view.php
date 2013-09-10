@@ -36,7 +36,6 @@ $this->menu=array(
 	'panels'=>array(
 		'Itens'=>$this->renderPartial('_itens',array('model'=>$model),true),
 		'Participantes'=>$this->renderPartial('_participantes',array('model'=>$model),true),
-		'Dotações'=>$this->renderPartial('_dotacoes',array('model'=>$model),true),
 		'Publicações'=>$this->renderPartial('_publicacoes',array('model'=>$model),true),
 	),
 	'options'=>array(

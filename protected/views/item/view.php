@@ -23,7 +23,8 @@ $this->menu=array(
 		'qt_ItemLicitado',
 		'dt_HomologacaoItem',
 		'dt_PublicacaoHomologacao',
-		'cd_ItemLote',
+		'un_Medida',
+		'status.descricao'
 	),
 )); ?>
 

@@ -7,7 +7,6 @@
 		'qt_ItemLicitado',
 		'dt_HomologacaoItem',
 		'dt_PublicacaoHomologacao',		
-		'cd_ItemLote',
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{view}',

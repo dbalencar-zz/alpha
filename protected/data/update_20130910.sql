@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `econtas_dev`
+-- Database: `econtas`
 --
 
 -- --------------------------------------------------------
@@ -103,3 +103,144 @@ ALTER TABLE `item_adesao_ata`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- Parte 02
+
+ALTER TABLE `licitacao` CHANGE `nu_ProcessoLicitatorio` `nu_ProcessoLicitatorio` VARCHAR( 18 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE `licitacao` CHANGE `de_ObjetoLicitacao` `de_ObjetoLicitacao` VARCHAR( 300 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE `item` DROP `cd_ItemLote`;
+ALTER TABLE `item` CHANGE `nu_SequencialItem` `nu_SequencialItem` INT( 5 ) NOT NULL;
+ALTER TABLE `item` CHANGE `dt_HomologacaoItem` `dt_HomologacaoItem` DATE NULL DEFAULT NULL ,
+CHANGE `dt_PublicacaoHomologacao` `dt_PublicacaoHomologacao` DATE NULL DEFAULT NULL;
+ ALTER TABLE `item` CHANGE `de_ItemLicitacao` `de_ItemLicitacao` VARCHAR( 300 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE `item` ADD `un_Medida` VARCHAR( 30 ) NULL DEFAULT NULL AFTER `dt_PublicacaoHomologacao` ,
+ADD `st_Item` INT( 2 ) UNSIGNED NULL DEFAULT NULL AFTER `un_Medida`;
+ALTER TABLE `item` ADD INDEX ( `st_Item` );
+
+-- phpMyAdmin SQL Dump
+-- version 3.5.8.1deb1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Sep 10, 2013 at 04:55 PM
+-- Server version: 5.5.32-0ubuntu0.13.04.1
+-- PHP Version: 5.4.9-4ubuntu2.3
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `econtas`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_item_licitacao`
+--
+
+CREATE TABLE IF NOT EXISTS `status_item_licitacao` (
+  `codigo` int(10) unsigned NOT NULL,
+  `descricao` varchar(50) NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `status_item_licitacao`
+--
+
+INSERT INTO `status_item_licitacao` (`codigo`, `descricao`) VALUES
+(1, 'Homologado'),
+(2, 'Deserto'),
+(3, 'Fracassado'),
+(4, 'Cancelado'),
+(5, 'Anulado/Revogado (toda licitação foi anulada)');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+ALTER TABLE `item` ADD FOREIGN KEY ( `st_Item` ) REFERENCES `status_item_licitacao` (
+`codigo`
+) ON DELETE RESTRICT ON UPDATE RESTRICT ;
+
+ALTER TABLE `cotacao`
+  DROP `dd_ItemLote`;
+ALTER TABLE `certidao` CHANGE `nu_Certidao` `nu_Certidao` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+DROP TABLE `licitacao_dotacao`;
+
+-- phpMyAdmin SQL Dump
+-- version 3.5.8.1deb1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Sep 10, 2013 at 05:12 PM
+-- Server version: 5.5.32-0ubuntu0.13.04.1
+-- PHP Version: 5.4.9-4ubuntu2.3
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `econtas_dev`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `modalidade`
+--
+
+CREATE TABLE IF NOT EXISTS `modalidade` (
+  `codigo` int(2) unsigned NOT NULL,
+  `descricao` varchar(50) NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+TRUNCATE `modalidade`;
+
+--
+-- Dumping data for table `modalidade`
+--
+
+INSERT INTO `modalidade` (`codigo`, `descricao`) VALUES
+(0, 'Dispensa p/ Compras e Serviços'),
+(1, 'Convite p/ Compras e Serviços'),
+(2, 'Convite p/ Obras e Serviços de Engenharia'),
+(3, 'Tomada de Preços p/ Compras e Serviços'),
+(4, 'Tomada de Preços p/ Obras e Serviços de Engenharia'),
+(5, 'Concorrência p/ Compras e Serviços'),
+(6, 'Concorrência p/ Obras e Serviços de Engenharia'),
+(7, 'Leilão'),
+(8, 'Dispensa de Licitação'),
+(9, 'Inexigibilidade de Licitação'),
+(10, 'Concurso'),
+(11, 'Pregão Eletrônico'),
+(12, 'Pregão Presencial'),
+(13, 'Concorrência para Concessão Adm. de Uso'),
+(14, 'Concorrência para Concessão Adm. de Uso'),
+(15, 'Anulada'),
+(16, 'Deserta'),
+(17, 'Fracassada'),
+(18, 'Internacional');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `tipo_certidao` (`codigo`, `descricao`) VALUES ('7', 'CNDT');
+ALTER TABLE `publicacao`
+  DROP `nu_SequencialPublicacao`;
+

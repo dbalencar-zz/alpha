@@ -145,7 +145,6 @@ class LicitacaoController extends Controller
 			$handle_cotacao = fopen("cotacao.rem", "w");
 			$handle_participante = fopen("participantelicitacao.rem", "w");
 			$handle_certidao = fopen("certidao.rem", "w");
-			$handle_dotacao = fopen("licitacaodotacao.rem", "w");
 			$handle_publicacao = fopen("publicacao.rem", "w");
 
 			if (!isset($_POST['licitacoes']))
@@ -177,16 +176,11 @@ class LicitacaoController extends Controller
 						fwrite($handle_certidao, $certidao->formataREM());
 				}
 				
-				$dotacoes=$licitacao->dotacoes;
-				foreach ($dotacoes as $d=>$dotacao)
-					fwrite($handle_dotacao, $dotacao->formataREM());
-				
 				$publicacoes=$licitacao->publicacoes;
 				foreach ($publicacoes as $p2=>$publicacao)
 					fwrite($handle_publicacao, $publicacao->formataREM());
 			}
 			fclose($handle_publicacao);
-			fclose($handle_dotacao);
 			fclose($handle_certidao);
 			fclose($handle_participante);
 			fclose($handle_cotacao);

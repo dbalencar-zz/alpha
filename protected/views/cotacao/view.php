@@ -24,6 +24,5 @@ $this->menu=array(
 		'vl_TotalCotadoItem',
 		'vencedorPerdedorText',
 		'qt_ItemCotado',
-		'dd_ItemLote',
 	),
 )); ?>
