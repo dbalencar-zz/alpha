@@ -175,59 +175,15 @@ ALTER TABLE `cotacao`
 ALTER TABLE `certidao` CHANGE `nu_Certidao` `nu_Certidao` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 DROP TABLE `licitacao_dotacao`;
 
--- phpMyAdmin SQL Dump
--- version 3.5.8.1deb1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Sep 10, 2013 at 05:12 PM
--- Server version: 5.5.32-0ubuntu0.13.04.1
--- PHP Version: 5.4.9-4ubuntu2.3
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `econtas_dev`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `modalidade`
---
-
-CREATE TABLE IF NOT EXISTS `modalidade` (
-  `codigo` int(2) unsigned NOT NULL,
-  `descricao` varchar(50) NOT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-TRUNCATE `modalidade`;
-
---
--- Dumping data for table `modalidade`
---
+DELETE FROM `econtas`.`modalidade` WHERE `modalidade`.`codigo` = 12;
+DELETE FROM `econtas`.`modalidade` WHERE `modalidade`.`codigo` = 13;
+DELETE FROM `econtas`.`modalidade` WHERE `modalidade`.`codigo` = 14;
+DELETE FROM `econtas`.`modalidade` WHERE `modalidade`.`codigo` = 15;
+DELETE FROM `econtas`.`modalidade` WHERE `modalidade`.`codigo` = 97;
+DELETE FROM `econtas`.`modalidade` WHERE `modalidade`.`codigo` = 98;
+DELETE FROM `econtas`.`modalidade` WHERE `modalidade`.`codigo` = 99;
 
 INSERT INTO `modalidade` (`codigo`, `descricao`) VALUES
-(0, 'Dispensa p/ Compras e Serviços'),
-(1, 'Convite p/ Compras e Serviços'),
-(2, 'Convite p/ Obras e Serviços de Engenharia'),
-(3, 'Tomada de Preços p/ Compras e Serviços'),
-(4, 'Tomada de Preços p/ Obras e Serviços de Engenharia'),
-(5, 'Concorrência p/ Compras e Serviços'),
-(6, 'Concorrência p/ Obras e Serviços de Engenharia'),
-(7, 'Leilão'),
-(8, 'Dispensa de Licitação'),
-(9, 'Inexigibilidade de Licitação'),
-(10, 'Concurso'),
-(11, 'Pregão Eletrônico'),
 (12, 'Pregão Presencial'),
 (13, 'Concorrência para Concessão Adm. de Uso'),
 (14, 'Concorrência para Concessão Adm. de Uso'),
@@ -235,10 +191,6 @@ INSERT INTO `modalidade` (`codigo`, `descricao`) VALUES
 (16, 'Deserta'),
 (17, 'Fracassada'),
 (18, 'Internacional');
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 INSERT INTO `tipo_certidao` (`codigo`, `descricao`) VALUES ('7', 'CNDT');
 ALTER TABLE `publicacao`
