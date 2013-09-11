@@ -139,7 +139,7 @@ class Certidao extends CActiveRecord
 		
 		foreach($this->metadata->tableSchema->columns as $columnName => $column)
 		{
-			if ($column->dbType == 'date')
+			if ($column->dbType == 'date' && isset($this->$columnName))
 			{
 				$this->$columnName = date('Y-m-d', CDateTimeParser::parse($this->$columnName, Yii::app()->locale->dateFormat));
 			}

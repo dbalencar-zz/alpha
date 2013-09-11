@@ -218,7 +218,8 @@ class Item extends CActiveRecord {
 	private function formataData($data) {
 		return date ( 'Ymd', CDateTimeParser::parse ( $data, Yii::app ()->locale->dateFormat ) );
 	}
-	protected function beforeSave() {
+	protected function beforeSave()
+	{
 		if($this->isNewRecord)
 		{
 			$this->created_by=Yii::app()->user->UID;
@@ -229,8 +230,10 @@ class Item extends CActiveRecord {
 			$this->updated_by=Yii::app()->user->UID;
 			$this->updated_at=new CDbExpression('NOW()');
 		}
-		foreach ( $this->metadata->tableSchema->columns as $columnName => $column ) {
-			if ($column->dbType == 'date') {
+		
+		foreach ( $this->metadata->tableSchema->columns as $columnName => $column )
+		{
+			if ($column->dbType == 'date' && isset($this->$columnName)) {
 				$this->$columnName = date ( 'Y-m-d', CDateTimeParser::parse ( $this->$columnName, Yii::app ()->locale->dateFormat ) );
 			} elseif ($column->dbType == 'datetime') {
 				$this->$columnName = date ( 'Y-m-d H:i:s', CDateTimeParser::parse ( $this->$columnName, Yii::app ()->locale->dateFormat ) );
