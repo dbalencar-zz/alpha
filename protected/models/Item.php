@@ -54,6 +54,17 @@ class Item extends CActiveRecord {
 					'length',
 					'max' => 5 
 				),
+				array(
+					'dt_HomologacaoItem, dt_PublicacaoHomologacao',
+					'date',
+					'format' => 'dd/MM/yyyy'
+				),
+				array(
+					'dt_HomologacaoItem, dt_PublicacaoHomologacao',
+					'default',
+					'setOnEmpty' => true,
+					'value' => null
+				),
 				array (
 					'un_Medida',
 					'length',

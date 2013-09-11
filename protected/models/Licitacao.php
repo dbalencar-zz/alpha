@@ -88,6 +88,7 @@ class Licitacao extends CActiveRecord
 				'nu_DiarioOficial' => 'DOE',
 				'dt_PublicacaoEdital' => 'Publicação',
 				'cd_Modalidade' => 'Modalidade',
+				'modalidade.descricao' => 'Modalidade',
 				'de_ObjetoLicitacao' => 'Objeto',
 				'vl_TotalPrevisto' => 'Valor Total',
 				'nu_Edital' => 'Edital',
