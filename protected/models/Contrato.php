@@ -67,7 +67,7 @@ class Contrato extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'nu_Contrato, vl_Contrato, dt_AssinaturaContrato, de_ObjetivoContrato, nu_ProcessoLicitatorio, cd_Moeda, tp_PessoaContratado, cd_CicContratado, nm_Contratado, dt_VencimentoContrato, nu_DiarioOficial, dt_Publicacao, st_RecebeValor, tp_Contrato, competencia_id',
+						'nu_Contrato, vl_Contrato, dt_AssinaturaContrato, de_ObjetivoContrato, nu_ProcessoLicitatorio, cd_Moeda, tp_PessoaContratado, cd_CicContratado, nm_Contratado, dt_VencimentoContrato, nu_DiarioOficial, st_RecebeValor, tp_Contrato, competencia_id',
 						'required'
 				),
 				array (
@@ -76,7 +76,7 @@ class Contrato extends CActiveRecord {
 						'integerOnly' => true
 				),
 				array (
-						'dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoCNDT, dt_ValidadeCertidaoCNDT, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
+						'dt_Publicacao, dt_CertidaoINSS, dt_ValidadeINSS, dt_CertidaoFGTS, dt_ValidadeFGTS, dt_CertidaoFazendaMunicipal, dt_ValidadeFazendaMunicipal, dt_CertidaoFazendaEstadual, dt_ValidadeFazendaEstadual, dt_CertidaoFazendaFederal, dt_ValidadeFazendaFederal, dt_CertidaoCNDT, dt_ValidadeCertidaoCNDT, dt_CertidaoOutras, dt_ValidadeCertidaoOutras',
 						'default',
 						'setOnEmpty' => true,
 						'value' => null
